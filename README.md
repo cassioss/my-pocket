@@ -1,3 +1,3 @@
 # MyPocket
 
-Android application for financial management
+Android application for financial management, made using Android Studio.
