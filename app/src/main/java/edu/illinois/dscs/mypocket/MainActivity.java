@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import edu.illinois.dscs.mypocket.model.Transaction;
 
@@ -21,17 +24,18 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(lastTransactions.size() > 0){
+        ListAdapter entriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lastTransactions);
 
-        }
+        ListView lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
 
-        /*Intent activityThatCalled = getIntent();
+        lastEntries.setAdapter(entriesAdapter);
 
-        String previousActivity = activityThatCalled.getExtras().getString("originalActivity");
+        lastEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        if (previousActivity.equals("AddTransactionActivity")) {
-            
-        }*/
+            }
+        });
 
     }
 
@@ -67,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
     public void showAccounts(View view) {
         Intent ShowAccountIntent = new Intent(this, ShowAccountActivity.class);
 
-        ShowAccountIntent.putExtra("CallingActivity","MainActivity");
+        ShowAccountIntent.putExtra("CallingActivity", "MainActivity");
         startActivity(ShowAccountIntent);
 
     }
