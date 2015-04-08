@@ -24,6 +24,10 @@
             android:name=".AddAccountActivity"
             android:label="@string/title_activity_add_account" >
         </activity>
+        <activity
+            android:name=".ShowAccountActivity"
+            android:label="@string/title_activity_show_account" >
+        </activity>
     </application>
 
 </manifest>

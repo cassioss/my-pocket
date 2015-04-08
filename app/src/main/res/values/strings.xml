@@ -26,5 +26,9 @@
     <string name="account_text_view">Account</string>
     <string name="date_text_view">Date</string>
     <string name="save_transaction_button">Save transaction</string>
+    <string name="title_activity_show_account">ShowAccountActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="show_account_info">Show Accounts</string>
 
 </resources>
