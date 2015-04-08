@@ -3,6 +3,8 @@ package edu.illinois.dscs.mypocket.model;
 import java.util.Date;
 
 /**
+ * Simple class that has all attributes of a transaction.
+ *
  * @author Cassio
  * @version 1.0
  */
