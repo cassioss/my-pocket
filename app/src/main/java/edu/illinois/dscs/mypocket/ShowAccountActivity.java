@@ -1,9 +1,11 @@
 package edu.illinois.dscs.mypocket;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class ShowAccountActivity extends ActionBarActivity {
@@ -35,5 +37,13 @@ public class ShowAccountActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void add_account_button(View view) {
+        Intent AddAccountIntent = new Intent(this, AddAccountActivity.class);
+
+        AddAccountIntent.putExtra("CallActivity","ShowAccountActivity");
+        startActivity(AddAccountIntent);
+
     }
 }

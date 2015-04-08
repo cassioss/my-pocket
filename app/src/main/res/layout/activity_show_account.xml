@@ -70,8 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pocket"
-            android:onClick="add_account_button"/>
+            android:text="Pocket"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -93,8 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Bank 2"
-            android:onClick="add_account_button"/>
+            android:text="Bank 2"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,8 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Economy"
-            android:onClick="add_account_button"/>
+            android:text="Economy"/>
 
         <TextView
             android:layout_width="wrap_content"
