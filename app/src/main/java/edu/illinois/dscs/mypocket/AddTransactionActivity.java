@@ -6,7 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-
+/**
+ * @author Cassio
+ * @version 1.0
+ */
 public class AddTransactionActivity extends ActionBarActivity {
 
     @Override
@@ -14,7 +17,6 @@ public class AddTransactionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,5 +41,6 @@ public class AddTransactionActivity extends ActionBarActivity {
     }
 
     public void saveTransaction(View view) {
+
     }
 }
