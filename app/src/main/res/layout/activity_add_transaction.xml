@@ -146,7 +146,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?android:buttonBarButtonStyle"
-            android:text="@string/save_transaction_button" />
+            android:text="@string/save_transaction_button"
+            android:onClick="saveTransaction"/>
 
     </LinearLayout>
 
