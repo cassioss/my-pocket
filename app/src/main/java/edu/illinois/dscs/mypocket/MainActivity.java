@@ -7,12 +7,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.Objects;
+
 public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent activityThatCalled = getIntent();
+
+        String previousActivity = activityThatCalled.getExtras().getString("originalActivity");
+
+        if (previousActivity.equals("AddTransactionActivity")) {
+            
+        }
 
     }
 
@@ -41,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
     public void addTransaction(View view) {
         Intent TransactionIntent = new Intent(this, AddTransactionActivity.class);
 
-        TransactionIntent.putExtra("CallingActivity","Main Activity");
+        TransactionIntent.putExtra("CallingActivity", "Main Activity");
         startActivity(TransactionIntent);
     }
 }

@@ -1,5 +1,6 @@
 package edu.illinois.dscs.mypocket;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,6 +42,8 @@ public class AddTransactionActivity extends ActionBarActivity {
     }
 
     public void saveTransaction(View view) {
-
+        Intent goBackToMain = new Intent(this, MainActivity.class);
+        goBackToMain.putExtra("originalActivity", "AddTransactionActivity");
+        startActivity(goBackToMain);
     }
 }
