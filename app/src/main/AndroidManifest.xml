@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TransactionActivity"
+            android:name=".AddTransactionActivity"
             android:label="Add Transactions"
             android:theme="@style/AppTheme" >
         </activity>
