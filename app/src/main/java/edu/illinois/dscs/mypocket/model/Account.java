@@ -8,16 +8,20 @@ import java.util.ArrayList;
 public class Account {
 
     private String name;
+    private double currentBalance;
+    private boolean accountActive;
     private ArrayList<Transaction> transactionList;
-
 
     /**
      * Creates a new transaction object.
      *
      * @param name the name of the transaction.
+     * @param initialValue the name of the transaction.
      */
-    public Account(String name){
+    public Account(String name, double initialValue){
         this.name = name;
+        this.currentBalance = initialValue;
+        this.accountActive = true;
     }
 
     public String getName() {
@@ -34,5 +38,25 @@ public class Account {
 
     public void addTransaction(Transaction obj){
         transactionList.add(obj);
+    }
+
+    public double getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(double currentBalance) {
+        this.currentBalance = currentBalance;
+    }
+
+    public void addValue(double transactionValue){
+       setCurrentBalance(this.currentBalance+transactionValue);
+    }
+
+    public boolean isAccountActive() {
+        return accountActive;
+    }
+
+    public void setAccountActive(boolean accountActive) {
+        this.accountActive = accountActive;
     }
 }

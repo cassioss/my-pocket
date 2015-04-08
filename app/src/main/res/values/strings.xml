@@ -9,8 +9,9 @@
 
     <string name="title_activity_transaction">TransactionActivity</string>
     <string name="add_transaction">Add Transaction</string>
-    <string name="title_activity_add_account">AddAccountActivity</string>
+    <string name="title_activity_add_account">Add Account</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="name_account">Name Account:</string>
+    <string name="add_account_button">add account</string>
 
 </resources>
