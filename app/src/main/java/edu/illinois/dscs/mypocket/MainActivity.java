@@ -7,26 +7,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.model.Transaction;
+import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 
 public class MainActivity extends ActionBarActivity {
 
     public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
-
-    public static String[] test = {"ABC", "FDEF"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListAdapter entriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, test);
+        ListAdapter entriesAdapter = new TransactionAdapter(this, lastTransactions);
 
         ListView lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
 

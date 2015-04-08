@@ -43,7 +43,6 @@ public class AddTransactionActivity extends ActionBarActivity {
 
     public void saveTransaction(View view) {
         Intent goBackToMain = new Intent(this, MainActivity.class);
-        goBackToMain.putExtra("originalActivity", "AddTransactionActivity");
         startActivity(goBackToMain);
     }
 }
