@@ -7,7 +7,7 @@
     <string name="add_transaction_button">add Transaction</string>
     <string name="show_accounts_button">Show Accounts</string>
     <string name="title_activity_transaction">transactionActivity</string>
-
-    <string name="hello_world">Hello world!</string>
+    
+    <string name="add_transaction">Add Transaction</string>
 
 </resources>
