@@ -79,11 +79,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="40sp" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/last_entries_list_view" />
-
     </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/last_entries_list_view" />
 
 </LinearLayout>

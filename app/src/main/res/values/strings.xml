@@ -30,5 +30,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="show_account_info">Show Accounts</string>
+    <string name="transaction_value_text_view">$</string>
 
 </resources>

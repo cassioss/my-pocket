@@ -19,12 +19,14 @@ public class MainActivity extends ActionBarActivity {
 
     public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
 
+    public static String[] test = {"ABC", "FDEF"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListAdapter entriesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lastTransactions);
+        ListAdapter entriesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, test);
 
         ListView lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
 
