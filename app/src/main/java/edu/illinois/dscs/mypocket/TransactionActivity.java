@@ -36,8 +36,4 @@ public class TransactionActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void abc(){
-
-    }
 }
