@@ -19,8 +19,6 @@
             android:text="@string/add_account_button"
             android:onClick="add_account_button"
             style="?android:buttonBarButtonStyle"/>
-
-
     </LinearLayout>
 
     <LinearLayout
