@@ -28,11 +28,11 @@ public class Account {
         this.name = name;
     }
 
-    public void removeTransaction(){
-         transactionList.remove();
+    public void removeTransaction(Transaction obj){
+         transactionList.remove(obj);
     }
 
-    public void addTransaction(){
-        
+    public void addTransaction(Transaction obj){
+        transactionList.add(obj);
     }
 }
