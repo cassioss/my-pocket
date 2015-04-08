@@ -3,7 +3,8 @@ package edu.illinois.dscs.mypocket.model;
 import java.util.ArrayList;
 
 /**
- * Created by Dennis on 07/04/2015.
+ * @author Dennis
+ * @version 1.0
  */
 public class Account {
 
@@ -15,10 +16,10 @@ public class Account {
     /**
      * Creates a new transaction object.
      *
-     * @param name the name of the transaction.
+     * @param name         the name of the transaction.
      * @param initialValue the name of the transaction.
      */
-    public Account(String name, double initialValue){
+    public Account(String name, double initialValue) {
         this.name = name;
         this.currentBalance = initialValue;
         this.accountActive = true;
@@ -32,11 +33,11 @@ public class Account {
         this.name = name;
     }
 
-    public void removeTransaction(Transaction obj){
-         transactionList.remove(obj);
+    public void removeTransaction(Transaction obj) {
+        transactionList.remove(obj);
     }
 
-    public void addTransaction(Transaction obj){
+    public void addTransaction(Transaction obj) {
         transactionList.add(obj);
     }
 
@@ -48,8 +49,8 @@ public class Account {
         this.currentBalance = currentBalance;
     }
 
-    public void addValue(double transactionValue){
-       setCurrentBalance(this.currentBalance+transactionValue);
+    public void addValue(double transactionValue) {
+        setCurrentBalance(this.currentBalance + transactionValue);
     }
 
     public boolean isAccountActive() {

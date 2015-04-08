@@ -1,7 +1,8 @@
 package edu.illinois.dscs.mypocket.model;
 
 /**
- * Created by Dennis on 07/04/2015.
+ * @author Dennis
+ * @version 1.0
  */
 public class Category {
 
@@ -12,7 +13,7 @@ public class Category {
      *
      * @param name the name of the Category.
      */
-    public Category(String name){
+    public Category(String name) {
         this.name = name;
     }
 
