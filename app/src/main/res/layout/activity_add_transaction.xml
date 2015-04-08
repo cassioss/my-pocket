@@ -15,19 +15,24 @@
         android:orientation="horizontal"
         style="?android:buttonBarStyle">
 
-        <Button
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="?android:buttonBarButtonStyle"
-            android:text="@string/expense_button" />
+            android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            style="?android:buttonBarButtonStyle"
-            android:text="@string/income_button" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expense_radio"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/income_radio"
+                android:layout_weight="1" />
+
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -147,7 +152,7 @@
             android:layout_height="wrap_content"
             style="?android:buttonBarButtonStyle"
             android:text="@string/save_transaction_button"
-            android:onClick="saveTransaction"/>
+            android:onClick="saveTransaction" />
 
     </LinearLayout>
 
