@@ -19,5 +19,10 @@
     <string name="income_button">Income</string>
     <string name="value_text_view">Value</string>
     <string name="last_entries_text_view">Last Entries</string>
+    <string name="description_text_view">Description</string>
+    <string name="category_text_view">Category</string>
+    <string name="account_text_view">Account</string>
+    <string name="date_text_view">Date</string>
+    <string name="save_transaction_button">Save transaction</string>
 
 </resources>
