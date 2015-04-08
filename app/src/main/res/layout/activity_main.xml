@@ -60,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             style="?android:buttonBarButtonStyle"
-            android:text="@string/show_accounts_button" />
+            android:text="@string/show_accounts_button"
+            android:onClick="showAccounts"/>
 
     </LinearLayout>
 

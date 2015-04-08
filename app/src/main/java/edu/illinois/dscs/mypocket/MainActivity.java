@@ -60,7 +60,15 @@ public class MainActivity extends ActionBarActivity {
     public void addTransaction(View view) {
         Intent TransactionIntent = new Intent(this, AddTransactionActivity.class);
 
-        TransactionIntent.putExtra("CallingActivity", "Main Activity");
+        TransactionIntent.putExtra("CallingActivity", "MainActivity");
         startActivity(TransactionIntent);
+    }
+
+    public void showAccounts(View view) {
+        Intent ShowAccountIntent = new Intent(this, ShowAccountActivity.class);
+
+        ShowAccountIntent.putExtra("CallingActivity","MainActivity");
+        startActivity(ShowAccountIntent);
+
     }
 }
