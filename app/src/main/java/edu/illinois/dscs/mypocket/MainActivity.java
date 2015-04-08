@@ -7,21 +7,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
+import edu.illinois.dscs.mypocket.model.Transaction;
+
 public class MainActivity extends ActionBarActivity {
+
+    public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent activityThatCalled = getIntent();
+
+        if(lastTransactions.size() > 0){
+
+        }
+
+        /*Intent activityThatCalled = getIntent();
 
         String previousActivity = activityThatCalled.getExtras().getString("originalActivity");
 
         if (previousActivity.equals("AddTransactionActivity")) {
             
-        }
+        }*/
 
     }
 
