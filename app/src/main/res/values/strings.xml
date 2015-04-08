@@ -14,4 +14,10 @@
     <string name="name_account">Name Account:</string>
     <string name="add_account_button">add account</string>
 
+    <string name="hello_world">Hello world!</string>
+    <string name="expense_button">Expense</string>
+    <string name="income_button">Income</string>
+    <string name="value_text_view">Value</string>
+    <string name="last_entries_text_view">Last Entries</string>
+
 </resources>
