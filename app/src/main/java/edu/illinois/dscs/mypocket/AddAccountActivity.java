@@ -64,7 +64,7 @@ public class AddAccountActivity extends ActionBarActivity {
     }
 
     public boolean getAccountActive() {
-        RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
+        RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.account_choice_radio_group);
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
         boolean ActiveValue = true;
 

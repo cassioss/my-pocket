@@ -23,6 +23,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:inputType="text"
             android:id="@+id/account_name_edit_view"
             android:gravity="end"/>
@@ -45,6 +46,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:inputType="text"
             android:id="@+id/account_initial_Value_edit_view"
             android:gravity="end"
@@ -52,23 +54,19 @@
 
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/account_active_switch"
-            android:layout_weight="1"
-            android:textSize="25sp"/>
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_active_switch"
+        android:textSize="25sp"/>
 
         <RadioGroup
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/account_choice_radio_group">
@@ -79,7 +77,6 @@
             android:id="@+id/account_active_yes_radio"
             android:layout_marginLeft="30dp"
             android:text="@string/account_active_yes_radio"
-            android:layout_weight="1"
             android:textSize="20sp"/>
 
         <RadioButton
@@ -87,8 +84,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/account_active_no_radio"
             android:text="@string/account_active_no_radio"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="1"
             android:textSize="20sp"/>
         </RadioGroup>
 
