@@ -19,10 +19,10 @@ public class Account {
      * @param name         the name of the transaction.
      * @param initialValue the name of the transaction.
      */
-    public Account(String name, double initialValue) {
+    public Account(String name, double initialValue, boolean accountActive) {
         this.name = name;
         this.initialValue = initialValue;
-        this.accountActive = true;
+        this.accountActive = accountActive;
     }
 
     public String getName() {
@@ -41,16 +41,12 @@ public class Account {
         transactionList.add(obj);
     }
 
-    public double getCurrentBalance() {
+    public double getInitialValue() {
         return initialValue;
     }
 
-    public void setCurrentBalance(double currentBalance) {
+    public void setInitialValue(double currentBalance) {
         this.initialValue = currentBalance;
-    }
-
-    public void addValue(double transactionValue) {
-        setCurrentBalance(this.initialValue + transactionValue);
     }
 
     public boolean isAccountActive() {

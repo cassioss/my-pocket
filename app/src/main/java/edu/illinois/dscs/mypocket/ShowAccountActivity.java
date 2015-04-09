@@ -6,14 +6,38 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import edu.illinois.dscs.mypocket.model.Account;
+import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
 
 public class ShowAccountActivity extends ActionBarActivity {
+
+    public static ArrayList<Account> showAccounts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_account);
+
+    ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
+
+        ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
+
+        showAccountList.setAdapter(showAccountAdapter);
+
+        showAccountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
     }
 
 

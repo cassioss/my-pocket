@@ -31,5 +31,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="show_account_info">Show Accounts</string>
     <string name="transaction_value">$</string>
+    <string name="show_account_value">$</string>
+    <string name="Initial_value">Initial Value:</string>
+    <string name="account_active_yes_radio">Yes</string>
+    <string name="account_active_no_radio">No</string>
 
 </resources>

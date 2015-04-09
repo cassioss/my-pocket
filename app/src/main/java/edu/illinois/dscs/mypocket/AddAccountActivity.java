@@ -1,13 +1,21 @@
 package edu.illinois.dscs.mypocket;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import edu.illinois.dscs.mypocket.model.Account;
 
 
 public class AddAccountActivity extends ActionBarActivity {
+
+    private boolean accountActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +46,33 @@ public class AddAccountActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void add_account_button(View view) {
+    public void saveAccount(View view) {
+        Intent goBackToShowAccount = new Intent(this, AddAccountActivity.class);
+        Account newAccount = new Account(getName(), getInitialValue(), getAccountActive());
+        ShowAccountActivity.showAccounts.add(newAccount);
+        startActivity(goBackToShowAccount);
+    }
 
+    public String getName() {
+        EditText accountNameView = (EditText) findViewById(R.id.account_name_edit_view);
+        return accountNameView.getText().toString();
+    }
+
+    public double getInitialValue() {
+        EditText accountInitialValue = (EditText) findViewById(R.id.account_initial_Value_edit_view);
+        return Double.valueOf(accountInitialValue.getText().toString());
+    }
+
+    public boolean getAccountActive() {
+        RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
+        int radioButtonID = choiceGroup.getCheckedRadioButtonId();
+        boolean ActiveValue = true;
+        switch(radioButtonID){
+            case R.id.account_active_yes_radio:
+                break;
+            case R.id.account_active_no_radio:
+                ActiveValue = false;
+        }
+        return ActiveValue;
     }
 }
