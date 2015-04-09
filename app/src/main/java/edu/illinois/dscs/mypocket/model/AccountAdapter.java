@@ -32,7 +32,7 @@ public class AccountAdapter extends ArrayAdapter<Account>{
         String name = currentAccount.getName();
         String initialValue = String.format("%.2f", currentAccount.getInitialValue());
 
-        TextView nameTextView = (TextView) accountView.findViewById(R.id.Account_name_text_view);
+        TextView nameTextView = (TextView) accountView.findViewById(R.id.account_name_text_view);
         nameTextView.setText(name);
 
         TextView valueTextView = (TextView) accountView.findViewById(R.id.Account_value_text_view);
