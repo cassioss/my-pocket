@@ -24,6 +24,7 @@ public class Transaction {
         this.creationDate = creationDate;
         this.transactionCategory = transactionCategory;
         this.parentAccount = parentAccount;
+        this.parentAccount.addTransaction(this);
     }
 
     public String getDescription() {

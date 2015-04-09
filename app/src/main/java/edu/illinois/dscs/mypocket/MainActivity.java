@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import edu.illinois.dscs.mypocket.model.Account;
-import edu.illinois.dscs.mypocket.model.Category;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 import edu.illinois.dscs.mypocket.model.TransactionType;
