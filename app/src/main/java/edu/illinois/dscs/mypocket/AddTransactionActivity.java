@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +32,19 @@ public class AddTransactionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
+
+        Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        String[] categories = {"No category"};
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
+
+        Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        String[] accounts = {"MyPocket"};
+        ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
+        accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        accountSpinner.setAdapter(accountAdapter);
+
     }
 
     @Override
@@ -99,11 +114,11 @@ public class AddTransactionActivity extends ActionBarActivity {
     }
 
     private Account getAccount() {
-        return null;
+        return MainActivity.myPocket;
     }
 
     private Category getCategory() {
-        return null;
+        return MainActivity.noCategory;
     }
 
 }
