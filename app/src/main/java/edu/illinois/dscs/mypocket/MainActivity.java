@@ -28,32 +28,23 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         ListAdapter entriesAdapter = new TransactionAdapter(this, lastTransactions);
-
         ListView lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
-
         lastEntries.setAdapter(entriesAdapter);
 
-        double totalValue = 0.00;
-
-        for (Transaction transaction : lastTransactions) {
-            if (transaction.getType() == TransactionType.EXPENSE)
-                totalValue -= transaction.getValue();
-            else if (transaction.getType() == TransactionType.INCOME)
-                totalValue += transaction.getValue();
-        }
+        double totalValue = getTotalBalance();
 
         TextView totalBalance = (TextView) findViewById(R.id.total_balance_value_text_view);
         double module = Math.abs(totalValue);
         String moduleText = String.format("%.2f", module);
 
-        if (totalValue < 0.000) {
+        if (totalValue < 0.00) {
             totalBalance.setTextColor(Color.RED);
             totalBalance.setText("-US$ " + moduleText);
         } else {
             totalBalance.setText("US$ " + moduleText);
-            if (totalValue > 0.000)
+            if (totalValue > 0.00)
                 totalBalance.setTextColor(Color.GREEN);
-            else if (totalValue == 0.00)
+            else
                 totalBalance.setTextColor(Color.BLACK);
         }
 
@@ -86,6 +77,17 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private double getTotalBalance() {
+        double totalValue = 0.00;
+        for (Transaction transaction : lastTransactions) {
+            if (transaction.getType() == TransactionType.EXPENSE)
+                totalValue -= transaction.getValue();
+            else if (transaction.getType() == TransactionType.INCOME)
+                totalValue += transaction.getValue();
+        }
+        return totalValue;
     }
 
     public void addTransaction(View view) {
