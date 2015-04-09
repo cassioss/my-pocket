@@ -14,12 +14,13 @@ import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.AccountAdapter;
+import edu.illinois.dscs.mypocket.model.Category;
 
 
 public class ShowAccountActivity extends ActionBarActivity {
 
     public static ArrayList<Account> showAccounts = new ArrayList<>();
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import edu.illinois.dscs.mypocket.model.Account;
+import edu.illinois.dscs.mypocket.model.Category;
 
 
 public class AddAccountActivity extends ActionBarActivity {
@@ -22,7 +23,6 @@ public class AddAccountActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
