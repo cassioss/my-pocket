@@ -11,9 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/account_name_text_view"
-        android:text="account name"
+        style="?android:buttonBarButtonStyle"
+        android:text="Account name"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textAllCaps="false" />
 
     <TextView
         android:layout_width="match_parent"

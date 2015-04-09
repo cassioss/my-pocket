@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.AccountAdapter;
-import edu.illinois.dscs.mypocket.model.Category;
-
 
 public class ShowAccountActivity extends ActionBarActivity {
 
