@@ -1,56 +1,58 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="edu.illinois.dscs.mypocket.AddAccountActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-        <TextView android:text="@string/name_account"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:textSize="25sp"/>
+            android:text="@string/name_account"
+            android:textSize="25sp" />
 
-        
+
         <EditText
+            android:id="@+id/account_name_edit_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
+            android:gravity="end"
             android:inputType="text"
-            android:id="@+id/account_name_edit_view"
-            android:gravity="end"/>
+            android:textAllCaps="false" />
 
-     </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
-        <TextView android:text="@string/Initial_value"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
-            android:textSize="25sp"/>
+            android:text="@string/Initial_value"
+            android:textSize="25sp" />
 
 
         <EditText
+            android:id="@+id/account_initial_Value_edit_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:inputType="text"
-            android:id="@+id/account_initial_Value_edit_view"
             android:gravity="end"
-            />
+            android:inputType="numberDecimal"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 
@@ -59,51 +61,50 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/account_active_switch"
-        android:textSize="25sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_active_switch"
+            android:textSize="25sp" />
 
         <RadioGroup
+            android:id="@+id/account_choice_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/account_choice_radio_group">
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/account_active_yes_radio"
-            android:layout_marginLeft="30dp"
-            android:text="@string/account_active_yes_radio"
-            android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/account_active_yes_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="@string/account_active_yes_radio"
+                android:textSize="20sp" />
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/account_active_no_radio"
-            android:text="@string/account_active_no_radio"
-            android:textSize="20sp"/>
+            <RadioButton
+                android:id="@+id/account_active_no_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_active_no_radio"
+                android:textSize="20sp" />
         </RadioGroup>
 
     </LinearLayout>
 
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="horizontal"
-         >
-         
-         <Button
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:id="@+id/add_account_back_button1"
-             android:text="@string/add_account_button"
-             android:onClick="saveAccount"
-             style="?android:buttonBarButtonStyle"/>
-         
-         </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/add_account_back_button1"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="saveAccount"
+            android:text="@string/add_account_button" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

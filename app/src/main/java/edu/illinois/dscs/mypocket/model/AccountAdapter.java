@@ -1,6 +1,7 @@
 package edu.illinois.dscs.mypocket.model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +32,24 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         Account currentAccount = getItem(position);
 
         String name = currentAccount.getName();
-        String initialValue = String.format("%.2f", currentAccount.getInitialValue());
+        double valueDouble = currentAccount.getInitialValue();
+        String initialValue = String.format("%.2f", Math.abs(valueDouble));
 
         TextView nameTextView = (TextView) accountView.findViewById(R.id.account_name_text_view);
         nameTextView.setText(name);
 
         TextView valueTextView = (TextView) accountView.findViewById(R.id.account_value_text_view);
-        valueTextView.setText(valueTextView.getText() + " " + initialValue);
+
+        if (valueDouble < 0.00) {
+            valueTextView.setText("-" + valueTextView.getText() + " " + initialValue);
+            valueTextView.setTextColor(Color.RED);
+        } else {
+            valueTextView.setText(valueTextView.getText() + " " + initialValue);
+            if (valueDouble > 0.00)
+                valueTextView.setTextColor(Color.GREEN);
+            else
+                valueTextView.setTextColor(Color.BLACK);
+        }
 
         return accountView;
     }
