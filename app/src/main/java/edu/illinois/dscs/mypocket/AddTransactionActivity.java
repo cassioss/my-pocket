@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -46,6 +47,11 @@ public class AddTransactionActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void saveTransaction(View view) {
+        Intent goBackToMain = new Intent(this, MainActivity.class);
+        startActivity(goBackToMain);
+    }
+
     private TransactionType getTransactionChoice() {
         TransactionType thisType = TransactionType.EXPENSE;
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
@@ -60,8 +66,14 @@ public class AddTransactionActivity extends ActionBarActivity {
         return thisType;
     }
 
-    public void saveTransaction(View view) {
-        Intent goBackToMain = new Intent(this, MainActivity.class);
-        startActivity(goBackToMain);
+    private double getValue() {
+        EditText transactionValue = (EditText) findViewById(R.id.value_entry);
+        return Double.valueOf(transactionValue.getText().toString());
     }
+
+    private String getDescription() {
+        EditText description = (EditText) findViewById(R.id.description_entry);
+        return description.getText().toString();
+    }
+
 }
