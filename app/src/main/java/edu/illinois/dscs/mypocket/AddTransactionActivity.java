@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import edu.illinois.dscs.mypocket.model.Transaction;
+import edu.illinois.dscs.mypocket.model.TransactionType;
 
 /**
  * @author Cassio
@@ -39,6 +44,20 @@ public class AddTransactionActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private TransactionType getTransactionChoice() {
+        TransactionType thisType = TransactionType.EXPENSE;
+        RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
+        int radioButtonID = choiceGroup.getCheckedRadioButtonId();
+        switch (radioButtonID) {
+            case R.id.expense_radio:
+                break;
+            case R.id.income_radio:
+                thisType = TransactionType.INCOME;
+                break;
+        }
+        return thisType;
     }
 
     public void saveTransaction(View view) {

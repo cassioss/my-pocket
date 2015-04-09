@@ -9,6 +9,7 @@ import java.util.Date;
  * @version 1.0
  */
 public class Transaction {
+    private TransactionType type;
     private String transactionName;
     private String description;
     private double value;
@@ -24,11 +25,16 @@ public class Transaction {
      * @param value           the value of the transaction.
      * @param creationDate    the creation date of the transaction (not necessarily today's date).
      */
-    public Transaction(String transactionName, String description, double value, Date creationDate) {
+    public Transaction(TransactionType type, String transactionName, String description,
+                       double value, Date creationDate, Category transactionCategory,
+                       Account parentAccount) {
+        this.type = type;
         this.transactionName = transactionName;
         this.description = description;
         this.value = value;
         this.creationDate = creationDate;
+        this.transactionCategory = transactionCategory;
+        this.parentAccount = parentAccount;
     }
 
     public String getTransactionName() {
@@ -61,5 +67,29 @@ public class Transaction {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public Category getTransactionCategory() {
+        return transactionCategory;
+    }
+
+    public void setTransactionCategory(Category transactionCategory) {
+        this.transactionCategory = transactionCategory;
+    }
+
+    public Account getParentAccount() {
+        return parentAccount;
+    }
+
+    public void setParentAccount(Account parentAccount) {
+        this.parentAccount = parentAccount;
     }
 }
