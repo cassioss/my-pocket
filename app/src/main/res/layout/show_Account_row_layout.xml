@@ -18,7 +18,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Account_value_text_view"
+        android:id="@+id/account_value_text_view"
         android:gravity="end"
         android:text="@string/show_account_value"
         android:textSize="24sp" />
