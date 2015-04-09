@@ -30,7 +30,7 @@ public class ShowAccountActivity extends ActionBarActivity {
 
         if (!showAccounts.contains(myPocket))
             showAccounts.add(myPocket);
-        
+
         ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
 
         ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
