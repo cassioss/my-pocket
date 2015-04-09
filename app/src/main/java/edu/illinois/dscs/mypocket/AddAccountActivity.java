@@ -47,7 +47,7 @@ public class AddAccountActivity extends ActionBarActivity {
     }
 
     public void saveAccount(View view) {
-        Intent goBackToShowAccount = new Intent(this, AddAccountActivity.class);
+        Intent goBackToShowAccount = new Intent(this, ShowAccountActivity.class);
         Account newAccount = new Account(getName(), getInitialValue(), getAccountActive());
         ShowAccountActivity.showAccounts.add(newAccount);
         startActivity(goBackToShowAccount);
