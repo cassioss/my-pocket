@@ -26,11 +26,11 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View transactionView = inflater.inflate(R.layout.transaction_row_layout, parent, false);
         Transaction currentTransaction = getItem(position);
-        String transactionName = currentTransaction.getTransactionName();
+        String description = currentTransaction.getDescription();
         String transactionValue = String.valueOf(currentTransaction.getValue());
 
         TextView nameTextView = (TextView) transactionView.findViewById(R.id.transaction_name_text_view);
-        nameTextView.setText(transactionName);
+        nameTextView.setText(description);
 
         TextView valueTextView = (TextView) transactionView.findViewById(R.id.transaction_value_text_view);
         valueTextView.setText(valueTextView.getText() + " " + transactionValue);
