@@ -10,6 +10,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import edu.illinois.dscs.mypocket.model.Account;
+import edu.illinois.dscs.mypocket.model.Category;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionType;
 
@@ -49,6 +56,8 @@ public class AddTransactionActivity extends ActionBarActivity {
 
     public void saveTransaction(View view) {
         Intent goBackToMain = new Intent(this, MainActivity.class);
+        Transaction newTransaction = new Transaction(getTransactionChoice(), getDescription(), getValue(), getDate(), getCategory(), getAccount());
+        MainActivity.lastTransactions.add(newTransaction);
         startActivity(goBackToMain);
     }
 
@@ -66,14 +75,35 @@ public class AddTransactionActivity extends ActionBarActivity {
         return thisType;
     }
 
+    private String getDescription() {
+        EditText description = (EditText) findViewById(R.id.description_entry);
+        return description.getText().toString();
+    }
+
     private double getValue() {
         EditText transactionValue = (EditText) findViewById(R.id.value_entry);
         return Double.valueOf(transactionValue.getText().toString());
     }
 
-    private String getDescription() {
-        EditText description = (EditText) findViewById(R.id.description_entry);
-        return description.getText().toString();
+    private Date getDate() {
+        EditText dateView = (EditText) findViewById(R.id.date_field);
+        String dateText = dateView.getText().toString();
+        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        Date myDate = null;
+        try {
+            myDate = df.parse(dateText);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return myDate;
+    }
+
+    private Account getAccount() {
+        return null;
+    }
+
+    private Category getCategory() {
+        return null;
     }
 
 }
