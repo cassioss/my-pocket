@@ -1,6 +1,7 @@
 package edu.illinois.dscs.mypocket.model;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,19 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         View transactionView = inflater.inflate(R.layout.transaction_row_layout, parent, false);
         Transaction currentTransaction = getItem(position);
         String description = currentTransaction.getDescription();
-        String transactionValue = String.valueOf(currentTransaction.getValue());
+        String transactionValue = String.format("%.2f", currentTransaction.getValue());
 
         TextView nameTextView = (TextView) transactionView.findViewById(R.id.transaction_name_text_view);
         nameTextView.setText(description);
 
         TextView valueTextView = (TextView) transactionView.findViewById(R.id.transaction_value_text_view);
-        valueTextView.setText(valueTextView.getText() + " " + transactionValue);
+        if (currentTransaction.getType() == TransactionType.EXPENSE) {
+            valueTextView.setText("-" + valueTextView.getText() + " " + transactionValue);
+            valueTextView.setTextColor(Color.RED);
+        } else if (currentTransaction.getType() == TransactionType.INCOME) {
+            valueTextView.setText(valueTextView.getText() + " " + transactionValue);
+            valueTextView.setTextColor(Color.GREEN);
+        }
 
         return transactionView;
     }
