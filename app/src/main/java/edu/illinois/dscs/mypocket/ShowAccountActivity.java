@@ -19,6 +19,8 @@ import edu.illinois.dscs.mypocket.model.Category;
 
 public class ShowAccountActivity extends ActionBarActivity {
 
+    public static Account myPocket = new Account("MyPocket", 0.00, true);
+
     public static ArrayList<Account> showAccounts = new ArrayList<>();
 
     @Override

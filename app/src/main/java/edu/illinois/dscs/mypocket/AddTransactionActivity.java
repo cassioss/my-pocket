@@ -28,6 +28,8 @@ import edu.illinois.dscs.mypocket.model.TransactionType;
  */
 public class AddTransactionActivity extends ActionBarActivity {
 
+    public static Category noCategory = new Category("No category");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,11 +116,11 @@ public class AddTransactionActivity extends ActionBarActivity {
     }
 
     private Account getAccount() {
-        return MainActivity.myPocket;
+        return ShowAccountActivity.myPocket;
     }
 
     private Category getCategory() {
-        return MainActivity.noCategory;
+        return noCategory;
     }
 
 }

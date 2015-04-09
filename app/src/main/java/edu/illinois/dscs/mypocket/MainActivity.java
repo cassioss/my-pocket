@@ -23,8 +23,6 @@ import edu.illinois.dscs.mypocket.model.TransactionType;
 public class MainActivity extends ActionBarActivity {
 
     public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
-    public static Category noCategory = new Category("No category");
-    public static Account myPocket = new Account("MyPocket", 0.00, true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
