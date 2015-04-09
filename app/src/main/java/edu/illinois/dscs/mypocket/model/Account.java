@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Account {
 
     private String name;
-    private double currentBalance;
+    private double initialValue;
     private boolean accountActive;
     private ArrayList<Transaction> transactionList;
 
@@ -21,7 +21,7 @@ public class Account {
      */
     public Account(String name, double initialValue) {
         this.name = name;
-        this.currentBalance = initialValue;
+        this.initialValue = initialValue;
         this.accountActive = true;
     }
 
@@ -42,15 +42,15 @@ public class Account {
     }
 
     public double getCurrentBalance() {
-        return currentBalance;
+        return initialValue;
     }
 
     public void setCurrentBalance(double currentBalance) {
-        this.currentBalance = currentBalance;
+        this.initialValue = currentBalance;
     }
 
     public void addValue(double transactionValue) {
-        setCurrentBalance(this.currentBalance + transactionValue);
+        setCurrentBalance(this.initialValue + transactionValue);
     }
 
     public boolean isAccountActive() {
