@@ -13,7 +13,8 @@ import java.util.List;
 import edu.illinois.dscs.mypocket.R;
 
 /**
- * Created by Dennis on 4/9/15.
+ * @author Dennis
+ * @version 1.0
  */
 public class AccountAdapter extends ArrayAdapter<Account> {
 
