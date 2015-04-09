@@ -15,7 +15,7 @@ import edu.illinois.dscs.mypocket.R;
 /**
  * Created by Dennis on 4/9/15.
  */
-public class AccountAdapter extends ArrayAdapter<Account>{
+public class AccountAdapter extends ArrayAdapter<Account> {
 
 
     public AccountAdapter(Context context, ArrayList<Account> AccountList) {
@@ -35,7 +35,7 @@ public class AccountAdapter extends ArrayAdapter<Account>{
         TextView nameTextView = (TextView) accountView.findViewById(R.id.account_name_text_view);
         nameTextView.setText(name);
 
-        TextView valueTextView = (TextView) accountView.findViewById(R.id.Account_value_text_view);
+        TextView valueTextView = (TextView) accountView.findViewById(R.id.account_value_text_view);
         valueTextView.setText(valueTextView.getText() + " " + initialValue);
 
         return accountView;
