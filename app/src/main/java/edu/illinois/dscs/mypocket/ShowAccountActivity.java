@@ -28,6 +28,9 @@ public class ShowAccountActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_account);
 
+        if (!showAccounts.contains(myPocket))
+            showAccounts.add(myPocket);
+        
         ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
 
         ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
@@ -68,7 +71,7 @@ public class ShowAccountActivity extends ActionBarActivity {
     public void add_account_button(View view) {
         Intent AddAccountIntent = new Intent(this, AddAccountActivity.class);
 
-        AddAccountIntent.putExtra("CallActivity","ShowAccountActivity");
+        AddAccountIntent.putExtra("CallActivity", "ShowAccountActivity");
         startActivity(AddAccountIntent);
 
     }
