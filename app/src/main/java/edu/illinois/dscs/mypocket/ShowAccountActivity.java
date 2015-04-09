@@ -19,13 +19,13 @@ import edu.illinois.dscs.mypocket.model.AccountAdapter;
 public class ShowAccountActivity extends ActionBarActivity {
 
     public static ArrayList<Account> showAccounts = new ArrayList<>();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_account);
 
-    ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
+        ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
 
         ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
 
@@ -39,7 +39,6 @@ public class ShowAccountActivity extends ActionBarActivity {
         });
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
