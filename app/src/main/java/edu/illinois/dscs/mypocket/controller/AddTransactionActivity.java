@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,29 +21,32 @@ import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
-import edu.illinois.dscs.mypocket.dao.DatabaseHandler;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
-import edu.illinois.dscs.mypocket.model.Transaction;
 
 /**
- * @author Cassio
- * @version 1.0
+ * @author Cassio, Dennis
+ * @version 1.1
+ * @since 1.0
+ *
  */
-public class AddTransactionActivity extends ActionBarActivity {
+public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener{
 
     public static Category noCategory = new Category(1, "No category");
+    private Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
 
-        Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-        String[] categories = {"No category"};
+        //String[] categories = {"No category"};
         //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //categorySpinner.setAdapter(categoryAdapter);
+
+        loadSpinnerData();
 
         Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
         String[] accounts = {"MyPocket"};
@@ -132,14 +138,30 @@ public class AddTransactionActivity extends ActionBarActivity {
         List<Category> CategoryLables = db.getAllCategories();
 
         // Creating adapter for spinner
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CategoryLables);
+        ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CategoryLables);
 
         // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        categorySpinner.setAdapter(categoryAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
     }
 
 }
