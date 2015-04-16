@@ -23,19 +23,45 @@ public class TransactionDAO {
             DatabaseHandler.KEY_DESCRIPTION, DatabaseHandler.KEY_CREATION_DATE,
             DatabaseHandler.KEY_CATEGORY_ID, DatabaseHandler.KEY_ACCOUNT_ID};
 
+    /**
+     * DAO Constructor for transactions.
+     *
+     * @param context the database context in the phone.
+     */
     public TransactionDAO(Context context) {
         dbHandler = new DatabaseHandler(context);
     }
 
+    /**
+     * Opens the database handler.
+     *
+     * @throws SQLException if the database cannot be reached.
+     */
     public void open() throws SQLException {
         database = dbHandler.getWritableDatabase();
     }
 
+    /**
+     * Closes the database handler.
+     */
     public void close() {
         dbHandler.close();
     }
 
-    public Transaction createTransaction(int type, String description, double value, String creationDate, int categoryID, int accountID) {
+    /**
+     * Creates a Transaction object from all the data obtained from user interactions,
+     * inserting it into the database.
+     *
+     * @param type         an integer associated with the transaction type (expense or income).
+     * @param description  the transaction description.
+     * @param value        the transaction value (always non-negative).
+     * @param creationDate the transaction's creation date (not necessarily today).
+     * @param categoryID   the ID of the category associated with the transaction.
+     * @param accountID    the ID of the account that contains the transaction.
+     * @return a Transaction object whose information is already inside the database.
+     */
+    public Transaction createTransaction(int type, String description, double value,
+                                         String creationDate, int categoryID, int accountID) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHandler.KEY_TRANS_TYPE, type);
         values.put(DatabaseHandler.KEY_DESCRIPTION, description);
@@ -54,6 +80,11 @@ public class TransactionDAO {
         return newTransaction;
     }
 
+    /**
+     * Deletes a given transaction from the database.
+     *
+     * @param transaction the transaction marked for deletion.
+     */
     public void deleteTransaction(Transaction transaction) {
         long id = transaction.getTransactionID();
         System.out.println("Transaction deleted with id: " + id);
@@ -61,6 +92,11 @@ public class TransactionDAO {
                 + " = " + id, null);
     }
 
+    /**
+     * Gets all transactions from the database.
+     *
+     * @return a list with all items from the Transactions table turned into Transaction objects.
+     */
     public List<Transaction> getAllTransactions() {
         List<Transaction> transactions = new ArrayList<Transaction>();
 
@@ -78,6 +114,12 @@ public class TransactionDAO {
         return transactions;
     }
 
+    /**
+     * Turns a cursor item into a full transaction.
+     *
+     * @param cursor the cursor with a given transaction in the database.
+     * @return a transaction equivalent to the one pointed by the cursor.
+     */
     private Transaction cursorToTransaction(Cursor cursor) {
         Transaction transaction = new Transaction(0, 0, null, 0.0, null, 0, 0);
         transaction.setTransactionID(cursor.getInt(0));
