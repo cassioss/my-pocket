@@ -28,13 +28,11 @@ import edu.illinois.dscs.mypocket.model.Category;
  * @author Cassio, Dennis
  * @version 1.1
  * @since 1.0
- *
  */
-public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener{
+public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener {
 
-    public static Category noCategory = new Category(1, "No category");
     private Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-
+    private Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         loadSpinnerData();
 
-        Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
         String[] accounts = {"MyPocket"};
         ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
         accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -127,7 +124,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     private Category getCategory() {
-        return noCategory;
+        return null;
     }
 
     private void loadSpinnerData() {
@@ -148,8 +145,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position,
-                               long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         String label = parent.getItemAtPosition(position).toString();
 
