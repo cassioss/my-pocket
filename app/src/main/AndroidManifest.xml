@@ -22,10 +22,16 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".controller.AddAccountActivity"
-            android:label="@string/label_add_account"></activity>
+            android:label="@string/label_add_account" />
         <activity
             android:name=".controller.ShowAccountActivity"
-            android:label="@string/label_show_account"></activity>
+            android:label="@string/label_show_account" />
+        <activity
+            android:name=".controller.SeeAccountActivity"
+            android:label="@string/label_see_account" />
+        <activity
+            android:name=".controller.EditTransactionActivity"
+            android:label="@string/label_edit_transaction" />
     </application>
 
 </manifest>

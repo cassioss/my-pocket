@@ -40,4 +40,11 @@
     <string name="account_active_yes_radio">Yes</string>
     <string name="account_active_no_radio">No</string>
 
+    <!-- See account -->
+    <string name="label_see_account">See Account</string>
+
+    <!-- Edit transaction -->
+    <string name="hello_world">Hello world!</string>
+    <string name="label_edit_transaction">Edit Transaction</string>
+
 </resources>
