@@ -9,21 +9,51 @@ import java.util.Date;
  * @version 1.0
  */
 public class Transaction {
+
+    private int transactionID;
     private TransactionType type;
     private String description;
     private double value;
     private Date creationDate;
-    private Category transactionCategory;
-    private Account parentAccount;
+    private int categoryID;
+    private int accountID;
 
-    public Transaction(TransactionType type, String description, double value, Date creationDate,
-                       Category transactionCategory, Account parentAccount) {
+    /**
+     * Creates a transaction object.
+     *
+     * @param transactionID the ID of the transaction, generated automatically.
+     * @param type          the type of the transaction (expense or income).
+     * @param description   the transaction's description.
+     * @param value         the transaction value (always positive).
+     * @param creationDate  the creation date of the transaction (not necessarily today's date).
+     * @param categoryID    the category ID associated with the transaction (unique).
+     * @param accountID     the account that has this transaction.
+     */
+    public Transaction(int transactionID, TransactionType type, String description, double value, Date creationDate,
+                       int categoryID, int accountID) {
+        this.transactionID = transactionID;
         this.type = type;
         this.description = description;
         this.value = value;
         this.creationDate = creationDate;
-        this.transactionCategory = transactionCategory;
-        this.parentAccount = parentAccount;
+        this.categoryID = categoryID;
+        this.accountID = accountID;
+    }
+
+    public int getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -50,27 +80,19 @@ public class Transaction {
         this.creationDate = creationDate;
     }
 
-    public TransactionType getType() {
-        return type;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public Category getTransactionCategory() {
-        return transactionCategory;
+    public int getAccountID() {
+        return accountID;
     }
 
-    public void setTransactionCategory(Category transactionCategory) {
-        this.transactionCategory = transactionCategory;
-    }
-
-    public Account getParentAccount() {
-        return parentAccount;
-    }
-
-    public void setParentAccount(Account parentAccount) {
-        this.parentAccount = parentAccount;
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 }

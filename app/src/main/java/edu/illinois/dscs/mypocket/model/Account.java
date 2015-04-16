@@ -12,7 +12,6 @@ public class Account {
     private String name;
     private double initialValue;
     private boolean accountActive;
-    private ArrayList<Transaction> transactionList;
 
     /**
      * Creates a new transaction object.
@@ -20,10 +19,19 @@ public class Account {
      * @param name         the name of the transaction.
      * @param initialValue the name of the transaction.
      */
-    public Account(String name, double initialValue, boolean accountActive) {
+    public Account(int accountID, String name, double initialValue, boolean accountActive) {
+        this.accountID = accountID;
         this.name = name;
         this.initialValue = initialValue;
         this.accountActive = accountActive;
+    }
+
+    public int getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(int accountID) {
+        this.accountID = accountID;
     }
 
     public String getName() {
@@ -32,14 +40,6 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void removeTransaction(Transaction obj) {
-        transactionList.remove(obj);
-    }
-
-    public void addTransaction(Transaction obj) {
-        transactionList.add(obj);
     }
 
     public double getInitialValue() {
