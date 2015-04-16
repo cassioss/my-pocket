@@ -1,23 +1,27 @@
 <resources>
+    <!-- App definitions -->
     <string name="app_name">MyPocket</string>
-
     <string name="action_settings">Settings</string>
+
+    <!-- Main activity -->
     <string name="total_balance_text_view">Total Balance:</string>
     <string name="total_balance_value_text_view">US$ 0.00</string>
     <string name="add_transaction_button">Add Transaction</string>
     <string name="show_accounts_button">Show Accounts</string>
+    <string name="last_entries_text_view">Last Entries</string>
 
-    <string name="title_activity_transaction">TransactionActivity</string>
-    <string name="add_transaction">Add Transaction</string>
+    <!-- Add transaction -->
+    <string name="title_activity_add_transaction">Add Transaction</string>
     <string name="title_activity_add_account">Add Account</string>
 
-    <string name="name_account">Name Account:</string>
-    <string name="add_account_button">add account</string>
+    <string name="name_account">Account name:</string>
+    <string name="add_account_button">Add account</string>
 
     <string name="expense_radio">Expense</string>
     <string name="income_radio">Income</string>
     <string name="value_text_view">Value</string>
-    <string name="last_entries_text_view">Last Entries</string>
+
+    <!-- Transaction row -->
 
     <string name="account_active_switch">Active:</string>
 
@@ -28,12 +32,16 @@
     <string name="save_transaction_button">Save transaction</string>
     <string name="title_activity_show_account">ShowAccountActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+    <!-- Show accounts -->
     <string name="show_account_info">Show Accounts</string>
     <string name="transaction_value">$</string>
     <string name="show_account_value">$</string>
     <string name="Initial_value">Initial Value:</string>
     <string name="account_active_yes_radio">Yes</string>
     <string name="account_active_no_radio">No</string>
+
+    <!-- Account row -->
+
+    <!-- Add account -->
 
 </resources>
