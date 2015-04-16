@@ -52,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Creates a database with three tables on the first time.
+     * Creates a database with three tables on the first time, a default category and a default account.
      *
      * @param db the database application.
      */
@@ -61,6 +61,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(createAccountTable());
         db.execSQL(createCategoryTable());
         db.execSQL(createTransactionTable());
+        db.execSQL(insertMyPocketAccount());
+        db.execSQL(insertNoCategory());
     }
 
     /**
@@ -109,6 +111,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Default account: MyPocket (zero initial balance).
+     *
+     * @return an insertion query for MyPocket.
+     */
+    private String insertMyPocketAccount() {
+        return "INSERT INTO " + TABLE_ACCOUNT + " (" + KEY_ACCOUNT_NAME + ", " + KEY_INITIAL_VALUE + ", " + KEY_CURRENT_BALANCE + ", " + KEY_ACCOUNT_ACTIVE + ") VALUES " +
+                "(\"MyPocket\", 0.00, 0.00, 1);";
+    }
+
+    /**
+     * Default category: No category.
+     *
+     * @return an insertion query for a "No category" category.
+     */
+    private String insertNoCategory() {
+        return "INSERT INTO " + TABLE_CATEGORY + " (" + KEY_CATEGORY_NAME + ") VALUES (\"No category\");";
+    }
+
+    /**
      * Tells the database what to do in case there is an upgrade.
      *
      * @param db         the database application.
@@ -122,6 +143,5 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
         onCreate(db);
     }
-
 
 }
