@@ -18,12 +18,11 @@ public class AccountDAO {
 
     private SQLiteDatabase database;
     private DatabaseHandler dbHandler;
-    private String[] allAccount = {DatabaseHandler.KEY_TRANS_ID,
-                                   DatabaseHandler.KEY_TRANS_TYPE,
-                                   DatabaseHandler.KEY_DESCRIPTION,
-                                   DatabaseHandler.KEY_CREATION_DATE,
-                                   DatabaseHandler.KEY_CATEGORY_ID,
-                                   DatabaseHandler.KEY_ACCOUNT_ID};
+    private String[] allAccount = {DatabaseHandler.KEY_ACCOUNT_ID,
+                                   DatabaseHandler.KEY_ACCOUNT_NAME,
+                                   DatabaseHandler.KEY_INITIAL_VALUE,
+                                   DatabaseHandler.KEY_CURRENT_BALANCE,
+                                   DatabaseHandler.KEY_ACCOUNT_ACTIVE};
 
     /**
      * DAO Constructor for transactions.
@@ -62,24 +61,22 @@ public class AccountDAO {
      * @param accountID    the ID of the account that contains the transaction.
      * @return a Transaction object whose information is already inside the database.
      */
-    public Transaction createTransaction(int type, String description, double value,
-                                         String creationDate, int categoryID, int accountID) {
+    public Account createAccount(String accountName, double initialValue,  double currentBalance,
+                                         int accountActive) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHandler.KEY_TRANS_TYPE, type);
-        values.put(DatabaseHandler.KEY_DESCRIPTION, description);
-        values.put(DatabaseHandler.KEY_TRANS_VALUE, value);
-        values.put(DatabaseHandler.KEY_CREATION_DATE, creationDate);
-        values.put(DatabaseHandler.KEY_CATEGORY_ID, categoryID);
-        values.put(DatabaseHandler.KEY_ACCOUNT_ID, accountID);
-        long insertId = database.insert(DatabaseHandler.TABLE_TRANSACTION, null,
+        values.put(DatabaseHandler.KEY_ACCOUNT_NAME, accountName);
+        values.put(DatabaseHandler.KEY_INITIAL_VALUE, initialValue);
+        values.put(DatabaseHandler.KEY_CURRENT_BALANCE, currentBalance);
+        values.put(DatabaseHandler.KEY_ACCOUNT_ACTIVE, accountActive);
+        long insertId = database.insert(DatabaseHandler.TABLE_ACCOUNT, null,
                 values);
-        Cursor cursor = database.query(DatabaseHandler.TABLE_TRANSACTION,
-                allTransaction, DatabaseHandler.KEY_TRANS_ID + " = " + insertId, null,
+        Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
+                allAccount, DatabaseHandler.KEY_ACCOUNT_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        Transaction newTransaction = cursorToTransaction(cursor);
+        Account newAccount = cursorToAccount(cursor);
         cursor.close();
-        return newTransaction;
+        return newAccount;
     }
 
     /**
@@ -87,10 +84,10 @@ public class AccountDAO {
      *
      * @param transaction the transaction marked for deletion.
      */
-    public void deleteTransaction(Transaction transaction) {
-        long id = transaction.getTransactionID();
-        System.out.println("Transaction deleted with id: " + id);
-        database.delete(DatabaseHandler.TABLE_TRANSACTION, DatabaseHandler.KEY_TRANS_ID
+    public void deleteAccount(Account account) {
+        long id = account.getAccountID();
+        System.out.println("Account deleted with id: " + id);
+        database.delete(DatabaseHandler.TABLE_ACCOUNT, DatabaseHandler.KEY_ACCOUNT_ID
                 + " = " + id, null);
     }
 
@@ -99,21 +96,21 @@ public class AccountDAO {
      *
      * @return a list with all items from the Transactions table turned into Transaction objects.
      */
-    public List<Transaction> getAllTransactions() {
-        List<Transaction> transactions = new ArrayList<Transaction>();
+    public List<Account> getAllTransactions() {
+        List<Account> accounts = new ArrayList<Account>();
 
-        Cursor cursor = database.query(DatabaseHandler.TABLE_TRANSACTION,
-                allTransaction, null, null, null, null, null);
+        Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
+                allAccount, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Transaction Transaction = cursorToTransaction(cursor);
-            transactions.add(Transaction);
+            Account account = cursorToAccount(cursor);
+            accounts.add(account);
             cursor.moveToNext();
         }
         // make sure to close the cursor
         cursor.close();
-        return transactions;
+        return accounts;
     }
 
     /**
@@ -122,15 +119,14 @@ public class AccountDAO {
      * @param cursor the cursor with a given transaction in the database.
      * @return a transaction equivalent to the one pointed by the cursor.
      */
-    private Transaction cursorToTransaction(Cursor cursor) {
-        Transaction transaction = new Transaction(0, 0, null, 0.0, null, 0, 0);
-        transaction.setTransactionID(cursor.getInt(0));
-        transaction.setType(cursor.getInt(1));
-        transaction.setDescription(cursor.getString(3));
-        transaction.setCreationDate(cursor.getString(4));
-        transaction.setCategoryID(cursor.getInt(5));
-        transaction.setAccountID(cursor.getInt(6));
-        return transaction;
+    private Account cursorToAccount(Cursor cursor) {
+        Account account = new Account(0, null, 0.0, true);
+        account.setAccountID (cursor.getInt(0));
+        account.setName (cursor.getString(1));
+        account.getInitialValue (cursor.getDouble(2));
+        account.getCurrentBalance(cursor.getDouble(3));
+        account.isAccountActive (cursor.getInt(4));
+        return account;
     }
 
 }
