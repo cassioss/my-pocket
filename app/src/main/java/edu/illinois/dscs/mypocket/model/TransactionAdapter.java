@@ -34,10 +34,10 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         nameTextView.setText(description);
 
         TextView valueTextView = (TextView) transactionView.findViewById(R.id.transaction_value_text_view);
-        if (currentTransaction.getType() == TransactionType.EXPENSE) {
+        if (currentTransaction.getType() == 0) {
             valueTextView.setText("-" + valueTextView.getText() + " " + transactionValue);
             valueTextView.setTextColor(Color.RED);
-        } else if (currentTransaction.getType() == TransactionType.INCOME) {
+        } else if (currentTransaction.getType() == 1) {
             valueTextView.setText(valueTextView.getText() + " " + transactionValue);
             valueTextView.setTextColor(Color.GREEN);
         }

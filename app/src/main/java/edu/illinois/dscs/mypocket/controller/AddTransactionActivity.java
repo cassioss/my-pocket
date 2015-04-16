@@ -19,7 +19,6 @@ import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 import edu.illinois.dscs.mypocket.model.Transaction;
-import edu.illinois.dscs.mypocket.model.TransactionType;
 
 /**
  * @author Cassio
@@ -77,15 +76,15 @@ public class AddTransactionActivity extends ActionBarActivity {
         startActivity(goBackToMain);
     }
 
-    private TransactionType getTransactionChoice() {
-        TransactionType thisType = TransactionType.EXPENSE;
+    private int getTransactionChoice() {
+        int thisType = 0;
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
         switch (radioButtonID) {
             case R.id.expense_radio:
                 break;
             case R.id.income_radio:
-                thisType = TransactionType.INCOME;
+                thisType = 1;
                 break;
         }
         return thisType;

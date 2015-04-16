@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionAdapter;
-import edu.illinois.dscs.mypocket.model.TransactionType;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -83,9 +82,9 @@ public class MainActivity extends ActionBarActivity {
     private double getTotalBalance() {
         double totalValue = 0.00;
         for (Transaction transaction : lastTransactions) {
-            if (transaction.getType() == TransactionType.EXPENSE)
+            if (transaction.getType() == 0)
                 totalValue -= transaction.getValue();
-            else if (transaction.getType() == TransactionType.INCOME)
+            else if (transaction.getType() == 1)
                 totalValue += transaction.getValue();
         }
         return totalValue;
