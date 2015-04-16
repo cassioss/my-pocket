@@ -15,9 +15,12 @@ import edu.illinois.dscs.mypocket.model.Transaction;
  */
 public class TransactionDAO extends BasicDAO {
 
-    private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID, DatabaseHandler.KEY_TRANS_TYPE,
-            DatabaseHandler.KEY_DESCRIPTION, DatabaseHandler.KEY_CREATION_DATE,
-            DatabaseHandler.KEY_CATEGORY_ID, DatabaseHandler.KEY_ACCOUNT_ID};
+    private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID,
+            DatabaseHandler.KEY_TRANS_TYPE,
+            DatabaseHandler.KEY_DESCRIPTION,
+            DatabaseHandler.KEY_CREATION_DATE,
+            DatabaseHandler.KEY_CATEGORY_ID,
+            DatabaseHandler.KEY_ACCOUNT_ID};
 
     /**
      * DAO constructor for transactions.
