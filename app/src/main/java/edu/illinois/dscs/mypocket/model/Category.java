@@ -12,7 +12,8 @@ public class Category {
     /**
      * Creates a new Category object.
      *
-     * @param name the name of the Category.
+     * @param categoryID the category ID (created automatically).
+     * @param name       the name of the Category.
      */
     public Category(int categoryID, String name) {
         this.categoryID = categoryID;

@@ -45,13 +45,12 @@
             android:text="@string/Initial_value"
             android:textSize="25sp" />
 
-
         <EditText
             android:id="@+id/account_initial_Value_edit_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:textAllCaps="false" />
 
     </LinearLayout>
