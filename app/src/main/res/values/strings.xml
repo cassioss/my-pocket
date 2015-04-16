@@ -46,6 +46,8 @@
 
     <!-- Edit transaction -->
     <string name="label_edit_transaction">Edit Transaction</string>
-    <string name="title_activity_create_category">CreateCategoryActivity</string>
+
+    <!-- Create category -->
+    <string name="label_create_category">CreateCategoryActivity</string>
 
 </resources>
