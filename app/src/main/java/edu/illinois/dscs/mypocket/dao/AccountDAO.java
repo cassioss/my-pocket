@@ -12,57 +12,38 @@ import java.util.List;
 import edu.illinois.dscs.mypocket.model.Account;
 
 /**
- * Created by denniscardoso on 4/16/15.
+ * @author Dennis
+ * @version 1.0
  */
-public class AccountDAO {
+public class AccountDAO extends BasicDAO {
 
-    private SQLiteDatabase database;
-    private DatabaseHandler dbHandler;
     private String[] allAccount = {DatabaseHandler.KEY_ACCOUNT_ID,
-                                   DatabaseHandler.KEY_ACCOUNT_NAME,
-                                   DatabaseHandler.KEY_INITIAL_VALUE,
-                                   DatabaseHandler.KEY_CURRENT_BALANCE,
-                                   DatabaseHandler.KEY_ACCOUNT_ACTIVE};
+            DatabaseHandler.KEY_ACCOUNT_NAME,
+            DatabaseHandler.KEY_INITIAL_VALUE,
+            DatabaseHandler.KEY_CURRENT_BALANCE,
+            DatabaseHandler.KEY_ACCOUNT_ACTIVE};
 
     /**
-     * DAO Constructor for transactions.
+     * DAO constructor for accounts.
      *
      * @param context the database context in the phone.
      */
     public AccountDAO(Context context) {
-        dbHandler = new DatabaseHandler(context);
+        super(context);
     }
 
     /**
-     * Opens the database handler.
-     *
-     * @throws java.sql.SQLException if the database cannot be reached.
-     */
-    public void open() throws SQLException {
-        database = dbHandler.getWritableDatabase();
-    }
-
-    /**
-     * Closes the database handler.
-     */
-    public void close() {
-        dbHandler.close();
-    }
-
-    /**
-     * Creates a Transaction object from all the data obtained from user interactions,
+     * Creates an Account object from all the data obtained from user interactions,
      * inserting it into the database.
      *
-     * @param type         an integer associated with the transaction type (expense or income).
-     * @param description  the transaction description.
-     * @param value        the transaction value (always non-negative).
-     * @param creationDate the transaction's creation date (not necessarily today).
-     * @param categoryID   the ID of the category associated with the transaction.
-     * @param accountID    the ID of the account that contains the transaction.
-     * @return a Transaction object whose information is already inside the database.
+     * @param accountName    the account name.
+     * @param initialValue   the account's initial value.
+     * @param currentBalance the account's current balance.
+     * @param accountActive  an integer associated with the account being active or not.
+     * @return an Account object whose information is already inside the database.
      */
-    public Account createAccount(String accountName, double initialValue,  double currentBalance,
-                                         int accountActive) {
+    public Account createAccount(String accountName, double initialValue, double currentBalance,
+                                 int accountActive) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHandler.KEY_ACCOUNT_NAME, accountName);
         values.put(DatabaseHandler.KEY_INITIAL_VALUE, initialValue);
@@ -73,16 +54,18 @@ public class AccountDAO {
         Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
                 allAccount, DatabaseHandler.KEY_ACCOUNT_ID + " = " + insertId, null,
                 null, null, null);
+
         cursor.moveToFirst();
         Account newAccount = cursorToAccount(cursor);
         cursor.close();
+
         return newAccount;
     }
 
     /**
-     * Deletes a given transaction from the database.
+     * Deletes a given account from the database.
      *
-     * @param transaction the transaction marked for deletion.
+     * @param account the account marked for deletion.
      */
     public void deleteAccount(Account account) {
         long id = account.getAccountID();
@@ -92,12 +75,12 @@ public class AccountDAO {
     }
 
     /**
-     * Gets all transactions from the database.
+     * Gets all account from the database.
      *
-     * @return a list with all items from the Transactions table turned into Transaction objects.
+     * @return a list with all items from the Account table turned into Account objects.
      */
-    public List<Account> getAllTransactions() {
-        List<Account> accounts = new ArrayList<Account>();
+    public List<Account> getAllAcounts() {
+        List<Account> accounts = new ArrayList<>();
 
         Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
                 allAccount, null, null, null, null, null);
@@ -114,18 +97,18 @@ public class AccountDAO {
     }
 
     /**
-     * Turns a cursor item into a full transaction.
+     * Turns a cursor item into a full account.
      *
-     * @param cursor the cursor with a given transaction in the database.
-     * @return a transaction equivalent to the one pointed by the cursor.
+     * @param cursor the cursor with a given account in the database.
+     * @return an account equivalent to the one pointed by the cursor.
      */
     private Account cursorToAccount(Cursor cursor) {
         Account account = new Account(0, null, 0.0, true);
-        account.setAccountID (cursor.getInt(0));
-        account.setName (cursor.getString(1));
-        account.getInitialValue (cursor.getDouble(2));
-        account.getCurrentBalance(cursor.getDouble(3));
-        account.isAccountActive (cursor.getInt(4));
+        account.setAccountID(cursor.getInt(0));
+        account.setName(cursor.getString(1));
+        account.setInitialValue(cursor.getDouble(2));
+        account.setCurrentBalance(cursor.getDouble(3));
+        account.setAccountActive(cursor.getInt(4) > 0);
         return account;
     }
 
