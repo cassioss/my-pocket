@@ -7,6 +7,10 @@ import android.view.MenuItem;
 
 import edu.illinois.dscs.mypocket.R;
 
+/**
+ * @author Cassio
+ * @version 1.0
+ */
 public class EditTransactionActivity extends ActionBarActivity {
 
     @Override

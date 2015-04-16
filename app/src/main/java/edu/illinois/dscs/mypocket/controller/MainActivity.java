@@ -18,6 +18,11 @@ import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 
+/**
+ * @author Cassio, Dennis
+ * @version 1.1
+ * @since 1.0
+ */
 public class MainActivity extends ActionBarActivity {
 
     public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
