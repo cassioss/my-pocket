@@ -11,7 +11,7 @@ import java.util.Date;
 public class Transaction {
 
     private int transactionID;
-    private TransactionType type;
+    private int type;
     private String description;
     private double value;
     private String creationDate;
@@ -29,8 +29,8 @@ public class Transaction {
      * @param categoryID    the category ID associated with the transaction (unique).
      * @param accountID     the account that has this transaction.
      */
-    public Transaction(int transactionID, TransactionType type, String description, double value, String creationDate,
-                       int categoryID, int accountID) {
+    public Transaction(int transactionID, int type, String description, double value,
+                       String creationDate, int categoryID, int accountID) {
         this.transactionID = transactionID;
         this.type = type;
         this.description = description;
@@ -48,11 +48,11 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public TransactionType getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(TransactionType type) {
+    public void setType(int type) {
         this.type = type;
     }
 

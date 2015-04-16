@@ -1,6 +1,5 @@
 package edu.illinois.dscs.mypocket.dao;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,9 +19,9 @@ public class TransactionDAO {
 
     private SQLiteDatabase database;
     private DatabaseHandler dbHandler;
-    private String[] allTransaction = { DatabaseHandler.KEY_TRANS_ID,
-            DatabaseHandler.KEY_TRANS_TYPE, DatabaseHandler.KEY_DESCRIPTION,
-            DatabaseHandler.KEY_CREATION_DATE, DatabaseHandler.KEY_CATEGORY_ID, DatabaseHandler.KEY_ACCOUNT_ID};
+    private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID, DatabaseHandler.KEY_TRANS_TYPE,
+            DatabaseHandler.KEY_DESCRIPTION, DatabaseHandler.KEY_CREATION_DATE,
+            DatabaseHandler.KEY_CATEGORY_ID, DatabaseHandler.KEY_ACCOUNT_ID};
 
     public TransactionDAO(Context context) {
         dbHandler = new DatabaseHandler(context);
@@ -80,7 +79,7 @@ public class TransactionDAO {
     }
 
     private Transaction cursorToTransaction(Cursor cursor) {
-        Transaction transaction = new Transaction(0,null,null,0.0,null,0,0);
+        Transaction transaction = new Transaction(0, 0, null, 0.0, null, 0, 0);
         transaction.setTransactionID(cursor.getInt(0));
         transaction.setType(cursor.getInt(1));
         transaction.setDescription(cursor.getString(3));
@@ -89,8 +88,4 @@ public class TransactionDAO {
         transaction.setAccountID(cursor.getInt(6));
         return transaction;
     }
-}
-
-
-
 }
