@@ -3,9 +3,7 @@ package edu.illinois.dscs.mypocket.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +68,7 @@ public class CategoryDAO extends BasicDAO {
      * @return a list with all items from the Category table turned into Category objects.
      */
     public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<Category>();
+        List<Category> categories = new ArrayList<>();
 
         Cursor cursor = database.query(DatabaseHandler.TABLE_CATEGORY,
                 allCategories, null, null, null, null, null);

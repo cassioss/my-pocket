@@ -3,9 +3,7 @@ package edu.illinois.dscs.mypocket.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +78,7 @@ public class TransactionDAO extends BasicDAO {
      * @return a list with all items from the Transactions table turned into Transaction objects.
      */
     public List<Transaction> getAllTransactions() {
-        List<Transaction> transactions = new ArrayList<Transaction>();
+        List<Transaction> transactions = new ArrayList<>();
 
         Cursor cursor = database.query(DatabaseHandler.TABLE_TRANSACTION,
                 allTransaction, null, null, null, null, null);
