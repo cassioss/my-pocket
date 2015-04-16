@@ -114,7 +114,7 @@ public class AddTransactionActivity extends ActionBarActivity {
     }
 
     private Account getAccount() {
-        return ShowAccountActivity.myPocket;
+        return ShowAccountsActivity.myPocket;
     }
 
     private Category getCategory() {

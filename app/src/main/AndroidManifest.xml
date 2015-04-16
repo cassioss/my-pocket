@@ -24,7 +24,7 @@
             android:name=".controller.AddAccountActivity"
             android:label="@string/label_add_account" />
         <activity
-            android:name=".controller.ShowAccountActivity"
+            android:name=".controller.ShowAccountsActivity"
             android:label="@string/label_show_account" />
         <activity
             android:name=".controller.SeeAccountActivity"

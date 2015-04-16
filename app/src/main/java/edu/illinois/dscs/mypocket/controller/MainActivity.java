@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showAccounts(View view) {
-        Intent ShowAccountIntent = new Intent(this, ShowAccountActivity.class);
+        Intent ShowAccountIntent = new Intent(this, ShowAccountsActivity.class);
 
         ShowAccountIntent.putExtra("CallingActivity", "MainActivity");
         startActivity(ShowAccountIntent);

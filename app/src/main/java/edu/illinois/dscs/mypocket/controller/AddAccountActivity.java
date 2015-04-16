@@ -46,9 +46,9 @@ public class AddAccountActivity extends ActionBarActivity {
     }
 
     public void saveAccount(View view) {
-        Intent goBackToShowAccount = new Intent(this, ShowAccountActivity.class);
+        Intent goBackToShowAccount = new Intent(this, ShowAccountsActivity.class);
         //Account newAccount = new Account(getName(), getInitialValue(), true);
-        //ShowAccountActivity.showAccounts.add(newAccount);
+        //ShowAccountsActivity.showAccounts.add(newAccount);
         startActivity(goBackToShowAccount);
     }
 
@@ -67,7 +67,7 @@ public class AddAccountActivity extends ActionBarActivity {
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
         boolean ActiveValue = true;
 
-        switch(radioButtonID){
+        switch (radioButtonID) {
             case R.id.account_active_yes_radio:
                 break;
             case R.id.account_active_no_radio:

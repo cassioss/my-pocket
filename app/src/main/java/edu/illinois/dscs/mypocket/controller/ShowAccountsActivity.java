@@ -13,11 +13,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.R;
-import edu.illinois.dscs.mypocket.controller.AddAccountActivity;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
-public class ShowAccountActivity extends ActionBarActivity {
+public class ShowAccountsActivity extends ActionBarActivity {
 
     public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
 
@@ -26,7 +25,7 @@ public class ShowAccountActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_account);
+        setContentView(R.layout.activity_show_accounts);
 
         if (!showAccounts.contains(myPocket))
             showAccounts.add(myPocket);
@@ -49,7 +48,7 @@ public class ShowAccountActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_account, menu);
+        getMenuInflater().inflate(R.menu.menu_show_accounts, menu);
         return true;
     }
 
@@ -71,7 +70,7 @@ public class ShowAccountActivity extends ActionBarActivity {
     public void add_account_button(View view) {
         Intent AddAccountIntent = new Intent(this, AddAccountActivity.class);
 
-        AddAccountIntent.putExtra("CallActivity", "ShowAccountActivity");
+        AddAccountIntent.putExtra("CallActivity", "ShowAccountsActivity");
         startActivity(AddAccountIntent);
 
     }
