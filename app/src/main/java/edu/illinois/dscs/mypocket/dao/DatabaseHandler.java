@@ -12,33 +12,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
 
-    private static final String DATABASE = "mypocket";
-    private static final int VERSION = 1;
+    public static final String DATABASE = "mypocket";
+    public static final int VERSION = 1;
 
     // Table Account
 
-    private static final String TABLE_ACCOUNT = "Account";
+    public static final String TABLE_ACCOUNT = "Account";
 
-    private static final String KEY_ACCOUNT_ID = "accountID";
-    private static final String KEY_ACCOUNT_NAME = "accountName";
-    private static final String KEY_INITIAL_VALUE = "initialValue";
-    private static final String KEY_ACCOUNT_ACTIVE = "accountActive";
+    public static final String KEY_ACCOUNT_ID = "accountID";
+    public static final String KEY_ACCOUNT_NAME = "accountName";
+    public static final String KEY_INITIAL_VALUE = "initialValue";
+    public static final String KEY_CURRENT_BALANCE = "initialValue";
+    public static final String KEY_ACCOUNT_ACTIVE = "accountActive";
 
     // Table Category
 
-    private static final String TABLE_CATEGORY = "Category";
+    public static final String TABLE_CATEGORY = "Category";
 
-    private static final String KEY_CATEGORY_ID = "categoryID";
-    private static final String KEY_CATEGORY_NAME = "categoryName";
+    public static final String KEY_CATEGORY_ID = "categoryID";
+    public static final String KEY_CATEGORY_NAME = "categoryName";
 
     // Table Transactions
 
-    private static final String TABLE_TRANSACTION = "Transactions";
+    public static final String TABLE_TRANSACTION = "Transactions";
 
-    private static final String KEY_TRANS_ID = "transactionID";
-    private static final String KEY_TRANS_TYPE = "transType";
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_CREATION_DATE = "creationDate";
+    public static final String KEY_TRANS_ID = "transactionID";
+    public static final String KEY_TRANS_TYPE = "transType";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_TRANS_VALUE = "transactionValue";
+    public static final String KEY_CREATION_DATE = "creationDate";
 
     /**
      * Creates a database handler object to create the database and manipulate queries.
@@ -71,6 +73,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_ACCOUNT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_ACCOUNT_NAME + " TEXT, " +
                 KEY_INITIAL_VALUE + " REAL, " +
+                KEY_CURRENT_BALANCE + " REAL," +
                 KEY_ACCOUNT_ACTIVE + " INTEGER" +
                 ");";
     }
@@ -97,6 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_TRANS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 KEY_TRANS_TYPE + " TEXT, " +
                 KEY_DESCRIPTION + " TEXT, " +
+                KEY_TRANS_VALUE + " REAL, " +
                 KEY_CREATION_DATE + " TEXT, " +
                 KEY_CATEGORY_ID + " INTEGER, " +
                 KEY_ACCOUNT_ID + " INTEGER, " +
@@ -118,4 +122,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
         onCreate(db);
     }
+
+
 }

@@ -14,7 +14,7 @@ public class Transaction {
     private TransactionType type;
     private String description;
     private double value;
-    private Date creationDate;
+    private String creationDate;
     private int categoryID;
     private int accountID;
 
@@ -29,7 +29,7 @@ public class Transaction {
      * @param categoryID    the category ID associated with the transaction (unique).
      * @param accountID     the account that has this transaction.
      */
-    public Transaction(int transactionID, TransactionType type, String description, double value, Date creationDate,
+    public Transaction(int transactionID, TransactionType type, String description, double value, String creationDate,
                        int categoryID, int accountID) {
         this.transactionID = transactionID;
         this.type = type;
@@ -72,11 +72,11 @@ public class Transaction {
         this.value = value;
     }
 
-    public Date getCreationDate() {
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(String creationDate) {
         this.creationDate = creationDate;
     }
 
