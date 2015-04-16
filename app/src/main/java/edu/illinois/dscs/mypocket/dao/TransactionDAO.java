@@ -15,37 +15,19 @@ import edu.illinois.dscs.mypocket.model.Transaction;
  * @author Cassio, Dennis
  * @version 1.0
  */
-public class TransactionDAO {
+public class TransactionDAO extends BasicDAO {
 
-    private SQLiteDatabase database;
-    private DatabaseHandler dbHandler;
     private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID, DatabaseHandler.KEY_TRANS_TYPE,
             DatabaseHandler.KEY_DESCRIPTION, DatabaseHandler.KEY_CREATION_DATE,
             DatabaseHandler.KEY_CATEGORY_ID, DatabaseHandler.KEY_ACCOUNT_ID};
 
     /**
-     * DAO Constructor for transactions.
+     * DAO constructor for transactions.
      *
      * @param context the database context in the phone.
      */
     public TransactionDAO(Context context) {
-        dbHandler = new DatabaseHandler(context);
-    }
-
-    /**
-     * Opens the database handler.
-     *
-     * @throws SQLException if the database cannot be reached.
-     */
-    public void open() throws SQLException {
-        database = dbHandler.getWritableDatabase();
-    }
-
-    /**
-     * Closes the database handler.
-     */
-    public void close() {
-        dbHandler.close();
+        super(context);
     }
 
     /**
@@ -93,7 +75,7 @@ public class TransactionDAO {
     }
 
     /**
-     * Gets all transactions from the database.
+     * Gets all the transactions from the database.
      *
      * @return a list with all items from the Transactions table turned into Transaction objects.
      */
