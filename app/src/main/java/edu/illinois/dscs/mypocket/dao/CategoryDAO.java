@@ -34,10 +34,10 @@ public class CategoryDAO {
         dbHandler.close();
     }
 
-    public Category createCategory(int type, String description, double value, String creationDate, int categoryID, int accountID) {
+    public Category createCategory(int categoryId, String categoryName) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHandler.KEY_CATEGORY_ID, type);
-        values.put(DatabaseHandler.KEY_CATEGORY_NAME, description);
+        values.put(DatabaseHandler.KEY_CATEGORY_ID, categoryId);
+        values.put(DatabaseHandler.KEY_CATEGORY_NAME, categoryName);
         long insertId = database.insert(DatabaseHandler.TABLE_CATEGORY, null,
                 values);
         Cursor cursor = database.query(DatabaseHandler.TABLE_CATEGORY,
