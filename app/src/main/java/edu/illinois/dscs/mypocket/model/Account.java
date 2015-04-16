@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Account {
 
+    private int accountID;
     private String name;
     private double initialValue;
     private boolean accountActive;
