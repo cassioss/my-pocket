@@ -44,6 +44,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE, null, VERSION);
     }
 
+    /**
+     * Creates a database with three tables on the first time.
+     *
+     * @param db the database application.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(createAccountTable());
