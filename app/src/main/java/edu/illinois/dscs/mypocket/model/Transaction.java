@@ -22,7 +22,7 @@ public class Transaction {
      * Creates a transaction object.
      *
      * @param transactionID the transaction ID (generated automatically).
-     * @param type          the type of the transaction (expense or income).
+     * @param type          the transaction type (expense or income).
      * @param description   the transaction's description.
      * @param value         the transaction value (always positive).
      * @param creationDate  the creation date of the transaction (not necessarily today's date).
