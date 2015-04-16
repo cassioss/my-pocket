@@ -157,7 +157,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
+            
     }
 
 }
