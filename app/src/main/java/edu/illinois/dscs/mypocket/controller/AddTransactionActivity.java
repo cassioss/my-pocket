@@ -1,4 +1,4 @@
-package edu.illinois.dscs.mypocket;
+package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -8,15 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
+import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 import edu.illinois.dscs.mypocket.model.Transaction;
@@ -28,7 +27,7 @@ import edu.illinois.dscs.mypocket.model.TransactionType;
  */
 public class AddTransactionActivity extends ActionBarActivity {
 
-    public static Category noCategory = new Category("No category");
+    public static Category noCategory = new Category(1, "No category");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +72,8 @@ public class AddTransactionActivity extends ActionBarActivity {
 
     public void saveTransaction(View view) {
         Intent goBackToMain = new Intent(this, MainActivity.class);
-        Transaction newTransaction = new Transaction(getTransactionChoice(), getDescription(), getValue(), getDate(), getCategory(), getAccount());
-        MainActivity.lastTransactions.add(newTransaction);
+        //Transaction newTransaction = new Transaction(getTransactionChoice(), getDescription(), getValue(), getDate(), getCategory(), getAccount());
+        //MainActivity.lastTransactions.add(newTransaction);
         startActivity(goBackToMain);
     }
 

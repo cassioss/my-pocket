@@ -1,4 +1,4 @@
-package edu.illinois.dscs.mypocket;
+package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 import edu.illinois.dscs.mypocket.model.TransactionType;

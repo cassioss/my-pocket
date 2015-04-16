@@ -1,4 +1,4 @@
-package edu.illinois.dscs.mypocket;
+package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -8,10 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
+import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.model.Account;
-import edu.illinois.dscs.mypocket.model.Category;
 
 
 public class AddAccountActivity extends ActionBarActivity {
@@ -48,8 +47,8 @@ public class AddAccountActivity extends ActionBarActivity {
 
     public void saveAccount(View view) {
         Intent goBackToShowAccount = new Intent(this, ShowAccountActivity.class);
-        Account newAccount = new Account(getName(), getInitialValue(), true);
-        ShowAccountActivity.showAccounts.add(newAccount);
+        //Account newAccount = new Account(getName(), getInitialValue(), true);
+        //ShowAccountActivity.showAccounts.add(newAccount);
         startActivity(goBackToShowAccount);
     }
 

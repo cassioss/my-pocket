@@ -1,4 +1,4 @@
-package edu.illinois.dscs.mypocket;
+package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -12,12 +12,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.controller.AddAccountActivity;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
 public class ShowAccountActivity extends ActionBarActivity {
 
-    public static Account myPocket = new Account("MyPocket", 0.00, true);
+    public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
 
     public static ArrayList<Account> showAccounts = new ArrayList<>();
 
