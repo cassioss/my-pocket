@@ -48,6 +48,8 @@
     <string name="label_edit_transaction">Edit Transaction</string>
 
     <!-- Create category -->
-    <string name="label_create_category">CreateCategoryActivity</string>
+    <string name="label_create_category">Create category</string>
+    <string name="category_name_text_view">Name</string>
+    <string name="add_category_button">Add Category</string>
 
 </resources>
