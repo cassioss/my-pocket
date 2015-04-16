@@ -41,7 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CREATION_DATE = "creationDate";
 
     /**
-     * Creates a database handler object to create the database and manipulate queries..
+     * Creates a database handler object to create the database and manipulate queries.
      *
      * @param context the database context in the phone.
      */
