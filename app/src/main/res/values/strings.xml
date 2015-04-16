@@ -25,12 +25,12 @@
     <string name="save_transaction_button">Save transaction</string>
 
     <!-- Show accounts -->
-    <string name="label_show_account">Show Accounts</string>
+    <string name="label_show_accounts">Show Accounts</string>
     <string name="add_account_button">Add account</string>
     <string name="all_accounts_info">All accounts</string>
 
-    <!-- Show Account row -->
-    <string name="show_account_value">$</string>
+    <!-- Show Accounts row -->
+    <string name="show_accounts_value">$</string>
 
     <!-- Add account -->
     <string name="label_add_account">Add Account</string>

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/account_value_text_view"
         android:gravity="end"
-        android:text="@string/show_account_value"
+        android:text="@string/show_accounts_value"
         android:textSize="24sp" />
 
 </LinearLayout>
