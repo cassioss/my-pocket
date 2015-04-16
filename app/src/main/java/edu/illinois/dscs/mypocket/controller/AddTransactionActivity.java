@@ -14,8 +14,11 @@ import android.widget.Spinner;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.CategoryDAO;
+import edu.illinois.dscs.mypocket.dao.DatabaseHandler;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 import edu.illinois.dscs.mypocket.model.Transaction;
@@ -35,9 +38,9 @@ public class AddTransactionActivity extends ActionBarActivity {
 
         Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         String[] categories = {"No category"};
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categoryAdapter);
+        //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //categorySpinner.setAdapter(categoryAdapter);
 
         Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
         String[] accounts = {"MyPocket"};
@@ -119,6 +122,24 @@ public class AddTransactionActivity extends ActionBarActivity {
 
     private Category getCategory() {
         return noCategory;
+    }
+
+    private void loadSpinnerData() {
+        // database handler
+        CategoryDAO db = new CategoryDAO(getApplicationContext());
+
+        // Spinner Drop down elements
+        List<Category> CategoryLables = db.getAllCategories();
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CategoryLables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
     }
 
 }
