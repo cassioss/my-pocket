@@ -31,21 +31,24 @@ import edu.illinois.dscs.mypocket.model.Category;
  */
 public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener {
 
-    private Spinner categorySpinner = (Spinner) findViewById(R.id.category_spinner);
-    private Spinner accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+   Spinner categorySpinner;
+   Spinner accountSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_transaction);
 
-        //String[] categories = {"No category"};
-        //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //categorySpinner.setAdapter(categoryAdapter);
+        categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
-        loadSpinnerData();
+        String[] categories = {"No category"};
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
 
+        //loadSpinnerData();
+
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
         String[] accounts = {"MyPocket"};
         ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
         accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -157,7 +160,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
-            
+
     }
 
 }
