@@ -1,6 +1,7 @@
 package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,11 +17,13 @@ import android.widget.AdapterView.OnItemSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
+import edu.illinois.dscs.mypocket.dao.DatabaseHandler;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 
@@ -33,6 +36,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
    Spinner categorySpinner;
    Spinner accountSpinner;
+   CategoryDAO db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +45,17 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
 
-        String[] categories = {"No category"};
-        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categorySpinner.setAdapter(categoryAdapter);
+
+        db = new CategoryDAO(this);
+
+        db.open();
+
+        //loadSpinnerData();
+
+        //String[] categories = {"No Category"};
+        //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //categorySpinner.setAdapter(categoryAdapter);
 
         //loadSpinnerData();
 
@@ -131,20 +142,25 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     private void loadSpinnerData() {
-        // database handler
-        CategoryDAO db = new CategoryDAO(getApplicationContext());
+        Cursor c = db.readData();
+        ArrayList<String> category = new ArrayList<String>();
 
-        // Spinner Drop down elements
-        List<Category> CategoryLables = db.getAllCategories();
+        c.moveToFirst();
 
-        // Creating adapter for spinner
-        ArrayAdapter<Category> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, CategoryLables);
+        while (!c.isAfterLast()) {
 
-        // Drop down layout style - list view with radio button
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            String name = c.getString(c.getColumnIndex(DatabaseHandler.KEY_CATEGORY_NAME));
+            category.add(name);
+            c.moveToNext();
+        }
 
-        // attaching data adapter to spinner
-        categorySpinner.setAdapter(categoryAdapter);
+        ArrayAdapter<String> aa1 = new ArrayAdapter<String>(
+                getApplicationContext(), R.layout.spinner_item, R.id.textView1,
+                category);
+
+        categorySpinner.setAdapter(aa1);
+
+        db.close();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
 
-    public static final String DATABASE = "mypocket";
+    public static final String DATABASE = "MYPOCKET.DB";
     public static final int VERSION = 1;
 
     // Table Account
@@ -49,20 +49,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public DatabaseHandler(Context context) {
         super(context, DATABASE, null, VERSION);
-    }
-
-    /**
-     * Creates a database with three tables on the first time, a default category and a default account.
-     *
-     * @param db the database application.
-     */
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(createAccountTable());
-        db.execSQL(createCategoryTable());
-        db.execSQL(createTransactionTable());
-        db.execSQL(insertMyPocketAccount());
-        db.execSQL(insertNoCategory());
     }
 
     /**
@@ -127,6 +113,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     private String insertNoCategory() {
         return "INSERT INTO " + TABLE_CATEGORY + " (" + KEY_CATEGORY_NAME + ") VALUES (\"No category\");";
+    }
+
+    /**
+     * Creates a database with three tables on the first time, a default category and a default account.
+     *
+     * @param db the database application.
+     */
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(createAccountTable());
+        db.execSQL(createCategoryTable());
+        db.execSQL(createTransactionTable());
+
+        db.execSQL(insertMyPocketAccount());
+        db.execSQL(insertNoCategory());
     }
 
     /**

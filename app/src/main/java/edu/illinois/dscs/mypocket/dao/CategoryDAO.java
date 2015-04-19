@@ -3,7 +3,9 @@ package edu.illinois.dscs.mypocket.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,11 @@ import edu.illinois.dscs.mypocket.model.Category;
  * @author Dennis
  * @version 1.0
  */
-public class CategoryDAO extends BasicDAO {
+public class CategoryDAO {
+
+    protected SQLiteDatabase database;
+    protected DatabaseHandler dbHandler;
+    protected Context Context;
 
     private String[] allCategories = {DatabaseHandler.TABLE_CATEGORY,
             DatabaseHandler.KEY_CATEGORY_ID,
@@ -25,8 +31,37 @@ public class CategoryDAO extends BasicDAO {
      * @param context the database context in the phone.
      */
     public CategoryDAO(Context context) {
-        super(context);
+        Context = context;
     }
+
+    public CategoryDAO open() {
+        dbHandler = new DatabaseHandler(Context);
+        database = dbHandler.getWritableDatabase();
+        return this;
+
+    }
+
+    public void close() {
+        dbHandler.close();
+    }
+
+    public void insertData(String name) {
+        ContentValues cv = new ContentValues();
+        cv.put(dbHandler.KEY_CATEGORY_NAME, name);
+        database.insert(dbHandler.TABLE_CATEGORY, null, cv);
+    }
+
+    public Cursor readData() {
+        String[] allColumns = new String[] { dbHandler.KEY_CATEGORY_ID,
+                dbHandler.KEY_CATEGORY_NAME };
+        Cursor c = database.query(dbHandler.TABLE_CATEGORY, allColumns, null,
+                null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
 
     /**
      * Creates a Category object from all the data obtained from user interactions,
@@ -73,14 +108,14 @@ public class CategoryDAO extends BasicDAO {
         Cursor cursor = database.query(DatabaseHandler.TABLE_CATEGORY,
                 allCategories, null, null, null, null, null);
 
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Category category = cursorToCategory(cursor);
-            categories.add(category);
-            cursor.moveToNext();
-        }
+        //cursor.moveToFirst();
+        //while (!cursor.isAfterLast()) {
+          //  Category category = cursorToCategory(cursor);
+          //  categories.add(category);
+          //  cursor.moveToNext();
+        //}
         // make sure to close the cursor
-        cursor.close();
+        //cursor.close();
         return categories;
     }
 
@@ -96,5 +131,4 @@ public class CategoryDAO extends BasicDAO {
         category.setName(cursor.getString(1));
         return category;
     }
-
 }
