@@ -66,14 +66,33 @@ public class DBHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (" + KEY_ACCOUNT_ID + ") REFERENCES " + TABLE_ACCOUNT + "(" + KEY_ACCOUNT_ID + ")" +
             ");";
 
+    /**
+     * DBHelper constructor.
+     *
+     * @param context the current application section.
+     */
+    public DBHelper(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
     // Insertion statements for default items
 
+    /**
+     * Since "No Category" is a default category, this is a method that sets all values for it when the database is created.
+     *
+     * @return a ContentValues object for "No Category" category.
+     */
     private ContentValues valuesOfNoCategory() {
         ContentValues values = new ContentValues();
         values.put(DBHelper.KEY_CATEGORY_NAME, "No category");
         return values;
     }
 
+    /**
+     * Since "MyPocket" is a default account, this is a method that sets all values for it when the database is created.
+     *
+     * @return a ContentValues object for MyPocket account.
+     */
     private ContentValues valuesOfMyPocket() {
         ContentValues values = new ContentValues();
         values.put(DBHelper.KEY_ACCOUNT_NAME, "MyPocket");
@@ -83,10 +102,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return values;
     }
 
-    public DBHelper(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
-    }
+    // Methods for database creation and upgrade.
 
+    /**
+     * Creates all tables (if they do not already exist) and sets MyPocket and "No Category" items.
+     *
+     * @param db the app database.
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_CATEGORY);
@@ -96,6 +118,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(DBHelper.TABLE_ACCOUNT, null, valuesOfMyPocket());
     }
 
+    /**
+     * Recreates all tables and default items, after dropping them for upgrade purposes.
+     *
+     * @param db         the app database.
+     * @param oldVersion the old version number.
+     * @param newVersion the new version number (has to be greater than oldVersion).
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTION);

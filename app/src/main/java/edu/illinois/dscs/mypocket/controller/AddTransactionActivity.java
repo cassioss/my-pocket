@@ -60,18 +60,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         loadSpinnerDataCategory();
         loadSpinnerDataAccount();
 
-
-        //String[] categories = {"No Category"};
-        //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
-        //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //categorySpinner.setAdapter(categoryAdapter);
-
-        //accountSpinner = (Spinner) findViewById(R.id.account_spinner);
-        //String[] accounts = {"MyPocket"};
-        //ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
-        //accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //accountSpinner.setAdapter(accountAdapter);
-
     }
 
     @Override
@@ -81,6 +69,12 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return true;
     }
 
+    /**
+     * Default selection for Settings menu.
+     *
+     * @param item an item on the Settings menu (only "Settings" by default).
+     * @return a MenuItem equivalent to the item selected.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -96,14 +90,22 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Inserts all data inserted by the user into the Transactions table as a new transaction.
+     *
+     * @param view the View object (button) that calls this method.
+     */
     public void saveTransaction(View view) {
         insertTransData();
         Intent goBackToMain = new Intent(this, MainActivity.class);
-        //Transaction newTransaction = new Transaction(getTransactionChoice(), getDescription(), getValue(), getDate(), getCategory(), getAccount());
-        //MainActivity.lastTransactions.add(newTransaction);
         startActivity(goBackToMain);
     }
 
+    /**
+     * Gets the transaction type choice.
+     *
+     * @return 0 for EXPENSE, 1 for INCOME.
+     */
     private int getTransactionChoice() {
         int thisType = 0;
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
@@ -118,23 +120,40 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return thisType;
     }
 
+    /**
+     * Gets the transactions's description.
+     *
+     * @return a string with the user input for description.
+     */
     private String getDescription() {
         EditText description = (EditText) findViewById(R.id.description_entry);
         return description.getText().toString();
     }
 
+    /**
+     * Gets the transaction value, as a text entry, and turns it into a double number.
+     *
+     * @return the double number equivalent to the user input for the transaction value.
+     */
     private double getValue() {
         EditText transactionValue = (EditText) findViewById(R.id.value_entry);
         return Double.valueOf(transactionValue.getText().toString());
     }
 
+    /**
+     * Gets the transaction date as a string.
+     *
+     * @return a string containing the transaction date.
+     */
     private String getDate() {
         EditText dateView = (EditText) findViewById(R.id.date_field);
-        String dateText = dateView.getText().toString();
-        return dateText;
+        return dateView.getText().toString();
     }
 
-    private void insertTransData(){
+    /**
+     * Inserts all user inputs into the Transactions table.
+     */
+    private void insertTransData() {
         String desc = getDescription();
         int type = getTransactionChoice();
         String date = getDate();
@@ -145,61 +164,49 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         // insert data into table
         dbTransaction.insertData(type, desc, value, date, 1, 1);
 
-        //
-
     }
 
-    private String getAccount() {
-        return accountSpinner.getSelectedItem().toString();
-    }
-
-    private Category getCategory() {
-        return null;
-    }
-
+    /**
+     * Loads all categories inside the Category dropdown for AddTransaction.
+     */
     private void loadSpinnerDataCategory() {
-        Cursor c = dbCategory.readData();
         ArrayList<String> category = new ArrayList<String>();
-
+        Cursor c = dbCategory.readData();
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
-
             String name = c.getString(c.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
             category.add(name);
             c.moveToNext();
         }
 
-        ArrayAdapter<String> aa1 = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getApplicationContext(), R.layout.spinner_item, R.id.textView1,
                 category);
 
-        categorySpinner.setAdapter(aa1);
-
+        categorySpinner.setAdapter(adapter);
         dbCategory.close();
     }
 
-
+    /**
+     * Loads all accounts inside the Account dropdown for AddTransaction.
+     */
     private void loadSpinnerDataAccount() {
-        Cursor c = dbAccount.readData();
-
         ArrayList<String> account = new ArrayList<String>();
-
+        Cursor c = dbAccount.readData();
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
-
             String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
             account.add(name);
             c.moveToNext();
         }
 
-        ArrayAdapter<String> aa1 = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getApplicationContext(), R.layout.spinner_item, R.id.textView1,
                 account);
 
-        accountSpinner.setAdapter(aa1);
-
+        accountSpinner.setAdapter(adapter);
         dbAccount.close();
     }
 

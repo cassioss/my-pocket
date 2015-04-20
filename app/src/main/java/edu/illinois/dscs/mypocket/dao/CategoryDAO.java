@@ -20,8 +20,7 @@ public class CategoryDAO {
     protected DBHelper dbHandler;
     protected Context Context;
 
-    private String[] allCategories = {DBHelper.TABLE_CATEGORY,
-            DBHelper.KEY_CATEGORY_ID,
+    private String[] allCategories = {DBHelper.KEY_CATEGORY_ID,
             DBHelper.KEY_CATEGORY_NAME};
 
     /**
@@ -46,21 +45,34 @@ public class CategoryDAO {
 
     public void insertData(String name) {
         ContentValues cv = new ContentValues();
-        cv.put(dbHandler.KEY_CATEGORY_NAME, name);
-        database.insert(dbHandler.TABLE_CATEGORY, null, cv);
+        cv.put(DBHelper.KEY_CATEGORY_NAME, name);
+        database.insert(DBHelper.TABLE_CATEGORY, null, cv);
     }
 
+    /**
+     * Gets all the rows inside the Category table, equivalent to: SELECT * from Category;
+     *
+     * @return a Cursor object containing the data brought from the query.
+     */
     public Cursor readData() {
-        String[] allColumns = new String[]{dbHandler.KEY_CATEGORY_ID,
-                dbHandler.KEY_CATEGORY_NAME};
-        Cursor c = database.query(dbHandler.TABLE_CATEGORY, allColumns, null,
+        Cursor c = database.query(DBHelper.TABLE_CATEGORY, allCategories, null,
                 null, null, null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
+        if (c != null) c.moveToFirst();
         return c;
     }
 
+    /**
+     * Turns a cursor item into a full category.
+     *
+     * @param cursor the cursor with a given category in the database.
+     * @return a category equivalent to the one pointed by the cursor.
+     */
+    private Category cursorToCategory(Cursor cursor) {
+        Category category = new Category(0, null);
+        category.setCategoryID(cursor.getInt(0));
+        category.setName(cursor.getString(1));
+        return category;
+    }
 
     /**
      * Creates a Category object from all the data obtained from user interactions,
@@ -116,18 +128,5 @@ public class CategoryDAO {
         // make sure to close the cursor
         //cursor.close();
         return categories;
-    }
-
-    /**
-     * Turns a cursor item into a full category.
-     *
-     * @param cursor the cursor with a given category in the database.
-     * @return a category equivalent to the one pointed by the cursor.
-     */
-    private Category cursorToCategory(Cursor cursor) {
-        Category category = new Category(0, null);
-        category.setCategoryID(cursor.getInt(0));
-        category.setName(cursor.getString(1));
-        return category;
     }
 }

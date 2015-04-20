@@ -56,7 +56,7 @@ public class AccountDAO {
     /**
      * Gets all the rows inside the Account table, equivalent to: SELECT * from Account;
      *
-     * @return a Cursor object containing the data resulting from the query.
+     * @return a Cursor object containing the data brought from the query.
      */
     public Cursor readData() {
         Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allAccounts, null, null, null, null, null);

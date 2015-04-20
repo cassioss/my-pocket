@@ -61,12 +61,12 @@ public class TransactionDAO {
      * Inserts all values of a Transaction object into the Transactions table. Equivalent to
      * INSERT INTO Transactions VALUES(type, description, value, date, categoryID, accountID);
      *
-     * @param type
-     * @param description
-     * @param value
-     * @param date
-     * @param categoryID
-     * @param accountID
+     * @param type        the transaction type (expense or income).
+     * @param description the transaction's description.
+     * @param value       the transaction value.
+     * @param date        the transaction date (not necessarily today's date).
+     * @param categoryID  the ID of the category associated with the transaction.
+     * @param accountID   the ID of the account that has the transaction.
      */
     public void insertData(int type, String description, Double value, String date, int categoryID, int accountID) {
         ContentValues cv = new ContentValues();
@@ -79,14 +79,16 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
+    /**
+     * Reads only the description and the value of all the transactions inside the Transactions table.
+     * Equivalent to: SELECT description, value FROM Transactions;
+     *
+     * @return a Cursor object containing the data brought from the query.
+     */
     public Cursor readDataTransList() {
-        String[] someColumns = new String[]{DBHelper.KEY_TRANS_DESCRIPTION,
-                DBHelper.KEY_TRANS_VALUE};
-        Cursor c = database.query(DBHelper.TABLE_TRANSACTION, someColumns, null,
-                null, null, null, null);
-        if (c != null) {
-            c.moveToFirst();
-        }
+        String[] someColumns = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
+        Cursor c = database.query(DBHelper.TABLE_TRANSACTION, someColumns, null, null, null, null, null);
+        if (c != null) c.moveToFirst();
         return c;
     }
 
