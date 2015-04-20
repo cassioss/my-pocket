@@ -13,25 +13,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
-import edu.illinois.dscs.mypocket.dao.DBhelper;
-import edu.illinois.dscs.mypocket.dao.DatabaseHandler;
+import edu.illinois.dscs.mypocket.dao.DBHelperA;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
-import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 
 /**
@@ -41,13 +33,13 @@ import edu.illinois.dscs.mypocket.model.Category;
  */
 public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener {
 
-   Spinner categorySpinner;
-   Spinner accountSpinner;
-   Button addTransButton;
-   CategoryDAO dbCategory;
-   TransactionDAO dbTransaction;
-   AccountDAO dbAccount;
-   ProgressDialog PD;
+    Spinner categorySpinner;
+    Spinner accountSpinner;
+    Button addTransButton;
+    CategoryDAO dbCategory;
+    TransactionDAO dbTransaction;
+    AccountDAO dbAccount;
+    ProgressDialog PD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,8 +136,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     private String getAccount() {
-        String account = accountSpinner.getSelectedItem().toString();
-        return account;
+        return accountSpinner.getSelectedItem().toString();
     }
 
     private Category getCategory() {
@@ -160,7 +151,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DBhelper.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBHelperA.KEY_CATEGORY_NAME));
             category.add(name);
             c.moveToNext();
         }
@@ -183,7 +174,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DBhelper.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBHelperA.KEY_CATEGORY_NAME));
             account.add(name);
             c.moveToNext();
         }

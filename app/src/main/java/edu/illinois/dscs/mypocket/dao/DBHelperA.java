@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBhelper extends SQLiteOpenHelper {
+public class DBHelperA extends SQLiteOpenHelper {
 
     // Database
 
@@ -56,7 +56,7 @@ public class DBhelper extends SQLiteOpenHelper {
 
     private static final String INS_CAT = "INSERT INTO " + TABLE_CATEGORY + " (" + KEY_CATEGORY_NAME + ") VALUES (\"No category\");";
 
-    public DBhelper(Context context) {
+    public DBHelperA(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
