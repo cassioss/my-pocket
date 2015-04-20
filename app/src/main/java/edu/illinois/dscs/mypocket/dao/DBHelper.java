@@ -60,6 +60,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Insertion statements for default items
 
+    private ContentValues valuesOfNoCategory() {
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.KEY_CATEGORY_NAME, "No category");
+        return values;
+    }
+
+    private ContentValues valuesOfMyPocket() {
+        ContentValues values = new ContentValues();
+        values.put(DBHelper.KEY_ACCOUNT_NAME, "MyPocket");
+        values.put(DBHelper.KEY_INITIAL_VALUE, 0.0);
+        values.put(DBHelper.KEY_CURRENT_BALANCE, 0.0);
+        values.put(DBHelper.KEY_ACCOUNT_ACTIVE, 1);
+        return values;
+    }
+
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
@@ -69,7 +84,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_CATEGORY);
         db.execSQL(CREATE_ACCOUNT);
         db.execSQL(CREATE_TRANSACTION);
-        db.execSQL(INS_CAT);
+        db.insert(DBHelper.TABLE_CATEGORY, null, valuesOfNoCategory());
+        db.insert(DBHelper.TABLE_ACCOUNT, null, valuesOfMyPocket());
     }
 
     @Override
