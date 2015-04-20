@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class AccountDAO {
     protected DBHelper dbHandler;
     protected Context Context;
 
-    private String[] allAccount = {DBHelper.KEY_ACCOUNT_ID,
+    private String[] allAccounts = {DBHelper.KEY_ACCOUNT_ID,
             DBHelper.KEY_ACCOUNT_NAME,
             DBHelper.KEY_ACCOUNT_INITIAL_VALUE,
             DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
@@ -36,14 +35,33 @@ public class AccountDAO {
         Context = context;
     }
 
+    /**
+     * Opens the database.
+     *
+     * @return itself (the object instance of AccountDAO calling the method).
+     */
     public AccountDAO open() {
         dbHandler = new DBHelper(Context);
         database = dbHandler.getWritableDatabase();
         return this;
     }
 
+    /**
+     * Closes the database.
+     */
     public void close() {
         dbHandler.close();
+    }
+
+    /**
+     * Gets all the rows inside the Account table, equivalent to: SELECT * from Account;
+     *
+     * @return a Cursor object containing the data resulting from the query.
+     */
+    public Cursor readData() {
+        Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allAccounts, null, null, null, null, null);
+        if (c != null) c.moveToFirst();
+        return c;
     }
 
     public void insertData(String name, int initialValue, int CurrentValue, int accountActive) {
@@ -54,23 +72,6 @@ public class AccountDAO {
         cv.put(DBHelper.KEY_ACCOUNT_ACTIVE, accountActive);
 
         database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
-    }
-
-    public Cursor readData() {
-        String[] allColumns = new String[]{DBHelper.KEY_ACCOUNT_ID, DBHelper.KEY_ACCOUNT_NAME,
-                DBHelper.KEY_ACCOUNT_INITIAL_VALUE, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
-                DBHelper.KEY_ACCOUNT_ACTIVE};
-
-        Cursor c;
-
-        c = database.query(DBHelper.TABLE_ACCOUNT, allColumns, null, null, null, null, null);
-
-
-        if (c != null) {
-            c.moveToFirst();
-        }
-
-        return c;
     }
 
     /**
@@ -93,7 +94,7 @@ public class AccountDAO {
         long insertId = database.insert(DBHelper.TABLE_ACCOUNT, null,
                 values);
         Cursor cursor = database.query(DBHelper.TABLE_ACCOUNT,
-                allAccount, DBHelper.KEY_ACCOUNT_ID + " = " + insertId, null,
+                allAccounts, DBHelper.KEY_ACCOUNT_ID + " = " + insertId, null,
                 null, null, null);
 
         cursor.moveToFirst();
@@ -124,7 +125,7 @@ public class AccountDAO {
         List<Account> accounts = new ArrayList<>();
 
         Cursor cursor = database.query(DBHelper.TABLE_ACCOUNT,
-                allAccount, null, null, null, null, null);
+                allAccounts, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
