@@ -3,6 +3,7 @@ package edu.illinois.dscs.mypocket.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,11 @@ import edu.illinois.dscs.mypocket.model.Transaction;
  * @author Cassio, Dennis
  * @version 1.0
  */
-public class TransactionDAO extends BasicDAO {
+public class TransactionDAO {
+
+    protected SQLiteDatabase database;
+    protected DBhelper dbHandler;
+    protected Context Context;
 
     private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID,
             DatabaseHandler.KEY_TRANS_TYPE,
@@ -28,7 +33,40 @@ public class TransactionDAO extends BasicDAO {
      * @param context the database context in the phone.
      */
     public TransactionDAO(Context context) {
-        super(context);
+        Context = context;
+    }
+
+
+    public TransactionDAO open() {
+        dbHandler = new DBhelper(Context);
+        database = dbHandler.getWritableDatabase();
+        return this;
+    }
+
+    public void close() {
+        dbHandler.close();
+    }
+
+    public void insertData(int type, String desc, Double value, String date, int category, int account) {
+        ContentValues cv = new ContentValues();
+        cv.put(dbHandler.KEY_TRANS_TYPE, type);
+        cv.put(dbHandler.KEY_TRANS_DESCRIPTION, desc);
+        cv.put(dbHandler.KEY_TRANS_VALUE, value);
+        cv.put(dbHandler.KEY_TRANS_CREATION_DATE, date);
+        cv.put(dbHandler.KEY_CATEGORY_ID, category);
+        cv.put(dbHandler.KEY_ACCOUNT_ID, account);
+        database.insert(dbHandler.TABLE_TRANSACTION, null, cv);
+    }
+
+    public Cursor readDataTransList() {
+        String[] someColumns = new String[] { dbHandler.KEY_TRANS_DESCRIPTION,
+                dbHandler.KEY_TRANS_VALUE };
+        Cursor c = database.query(dbHandler.TABLE_TRANSACTION, someColumns, null,
+                null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
     }
 
     /**

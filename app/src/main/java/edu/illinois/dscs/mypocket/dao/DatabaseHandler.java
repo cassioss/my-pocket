@@ -12,7 +12,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Database
 
-    public static final String DATABASE = "MYPOCKET.DB";
+    public static final String DATABASE = "POCKET.DB";
     public static final int VERSION = 1;
 
     // Table Account

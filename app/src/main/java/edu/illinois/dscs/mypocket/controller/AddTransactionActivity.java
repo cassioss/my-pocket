@@ -1,7 +1,9 @@
 package edu.illinois.dscs.mypocket.controller;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,8 +26,11 @@ import java.util.Date;
 import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
+import edu.illinois.dscs.mypocket.dao.DBhelper;
 import edu.illinois.dscs.mypocket.dao.DatabaseHandler;
+import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.Category;
 
@@ -36,7 +43,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
    Spinner categorySpinner;
    Spinner accountSpinner;
-   CategoryDAO db;
+   Button addTransButton;
+   CategoryDAO dbCategory;
+   TransactionDAO dbTransaction;
+   AccountDAO dbAccount;
+   ProgressDialog PD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,26 +55,32 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         setContentView(R.layout.activity_add_transaction);
 
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
+        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        addTransButton = (Button) findViewById(R.id.addTrans_id);
 
+        dbCategory = new CategoryDAO(this);
+        dbCategory.open();
 
-        db = new CategoryDAO(this);
+        loadSpinnerDataCategory();
+        //loadSpinnerDataAccount();
 
-        db.open();
+        addTransButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //loadSpinnerData();
+            }
+        });
 
         //String[] categories = {"No Category"};
         //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         //categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //categorySpinner.setAdapter(categoryAdapter);
 
-        //loadSpinnerData();
-
-        accountSpinner = (Spinner) findViewById(R.id.account_spinner);
-        String[] accounts = {"MyPocket"};
-        ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
-        accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        accountSpinner.setAdapter(accountAdapter);
+        //accountSpinner = (Spinner) findViewById(R.id.account_spinner);
+        //String[] accounts = {"MyPocket"};
+        //ArrayAdapter<String> accountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, accounts);
+        //accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //accountSpinner.setAdapter(accountAdapter);
 
     }
 
@@ -120,36 +137,30 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return Double.valueOf(transactionValue.getText().toString());
     }
 
-    private Date getDate() {
+    private String getDate() {
         EditText dateView = (EditText) findViewById(R.id.date_field);
         String dateText = dateView.getText().toString();
-        SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-        Date myDate = null;
-        try {
-            myDate = df.parse(dateText);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return myDate;
+        return dateText;
     }
 
-    private Account getAccount() {
-        return ShowAccountsActivity.myPocket;
+    private String getAccount() {
+        String account = accountSpinner.getSelectedItem().toString();
+        return account;
     }
 
     private Category getCategory() {
         return null;
     }
 
-    private void loadSpinnerData() {
-        Cursor c = db.readData();
+    private void loadSpinnerDataCategory() {
+        Cursor c = dbCategory.readData();
         ArrayList<String> category = new ArrayList<String>();
 
         c.moveToFirst();
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DatabaseHandler.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBhelper.KEY_CATEGORY_NAME));
             category.add(name);
             c.moveToNext();
         }
@@ -160,23 +171,76 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         categorySpinner.setAdapter(aa1);
 
-        db.close();
+        dbCategory.close();
     }
+
+    /*
+    private void loadSpinnerDataAccount() {
+        Cursor c = dbAccount.readData();
+        ArrayList<String> account = new ArrayList<String>();
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+
+            String name = c.getString(c.getColumnIndex(DBhelper.KEY_CATEGORY_NAME));
+            account.add(name);
+            c.moveToNext();
+        }
+
+        ArrayAdapter<String> aa1 = new ArrayAdapter<String>(
+                getApplicationContext(), R.layout.spinner_item, R.id.textView1,
+                account);
+
+        accountSpinner.setAdapter(aa1);
+
+        db.close();
+    }*/
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + label,
-                Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
 
+    }
+
+    private class MyAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+            PD = new ProgressDialog(AddTransactionActivity.this);
+            PD.setTitle("Please Wait..");
+            PD.setMessage("Loading...");
+            PD.setCancelable(false);
+            PD.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            String desc = getDescription();
+            int type = getTransactionChoice();
+            String date = getDate();
+            Double value = getValue();
+
+            // opening database
+            dbTransaction.open();
+            // insert data into table
+            dbTransaction.insertData(type, desc, value, date, 1, 1);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            loadSpinnerDataCategory();
+            PD.dismiss();
+        }
     }
 
 }
