@@ -1,26 +1,32 @@
 package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.AccountDAO;
+import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.model.Account;
 import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
 public class ShowAccountsActivity extends ActionBarActivity {
 
     public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
-
     public static ArrayList<Account> showAccounts = new ArrayList<>();
+    ListAdapter showAccountAdapter;
+    ListView showAccountList;
+    AccountDAO dbAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +36,9 @@ public class ShowAccountsActivity extends ActionBarActivity {
         if (!showAccounts.contains(myPocket))
             showAccounts.add(myPocket);
 
-        ListAdapter showAccountAdapter = new AccountAdapter(this, showAccounts);
+        showAccountAdapter = new AccountAdapter(this, showAccounts);
 
-        ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
+        showAccountList = (ListView) findViewById(R.id.showAccountList);
 
         showAccountList.setAdapter(showAccountAdapter);
 
