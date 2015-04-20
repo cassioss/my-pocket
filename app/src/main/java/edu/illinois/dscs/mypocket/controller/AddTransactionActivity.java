@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
-import edu.illinois.dscs.mypocket.dao.DBHelperA;
+import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.Category;
 
@@ -151,7 +151,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DBHelperA.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
             category.add(name);
             c.moveToNext();
         }
@@ -174,7 +174,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DBHelperA.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
             account.add(name);
             c.moveToNext();
         }

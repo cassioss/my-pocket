@@ -17,12 +17,12 @@ import edu.illinois.dscs.mypocket.model.Category;
 public class CategoryDAO {
 
     protected SQLiteDatabase database;
-    protected DBHelperA dbHandler;
+    protected DBHelper dbHandler;
     protected Context Context;
 
-    private String[] allCategories = {DBHelperA.TABLE_CATEGORY,
-            DBHelperA.KEY_CATEGORY_ID,
-            DBHelperA.KEY_CATEGORY_NAME};
+    private String[] allCategories = {DBHelper.TABLE_CATEGORY,
+            DBHelper.KEY_CATEGORY_ID,
+            DBHelper.KEY_CATEGORY_NAME};
 
     /**
      * DAO constructor for categories.
@@ -34,7 +34,7 @@ public class CategoryDAO {
     }
 
     public CategoryDAO open() {
-        dbHandler = new DBHelperA(Context);
+        dbHandler = new DBHelper(Context);
         database = dbHandler.getWritableDatabase();
         return this;
 
@@ -72,11 +72,11 @@ public class CategoryDAO {
      */
     public Category createCategory(int categoryID, String categoryName) {
         ContentValues values = new ContentValues();
-        values.put(DBHelperA.KEY_CATEGORY_ID, categoryID);
-        values.put(DBHelperA.KEY_CATEGORY_NAME, categoryName);
-        long insertId = database.insert(DBHelperA.TABLE_CATEGORY, null, values);
-        Cursor cursor = database.query(DBHelperA.TABLE_CATEGORY, allCategories,
-                DBHelperA.KEY_CATEGORY_ID + " = " + insertId, null, null, null, null);
+        values.put(DBHelper.KEY_CATEGORY_ID, categoryID);
+        values.put(DBHelper.KEY_CATEGORY_NAME, categoryName);
+        long insertId = database.insert(DBHelper.TABLE_CATEGORY, null, values);
+        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY, allCategories,
+                DBHelper.KEY_CATEGORY_ID + " = " + insertId, null, null, null, null);
 
         cursor.moveToFirst();
         Category newCategory = cursorToCategory(cursor);
@@ -93,7 +93,7 @@ public class CategoryDAO {
     public void deleteCategory(Category category) {
         long id = category.getCategoryID();
         System.out.println("Category deleted with id: " + id);
-        database.delete(DBHelperA.TABLE_CATEGORY, DBHelperA.KEY_CATEGORY_ID + " = " + id, null);
+        database.delete(DBHelper.TABLE_CATEGORY, DBHelper.KEY_CATEGORY_ID + " = " + id, null);
     }
 
     /**
@@ -104,7 +104,7 @@ public class CategoryDAO {
     public List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
 
-        Cursor cursor = database.query(DBHelperA.TABLE_CATEGORY,
+        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY,
                 allCategories, null, null, null, null, null);
 
         //cursor.moveToFirst();

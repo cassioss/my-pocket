@@ -17,7 +17,7 @@ import edu.illinois.dscs.mypocket.model.Transaction;
 public class TransactionDAO {
 
     protected SQLiteDatabase database;
-    protected DBHelperA dbHandler;
+    protected DBHelper dbHandler;
     protected Context Context;
 
     private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID,
@@ -38,7 +38,7 @@ public class TransactionDAO {
 
 
     public TransactionDAO open() {
-        dbHandler = new DBHelperA(Context);
+        dbHandler = new DBHelper(Context);
         database = dbHandler.getWritableDatabase();
         return this;
     }
