@@ -56,8 +56,6 @@ public class DBHelper extends SQLiteOpenHelper {
             KEY_CATEGORY_NAME + " TEXT" +
             ");";
 
-    private static final String INS_CAT = "INSERT INTO " + TABLE_CATEGORY + " (" + KEY_CATEGORY_NAME + ") VALUES (\"No category\");";
-
     // Insertion statements for default items
 
     private ContentValues valuesOfNoCategory() {

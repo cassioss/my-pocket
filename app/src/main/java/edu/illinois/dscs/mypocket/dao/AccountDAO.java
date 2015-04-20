@@ -42,27 +42,29 @@ public class AccountDAO {
         return this;
     }
 
-    public void close() {dbHandler.close();}
+    public void close() {
+        dbHandler.close();
+    }
 
-    public void insertData(String name, int initialValue, int CurrentValue, int accountActive){
+    public void insertData(String name, int initialValue, int CurrentValue, int accountActive) {
         ContentValues cv = new ContentValues();
-        cv.put(dbHandler.KEY_ACCOUNT_NAME, name);
-        cv.put(dbHandler.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
-        cv.put(dbHandler.KEY_ACCOUNT_CURRENT_BALANCE, CurrentValue);
-        cv.put(dbHandler.KEY_ACCOUNT_ACTIVE, accountActive);
+        cv.put(DBHelper.KEY_ACCOUNT_NAME, name);
+        cv.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
+        cv.put(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE, CurrentValue);
+        cv.put(DBHelper.KEY_ACCOUNT_ACTIVE, accountActive);
 
-        database.insert(dbHandler.TABLE_ACCOUNT,null,cv);
+        database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
     }
 
     public Cursor readData() {
-        String[] allColumns = new String[] {dbHandler.KEY_ACCOUNT_ID, dbHandler.KEY_ACCOUNT_NAME,
-            dbHandler.KEY_ACCOUNT_INITIAL_VALUE,dbHandler.KEY_ACCOUNT_CURRENT_BALANCE,
-            dbHandler.KEY_ACCOUNT_ACTIVE};
+        String[] allColumns = new String[]{DBHelper.KEY_ACCOUNT_ID, DBHelper.KEY_ACCOUNT_NAME,
+                DBHelper.KEY_ACCOUNT_INITIAL_VALUE, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
+                DBHelper.KEY_ACCOUNT_ACTIVE};
 
-        Cursor c = database.query(dbHandler.TABLE_ACCOUNT, allColumns, null,
+        Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allColumns, null,
                 null, null, null, null);
 
-        if(c!= null){
+        if (c != null) {
             c.moveToFirst();
         }
         return c;
