@@ -11,6 +11,9 @@ import java.util.List;
 import edu.illinois.dscs.mypocket.model.Transaction;
 
 /**
+ * Data Access Object (DAO) for table Transactions, which also queries Category and Account tables
+ * in order to obtain foreign keys.
+ *
  * @author Cassio, Dennis
  * @version 1.0
  */
@@ -20,7 +23,7 @@ public class TransactionDAO {
     protected DBHelper dbHandler;
     protected Context Context;
 
-    private String[] allTransaction = {DatabaseHandler.KEY_TRANS_ID,
+    private String[] allTransactions = {DatabaseHandler.KEY_TRANS_ID,
             DatabaseHandler.KEY_TRANS_TYPE,
             DatabaseHandler.KEY_DESCRIPTION,
             DatabaseHandler.KEY_CREATION_DATE,
@@ -36,32 +39,50 @@ public class TransactionDAO {
         Context = context;
     }
 
-
+    /**
+     * Opens the database.
+     *
+     * @return itself (the object instance of TransactionDAO calling the method).
+     */
     public TransactionDAO open() {
         dbHandler = new DBHelper(Context);
         database = dbHandler.getWritableDatabase();
         return this;
     }
 
+    /**
+     * Closes the database.
+     */
     public void close() {
         dbHandler.close();
     }
 
-    public void insertData(int type, String desc, Double value, String date, int category, int account) {
+    /**
+     * Inserts all values of a Transaction object into the Transactions table. Equivalent to
+     * INSERT INTO Transactions VALUES(type, description, value, date, categoryID, accountID);
+     *
+     * @param type
+     * @param description
+     * @param value
+     * @param date
+     * @param categoryID
+     * @param accountID
+     */
+    public void insertData(int type, String description, Double value, String date, int categoryID, int accountID) {
         ContentValues cv = new ContentValues();
-        cv.put(dbHandler.KEY_TRANS_TYPE, type);
-        cv.put(dbHandler.KEY_TRANS_DESCRIPTION, desc);
-        cv.put(dbHandler.KEY_TRANS_VALUE, value);
-        cv.put(dbHandler.KEY_TRANS_CREATION_DATE, date);
-        cv.put(dbHandler.KEY_CATEGORY_ID, category);
-        cv.put(dbHandler.KEY_ACCOUNT_ID, account);
-        database.insert(dbHandler.TABLE_TRANSACTION, null, cv);
+        cv.put(DBHelper.KEY_TRANS_TYPE, type);
+        cv.put(DBHelper.KEY_TRANS_DESCRIPTION, description);
+        cv.put(DBHelper.KEY_TRANS_VALUE, value);
+        cv.put(DBHelper.KEY_TRANS_CREATION_DATE, date);
+        cv.put(DBHelper.KEY_CATEGORY_ID, categoryID);
+        cv.put(DBHelper.KEY_ACCOUNT_ID, accountID);
+        database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
     public Cursor readDataTransList() {
-        String[] someColumns = new String[]{dbHandler.KEY_TRANS_DESCRIPTION,
-                dbHandler.KEY_TRANS_VALUE};
-        Cursor c = database.query(dbHandler.TABLE_TRANSACTION, someColumns, null,
+        String[] someColumns = new String[]{DBHelper.KEY_TRANS_DESCRIPTION,
+                DBHelper.KEY_TRANS_VALUE};
+        Cursor c = database.query(DBHelper.TABLE_TRANSACTION, someColumns, null,
                 null, null, null, null);
         if (c != null) {
             c.moveToFirst();
@@ -93,7 +114,7 @@ public class TransactionDAO {
         long insertId = database.insert(DatabaseHandler.TABLE_TRANSACTION, null,
                 values);
         Cursor cursor = database.query(DatabaseHandler.TABLE_TRANSACTION,
-                allTransaction, DatabaseHandler.KEY_TRANS_ID + " = " + insertId, null,
+                allTransactions, DatabaseHandler.KEY_TRANS_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         Transaction newTransaction = cursorToTransaction(cursor);
@@ -122,7 +143,7 @@ public class TransactionDAO {
         List<Transaction> transactions = new ArrayList<>();
 
         Cursor cursor = database.query(DatabaseHandler.TABLE_TRANSACTION,
-                allTransaction, null, null, null, null, null);
+                allTransactions, null, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
