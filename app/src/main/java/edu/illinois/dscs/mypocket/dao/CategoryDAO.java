@@ -51,8 +51,8 @@ public class CategoryDAO {
     }
 
     public Cursor readData() {
-        String[] allColumns = new String[] { dbHandler.KEY_CATEGORY_ID,
-                dbHandler.KEY_CATEGORY_NAME };
+        String[] allColumns = new String[]{dbHandler.KEY_CATEGORY_ID,
+                dbHandler.KEY_CATEGORY_NAME};
         Cursor c = database.query(dbHandler.TABLE_CATEGORY, allColumns, null,
                 null, null, null, null);
         if (c != null) {
@@ -109,9 +109,9 @@ public class CategoryDAO {
 
         //cursor.moveToFirst();
         //while (!cursor.isAfterLast()) {
-          //  Category category = cursorToCategory(cursor);
-          //  categories.add(category);
-          //  cursor.moveToNext();
+        //  Category category = cursorToCategory(cursor);
+        //  categories.add(category);
+        //  cursor.moveToNext();
         //}
         // make sure to close the cursor
         //cursor.close();

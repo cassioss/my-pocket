@@ -59,8 +59,8 @@ public class TransactionDAO {
     }
 
     public Cursor readDataTransList() {
-        String[] someColumns = new String[] { dbHandler.KEY_TRANS_DESCRIPTION,
-                dbHandler.KEY_TRANS_VALUE };
+        String[] someColumns = new String[]{dbHandler.KEY_TRANS_DESCRIPTION,
+                dbHandler.KEY_TRANS_VALUE};
         Cursor c = database.query(dbHandler.TABLE_TRANSACTION, someColumns, null,
                 null, null, null, null);
         if (c != null) {

@@ -1,5 +1,6 @@
 package edu.illinois.dscs.mypocket.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -38,7 +39,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_TRANS_VALUE = "transactionValue";
     public static final String KEY_TRANS_CREATION_DATE = "creationDate";
 
-    // TABLE CREATION STATEMENT
+    // Table creation statements
+
     private static final String CREATE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY + " (" +
             KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             KEY_CATEGORY_NAME + " TEXT" +
@@ -55,6 +57,8 @@ public class DBHelper extends SQLiteOpenHelper {
             ");";
 
     private static final String INS_CAT = "INSERT INTO " + TABLE_CATEGORY + " (" + KEY_CATEGORY_NAME + ") VALUES (\"No category\");";
+
+    // Insertion statements for default items
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
