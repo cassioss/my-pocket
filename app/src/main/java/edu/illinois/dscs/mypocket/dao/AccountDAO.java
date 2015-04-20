@@ -61,12 +61,15 @@ public class AccountDAO {
                 DBHelper.KEY_ACCOUNT_INITIAL_VALUE, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
                 DBHelper.KEY_ACCOUNT_ACTIVE};
 
-        Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allColumns, null,
-                null, null, null, null);
+        Cursor c;
+
+        c = database.query(DBHelper.TABLE_ACCOUNT, allColumns, null, null, null, null, null);
+
 
         if (c != null) {
             c.moveToFirst();
         }
+
         return c;
     }
 

@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_ACCOUNT_ID = "accountID";
     public static final String KEY_ACCOUNT_NAME = "accountName";
     public static final String KEY_ACCOUNT_INITIAL_VALUE = "initialValue";
-    public static final String KEY_ACCOUNT_CURRENT_BALANCE = "initialValue";
+    public static final String KEY_ACCOUNT_CURRENT_BALANCE = "currentBalance";
     public static final String KEY_ACCOUNT_ACTIVE = "accountActive";
 
     // Table Category
@@ -46,14 +46,24 @@ public class DBHelper extends SQLiteOpenHelper {
             KEY_CATEGORY_NAME + " TEXT" +
             ");";
 
-    private static final String CREATE_ACCOUNT = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORY + " (" +
-            KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            KEY_CATEGORY_NAME + " TEXT" +
+    private static final String CREATE_ACCOUNT = "CREATE TABLE " + TABLE_ACCOUNT + " (" +
+            KEY_ACCOUNT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            KEY_ACCOUNT_NAME + " TEXT, " +
+            KEY_ACCOUNT_INITIAL_VALUE + " REAL, " +
+            KEY_ACCOUNT_CURRENT_BALANCE + " REAL," +
+            KEY_ACCOUNT_ACTIVE + " INTEGER" +
             ");";
 
-    private static final String CREATE_TRANSACTION = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORY + " (" +
-            KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            KEY_CATEGORY_NAME + " TEXT" +
+    private static final String CREATE_TRANSACTION = "CREATE TABLE " + TABLE_TRANSACTION + " (" +
+            KEY_TRANS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            KEY_TRANS_TYPE + " TEXT, " +
+            KEY_TRANS_DESCRIPTION + " TEXT, " +
+            KEY_TRANS_VALUE + " REAL, " +
+            KEY_TRANS_CREATION_DATE + " TEXT, " +
+            KEY_CATEGORY_ID + " INTEGER, " +
+            KEY_ACCOUNT_ID + " INTEGER, " +
+            "FOREIGN KEY (" + KEY_CATEGORY_ID + ") REFERENCES " + TABLE_CATEGORY + "(" + KEY_CATEGORY_ID + "), " +
+            "FOREIGN KEY (" + KEY_ACCOUNT_ID + ") REFERENCES " + TABLE_ACCOUNT + "(" + KEY_ACCOUNT_ID + ")" +
             ");";
 
     // Insertion statements for default items
@@ -88,9 +98,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_TRANSACTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
-        db.execSQL("DROP TABLE IF EXISTS " + CREATE_ACCOUNT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACCOUNT);
         onCreate(db);
     }
 }

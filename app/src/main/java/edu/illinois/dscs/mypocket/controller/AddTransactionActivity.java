@@ -51,17 +51,15 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         addTransButton = (Button) findViewById(R.id.addTrans_id);
 
         dbCategory = new CategoryDAO(this);
+        dbAccount = new AccountDAO(this);
+        dbTransaction = new TransactionDAO(this);
         dbCategory.open();
+        dbAccount.open();
+        dbTransaction.open();
 
         loadSpinnerDataCategory();
         loadSpinnerDataAccount();
 
-        addTransButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         //String[] categories = {"No Category"};
         //ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
@@ -99,6 +97,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     public void saveTransaction(View view) {
+        insertTransData();
         Intent goBackToMain = new Intent(this, MainActivity.class);
         //Transaction newTransaction = new Transaction(getTransactionChoice(), getDescription(), getValue(), getDate(), getCategory(), getAccount());
         //MainActivity.lastTransactions.add(newTransaction);
@@ -135,6 +134,21 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return dateText;
     }
 
+    private void insertTransData(){
+        String desc = getDescription();
+        int type = getTransactionChoice();
+        String date = getDate();
+        Double value = getValue();
+
+        // opening database
+        dbTransaction.open();
+        // insert data into table
+        dbTransaction.insertData(type, desc, value, date, 1, 1);
+
+        //
+
+    }
+
     private String getAccount() {
         return accountSpinner.getSelectedItem().toString();
     }
@@ -168,6 +182,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     private void loadSpinnerDataAccount() {
         Cursor c = dbAccount.readData();
+
         ArrayList<String> account = new ArrayList<String>();
 
         c.moveToFirst();
@@ -197,41 +212,4 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     public void onNothingSelected(AdapterView<?> arg0) {
 
     }
-
-    private class MyAsync extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-
-            super.onPreExecute();
-            PD = new ProgressDialog(AddTransactionActivity.this);
-            PD.setTitle("Please Wait..");
-            PD.setMessage("Loading...");
-            PD.setCancelable(false);
-            PD.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            String desc = getDescription();
-            int type = getTransactionChoice();
-            String date = getDate();
-            Double value = getValue();
-
-            // opening database
-            dbTransaction.open();
-            // insert data into table
-            dbTransaction.insertData(type, desc, value, date, 1, 1);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            loadSpinnerDataCategory();
-            PD.dismiss();
-        }
-    }
-
 }
