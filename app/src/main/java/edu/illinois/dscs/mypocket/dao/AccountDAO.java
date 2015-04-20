@@ -15,13 +15,17 @@ import edu.illinois.dscs.mypocket.model.Account;
  * @author Dennis
  * @version 1.0
  */
-public class AccountDAO extends BasicDAO {
+public class AccountDAO {
 
-    private String[] allAccount = {DatabaseHandler.KEY_ACCOUNT_ID,
-            DatabaseHandler.KEY_ACCOUNT_NAME,
-            DatabaseHandler.KEY_INITIAL_VALUE,
-            DatabaseHandler.KEY_CURRENT_BALANCE,
-            DatabaseHandler.KEY_ACCOUNT_ACTIVE};
+    protected SQLiteDatabase database;
+    protected DBHelper dbHandler;
+    protected Context Context;
+
+    private String[] allAccount = {DBHelper.KEY_ACCOUNT_ID,
+            DBHelper.KEY_ACCOUNT_NAME,
+            DBHelper.KEY_ACCOUNT_INITIAL_VALUE,
+            DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
+            DBHelper.KEY_ACCOUNT_ACTIVE};
 
     /**
      * DAO constructor for accounts.
@@ -29,7 +33,39 @@ public class AccountDAO extends BasicDAO {
      * @param context the database context in the phone.
      */
     public AccountDAO(Context context) {
-        super(context);
+        Context = context;
+    }
+
+    public AccountDAO open() {
+        dbHandler = new DBHelper(Context);
+        database = dbHandler.getWritableDatabase();
+        return this;
+    }
+
+    public void close() {dbHandler.close();}
+
+    public void insertData(String name, int initialValue, int CurrentValue, int accountActive){
+        ContentValues cv = new ContentValues();
+        cv.put(dbHandler.KEY_ACCOUNT_NAME, name);
+        cv.put(dbHandler.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
+        cv.put(dbHandler.KEY_ACCOUNT_CURRENT_BALANCE, CurrentValue);
+        cv.put(dbHandler.KEY_ACCOUNT_ACTIVE, accountActive);
+
+        database.insert(dbHandler.TABLE_ACCOUNT,null,cv);
+    }
+
+    public Cursor readData() {
+        String[] allColumns = new String[] {dbHandler.KEY_ACCOUNT_ID, dbHandler.KEY_ACCOUNT_NAME,
+            dbHandler.KEY_ACCOUNT_INITIAL_VALUE,dbHandler.KEY_ACCOUNT_CURRENT_BALANCE,
+            dbHandler.KEY_ACCOUNT_ACTIVE};
+
+        Cursor c = database.query(dbHandler.TABLE_ACCOUNT, allColumns, null,
+                null, null, null, null);
+
+        if(c!= null){
+            c.moveToFirst();
+        }
+        return c;
     }
 
     /**
@@ -45,14 +81,14 @@ public class AccountDAO extends BasicDAO {
     public Account createAccount(String accountName, double initialValue, double currentBalance,
                                  int accountActive) {
         ContentValues values = new ContentValues();
-        values.put(DatabaseHandler.KEY_ACCOUNT_NAME, accountName);
-        values.put(DatabaseHandler.KEY_INITIAL_VALUE, initialValue);
-        values.put(DatabaseHandler.KEY_CURRENT_BALANCE, currentBalance);
-        values.put(DatabaseHandler.KEY_ACCOUNT_ACTIVE, accountActive);
-        long insertId = database.insert(DatabaseHandler.TABLE_ACCOUNT, null,
+        values.put(DBHelper.KEY_ACCOUNT_NAME, accountName);
+        values.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
+        values.put(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE, currentBalance);
+        values.put(DBHelper.KEY_ACCOUNT_ACTIVE, accountActive);
+        long insertId = database.insert(DBHelper.TABLE_ACCOUNT, null,
                 values);
-        Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
-                allAccount, DatabaseHandler.KEY_ACCOUNT_ID + " = " + insertId, null,
+        Cursor cursor = database.query(DBHelper.TABLE_ACCOUNT,
+                allAccount, DBHelper.KEY_ACCOUNT_ID + " = " + insertId, null,
                 null, null, null);
 
         cursor.moveToFirst();
@@ -70,7 +106,7 @@ public class AccountDAO extends BasicDAO {
     public void deleteAccount(Account account) {
         long id = account.getAccountID();
         System.out.println("Account deleted with id: " + id);
-        database.delete(DatabaseHandler.TABLE_ACCOUNT, DatabaseHandler.KEY_ACCOUNT_ID
+        database.delete(DBHelper.TABLE_ACCOUNT, DBHelper.KEY_ACCOUNT_ID
                 + " = " + id, null);
     }
 
@@ -82,7 +118,7 @@ public class AccountDAO extends BasicDAO {
     public List<Account> getAllAcounts() {
         List<Account> accounts = new ArrayList<>();
 
-        Cursor cursor = database.query(DatabaseHandler.TABLE_ACCOUNT,
+        Cursor cursor = database.query(DBHelper.TABLE_ACCOUNT,
                 allAccount, null, null, null, null, null);
 
         cursor.moveToFirst();

@@ -54,7 +54,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         dbCategory.open();
 
         loadSpinnerDataCategory();
-        //loadSpinnerDataAccount();
+        loadSpinnerDataAccount();
 
         addTransButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,7 +165,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         dbCategory.close();
     }
 
-    /*
+
     private void loadSpinnerDataAccount() {
         Cursor c = dbAccount.readData();
         ArrayList<String> account = new ArrayList<String>();
@@ -174,7 +174,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         while (!c.isAfterLast()) {
 
-            String name = c.getString(c.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
+            String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
             account.add(name);
             c.moveToNext();
         }
@@ -185,8 +185,8 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         accountSpinner.setAdapter(aa1);
 
-        db.close();
-    }*/
+        dbAccount.close();
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

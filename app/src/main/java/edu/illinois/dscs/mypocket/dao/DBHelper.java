@@ -9,7 +9,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Database
 
-    public static final String DB_NAME = "POCKET.DB";
+    public static final String DB_NAME = "MYPOCKET.DB";
     public static final int DB_VERSION = 1;
 
     // Table Account
@@ -18,8 +18,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String KEY_ACCOUNT_ID = "accountID";
     public static final String KEY_ACCOUNT_NAME = "accountName";
-    public static final String KEY_INITIAL_VALUE = "initialValue";
-    public static final String KEY_CURRENT_BALANCE = "initialValue";
+    public static final String KEY_ACCOUNT_INITIAL_VALUE = "initialValue";
+    public static final String KEY_ACCOUNT_CURRENT_BALANCE = "initialValue";
     public static final String KEY_ACCOUNT_ACTIVE = "accountActive";
 
     // Table Category
@@ -41,17 +41,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Table creation statements
 
-    private static final String CREATE_CATEGORY = "CREATE TABLE " + TABLE_CATEGORY + " (" +
+    private static final String CREATE_CATEGORY = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORY + " (" +
             KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             KEY_CATEGORY_NAME + " TEXT" +
             ");";
 
-    private static final String CREATE_ACCOUNT = "CREATE TABLE " + TABLE_CATEGORY + " (" +
+    private static final String CREATE_ACCOUNT = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORY + " (" +
             KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             KEY_CATEGORY_NAME + " TEXT" +
             ");";
 
-    private static final String CREATE_TRANSACTION = "CREATE TABLE " + TABLE_CATEGORY + " (" +
+    private static final String CREATE_TRANSACTION = "CREATE TABLE IF NOT EXISTS " + TABLE_CATEGORY + " (" +
             KEY_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             KEY_CATEGORY_NAME + " TEXT" +
             ");";
@@ -69,8 +69,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private ContentValues valuesOfMyPocket() {
         ContentValues values = new ContentValues();
         values.put(DBHelper.KEY_ACCOUNT_NAME, "MyPocket");
-        values.put(DBHelper.KEY_INITIAL_VALUE, 0.0);
-        values.put(DBHelper.KEY_CURRENT_BALANCE, 0.0);
+        values.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, 0.0);
+        values.put(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE, 0.0);
         values.put(DBHelper.KEY_ACCOUNT_ACTIVE, 1);
         return values;
     }
