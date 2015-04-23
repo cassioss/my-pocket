@@ -3,11 +3,15 @@ package edu.illinois.dscs.mypocket.controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+
+import java.text.NumberFormat;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
@@ -16,13 +20,15 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 public class AddAccountActivity extends ActionBarActivity {
 
     AccountDAO dbAccount;
+    EditText value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
         dbAccount = new AccountDAO(this);
-
+        value = (EditText) findViewById(R.id.account_initial_Value_edit_view);
+        value.addTextChangedListener(new CurrencyTextWatcher());
     }
 
     @Override
@@ -61,8 +67,7 @@ public class AddAccountActivity extends ActionBarActivity {
     }
 
     public double getInitialValue() {
-        EditText accountInitialValue = (EditText) findViewById(R.id.account_initial_Value_edit_view);
-        String cleanValue = accountInitialValue.getText().toString().replaceAll("[$,.]", "");
+        String cleanValue = value.getText().toString().replaceAll("[$,.]", "");
         double doubleValue100Times = Double.parseDouble(cleanValue);
         return doubleValue100Times / 100.0;
     }
@@ -109,5 +114,45 @@ public class AddAccountActivity extends ActionBarActivity {
     public void saveAccount(View view) {
         insertAccountData();
         startActivity(goBackToShowAccounts());
+    }
+
+    /**
+     * Private class that uses a TextWatcher specifically for currency. Format $#.##
+     *
+     * @author Cassio
+     * @version 1.0
+     */
+    private class CurrencyTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        private String current = "";
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (!s.toString().equals(current)) {
+                value.removeTextChangedListener(this);
+
+                String cleanString = s.toString().replaceAll("[$,.]", "");
+
+                double parsed = Double.parseDouble(cleanString);
+                String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100.0));
+
+                current = formatted;
+                value.setText(formatted);
+                value.setSelection(formatted.length());
+
+                value.addTextChangedListener(this);
+            }
+        }
+
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 }
