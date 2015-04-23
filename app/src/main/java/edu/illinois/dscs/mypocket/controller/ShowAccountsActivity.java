@@ -34,10 +34,10 @@ public class ShowAccountsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_accounts);
 
-        if (!showAccounts.contains(myPocket))
-            showAccounts.add(myPocket);
+        //if (!showAccounts.contains(myPocket))
+        //    showAccounts.add(myPocket);
 
-        showAccountAdapter = new AccountAdapter(this, showAccounts);
+        //showAccountAdapter = new AccountAdapter(this, showAccounts);
 
         showAccountList = (ListView) findViewById(R.id.showAccountList);
 
