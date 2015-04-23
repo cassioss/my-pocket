@@ -3,9 +3,9 @@ package edu.illinois.dscs.mypocket.controller;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,22 +24,20 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
-import edu.illinois.dscs.mypocket.model.Category;
 
 /**
  * @author Cassio, Dennis
- * @version 1.1
- * @since 1.0
+ * @version 1.2
+ * @since 1.1
  */
 public class AddTransactionActivity extends ActionBarActivity implements OnItemSelectedListener {
 
-    Spinner categorySpinner;
-    Spinner accountSpinner;
-    Button addTransButton;
-    CategoryDAO dbCategory;
-    TransactionDAO dbTransaction;
-    AccountDAO dbAccount;
-    ProgressDialog PD;
+    private Spinner categorySpinner;
+    private Spinner accountSpinner;
+    private CategoryDAO dbCategory;
+    private TransactionDAO dbTransaction;
+    private AccountDAO dbAccount;
+    private ProgressDialog PD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         categorySpinner = (Spinner) findViewById(R.id.category_spinner);
         accountSpinner = (Spinner) findViewById(R.id.account_spinner);
-        addTransButton = (Button) findViewById(R.id.addTrans_id);
 
         dbCategory = new CategoryDAO(this);
         dbAccount = new AccountDAO(this);
@@ -59,7 +56,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         loadSpinnerDataCategory();
         loadSpinnerDataAccount();
-
     }
 
     @Override
