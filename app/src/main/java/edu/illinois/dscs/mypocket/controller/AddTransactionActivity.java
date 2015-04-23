@@ -20,7 +20,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import edu.illinois.dscs.mypocket.AddCategory;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;

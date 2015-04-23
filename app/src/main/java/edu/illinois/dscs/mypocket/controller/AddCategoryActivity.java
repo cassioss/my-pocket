@@ -1,11 +1,15 @@
 package edu.illinois.dscs.mypocket.controller;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 
 /**
  * @author Cassio
@@ -13,10 +17,18 @@ import edu.illinois.dscs.mypocket.R;
  */
 public class AddCategoryActivity extends ActionBarActivity {
 
+    EditText categoryName;
+    CategoryDAO categoryDB;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_category);
+        setContentView(R.layout.activity_add_category);
+
+    categoryName = (EditText) findViewById(R.id.category_name_edit_view);
+    categoryDB = new CategoryDAO(this);
+
     }
 
     @Override
@@ -39,5 +51,15 @@ public class AddCategoryActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveCategory(View view) {
+        String desc = categoryName.getText().toString();
+
+        // opening database
+        categoryDB.open();
+        // insert data into table
+        categoryDB.insertData(desc);
+        startActivity(new Intent(this, AddTransactionActivity.class));
     }
 }
