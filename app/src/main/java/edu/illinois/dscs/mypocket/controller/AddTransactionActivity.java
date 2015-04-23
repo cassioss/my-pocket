@@ -1,17 +1,14 @@
 package edu.illinois.dscs.mypocket.controller;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -37,7 +34,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     private CategoryDAO dbCategory;
     private TransactionDAO dbTransaction;
     private AccountDAO dbAccount;
-    private ProgressDialog PD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +162,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * Loads all categories inside the Category dropdown for AddTransaction.
      */
     private void loadSpinnerDataCategory() {
-        ArrayList<String> category = new ArrayList<String>();
+        ArrayList<String> category = new ArrayList<>();
         Cursor c = dbCategory.readData();
         c.moveToFirst();
 
@@ -176,7 +172,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
             c.moveToNext();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getApplicationContext(), R.layout.spinner_item, R.id.textView1,
                 category);
 
@@ -188,7 +184,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * Loads all accounts inside the Account dropdown for AddTransaction.
      */
     private void loadSpinnerDataAccount() {
-        ArrayList<String> account = new ArrayList<String>();
+        ArrayList<String> account = new ArrayList<>();
         Cursor c = dbAccount.readData();
         c.moveToFirst();
 
@@ -198,7 +194,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
             c.moveToNext();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 getApplicationContext(), R.layout.spinner_item, R.id.textView1,
                 account);
 
