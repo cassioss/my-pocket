@@ -1,6 +1,7 @@
 package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.AccountDAO;
+import edu.illinois.dscs.mypocket.dao.DBHelper;
+import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.Transaction;
 import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 
@@ -25,6 +30,11 @@ import edu.illinois.dscs.mypocket.model.TransactionAdapter;
  */
 public class MainActivity extends ActionBarActivity {
 
+    TransactionDAO transDB;
+    AccountDAO accountDB;
+    ListView lastEntries;
+    TextView totalBalanceText;
+
     public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
 
     @Override
@@ -32,10 +42,21 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListAdapter entriesAdapter = new TransactionAdapter(this, lastTransactions);
-        ListView lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
-        lastEntries.setAdapter(entriesAdapter);
+        transDB = new TransactionDAO(this);
+        transDB.open();
 
+        accountDB = new AccountDAO(this);
+        accountDB.open();
+
+        lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
+        totalBalanceText = (TextView) findViewById(R.id.total_balance_value_text_view);
+
+        loadTotalBalance();
+        loadTransactionList();
+
+        /*
+        //ListAdapter entriesAdapter = new TransactionAdapter(this, lastTransactions);
+        //lastEntries.setAdapter(entriesAdapter);
         double totalValue = getTotalBalance();
 
         TextView totalBalance = (TextView) findViewById(R.id.total_balance_value_text_view);
@@ -52,6 +73,7 @@ public class MainActivity extends ActionBarActivity {
             else
                 totalBalance.setTextColor(Color.BLACK);
         }
+        */
 
         lastEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -108,5 +130,19 @@ public class MainActivity extends ActionBarActivity {
         ShowAccountIntent.putExtra("CallingActivity", "MainActivity");
         startActivity(ShowAccountIntent);
 
+    }
+
+    public void loadTotalBalance() {
+        Cursor c = accountDB.readTotalBalance();
+        totalBalanceText.setText(c.getString(c.getColumnIndex("initialValue")));
+    }
+
+    public void loadTransactionList() {
+        Cursor c = transDB.readDataTransList();
+        String[] fromFieldNames = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
+        int[] toViewIDs = new int[]{R.id.transaction_name_text_view, R.id.transaction_value_text_view};
+        SimpleCursorAdapter myCursorAdapter;
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
+        lastEntries.setAdapter(myCursorAdapter);
     }
 }

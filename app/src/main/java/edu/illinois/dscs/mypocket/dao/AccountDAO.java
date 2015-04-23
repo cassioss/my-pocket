@@ -81,6 +81,12 @@ public class AccountDAO {
         return c;
     }
 
+    public Cursor readTotalBalance() {
+        Cursor c = database.rawQuery("select sum(initialValue) as initialValue from account;", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public void insertData(String name, double initialValue, double CurrentValue, int accountActive) {
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.KEY_ACCOUNT_NAME, name);

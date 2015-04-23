@@ -23,12 +23,12 @@ public class TransactionDAO {
     protected DBHelper dbHandler;
     protected Context Context;
 
-    private String[] allTransactions = {DatabaseHandler.KEY_TRANS_ID,
-            DatabaseHandler.KEY_TRANS_TYPE,
-            DatabaseHandler.KEY_DESCRIPTION,
-            DatabaseHandler.KEY_CREATION_DATE,
-            DatabaseHandler.KEY_CATEGORY_ID,
-            DatabaseHandler.KEY_ACCOUNT_ID};
+    private String[] allTransactions = {DBHelper.KEY_TRANS_ID,
+            DBHelper.KEY_TRANS_TYPE,
+            DBHelper.KEY_TRANS_DESCRIPTION,
+            DBHelper.KEY_TRANS_CREATION_DATE,
+            DBHelper.KEY_CATEGORY_ID,
+            DBHelper.KEY_ACCOUNT_ID};
 
     /**
      * DAO constructor for transactions.
@@ -86,7 +86,7 @@ public class TransactionDAO {
      * @return a Cursor object containing the data brought from the query.
      */
     public Cursor readDataTransList() {
-        Cursor c = database.rawQuery("select transactionID _id, description, transactionValue from transactions", null);
+        Cursor c = database.rawQuery("select transactionID _id, description, transactionValue from transactions order by _id desc limit 3", null);
         if (c != null) c.moveToFirst();
         return c;
 
