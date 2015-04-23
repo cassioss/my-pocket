@@ -20,6 +20,7 @@
     <string name="income_radio">Income</string>
     <string name="description_text_view">Description</string>
     <string name="value_text_view">Value</string>
+    <string name="zero_value_edit_text">$0.00</string>
     <string name="date_text_view">Date</string>
     <string name="date_field_edit_text">MM/DD/YYYY</string>
     <string name="category_text_view">Category</string>

@@ -141,8 +141,9 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @return the double number equivalent to the user input for the transaction value.
      */
     private double getValue() {
-        EditText transactionValue = (EditText) findViewById(R.id.value_entry);
-        return Double.valueOf(transactionValue.getText().toString());
+        String cleanValue = value.getText().toString().replaceAll("[$,.]", "");
+        double doubleValue100Times = Double.parseDouble(cleanValue);
+        return doubleValue100Times / 100.0;
     }
 
     /**
@@ -151,8 +152,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @return a string containing the transaction date.
      */
     private String getDate() {
-        EditText dateView = (EditText) findViewById(R.id.date_field);
-        return dateView.getText().toString();
+        return date.getText().toString();
     }
 
     /**
@@ -298,7 +298,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         }
 
-        private String current = "0.00";
+        private String current = "";
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -308,11 +308,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
                 String cleanString = s.toString().replaceAll("[$,.]", "");
 
                 double parsed = Double.parseDouble(cleanString);
-                String formated = NumberFormat.getCurrencyInstance().format((parsed / 100));
+                String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
 
-                current = formated;
-                value.setText(formated);
-                value.setSelection(formated.length());
+                current = formatted;
+                value.setText(formatted);
+                value.setSelection(formatted.length());
 
                 value.addTextChangedListener(this);
             }

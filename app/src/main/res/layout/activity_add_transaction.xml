@@ -72,6 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
+            android:text="@string/zero_value_edit_text"
             android:id="@+id/value_entry"
             android:gravity="end" />
 
