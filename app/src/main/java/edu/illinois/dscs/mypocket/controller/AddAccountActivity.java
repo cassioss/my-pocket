@@ -15,7 +15,6 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 
 public class AddAccountActivity extends ActionBarActivity {
 
-    private boolean accountActive;
     AccountDAO dbAccount;
 
     @Override
