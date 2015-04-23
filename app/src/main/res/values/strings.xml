@@ -15,11 +15,11 @@
     <string name="transaction_value">$</string>
 
     <!-- Add transaction -->
-    <string name="label_add_transaction">Add Transaction</string>
-    <string name="expense_radio">Expense</string>
-    <string name="income_radio">Income</string>
-    <string name="description_text_view">Description</string>
-    <string name="value_text_view">Value</string>
+    <string name="add_transaction_label">Add Transaction</string>
+    <string name="add_transaction_expense_radio">Expense</string>
+    <string name="add_transaction_income_radio">Income</string>
+    <string name="add_transaction_description_text">Description</string>
+    <string name="add_transaction_value_text">Value</string>
     <string name="zero_value_edit_text">$0.00</string>
     <string name="date_text_view">Date</string>
     <string name="date_field_edit_text">MM/DD/YYYY</string>
@@ -49,12 +49,12 @@
     <!-- Edit transaction -->
     <string name="label_edit_transaction">Edit Transaction</string>
 
-    <!-- Create category -->
+    <!-- Add category -->
     <string name="label_create_category">Create category</string>
     <string name="category_name_text_view">Name</string>
     <string name="add_category_button">Save Category</string>
     <string name="action_category">New Category</string>
-    <string name="title_activity_add_category">AddCategory</string>
+    <string name="title_activity_add_category">Add Category</string>
     <string name="action_account">New Account</string>
 
 </resources>

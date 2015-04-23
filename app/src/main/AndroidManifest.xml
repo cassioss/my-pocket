@@ -18,7 +18,7 @@
         </activity>
         <activity
             android:name=".controller.AddTransactionActivity"
-            android:label="@string/label_add_transaction"
+            android:label="@string/add_transaction_label"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".controller.AddAccountActivity"

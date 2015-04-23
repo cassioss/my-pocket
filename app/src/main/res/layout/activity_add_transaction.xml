@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/expense_radio"
-            android:text="@string/expense_radio"
+            android:text="@string/add_transaction_expense_radio"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/income_radio"
-            android:text="@string/income_radio"
+            android:text="@string/add_transaction_income_radio"
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"
-            android:text="@string/description_text_view"
+            android:text="@string/add_transaction_description_text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="150dp"
-            android:text="@string/value_text_view"
+            android:text="@string/add_transaction_value_text"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
