@@ -291,6 +291,12 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         }
     }
 
+    /**
+     * Private class that uses a TextWatcher specifically for currency. Format $#.##
+     *
+     * @author Cassio
+     * @version 1.0
+     */
     private class CurrencyTextWatcher implements TextWatcher {
 
         @Override
