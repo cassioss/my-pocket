@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:width="180dp"
             android:text="@string/account_name_text_view"
             android:textSize="25sp" />
 
@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="45dp"
+            android:width="180dp"
             android:text="@string/initial_value_text_view"
             android:textSize="25sp" />
 
@@ -49,6 +49,7 @@
             android:id="@+id/account_initial_Value_edit_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/zero_value_edit_text"
             android:gravity="end"
             android:inputType="numberDecimal|numberSigned"
             android:textAllCaps="false" />
@@ -63,6 +64,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:width="180dp"
             android:text="@string/account_active_switch"
             android:textSize="25sp" />
 
@@ -76,8 +78,8 @@
                 android:id="@+id/account_active_yes_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
                 android:text="@string/account_active_yes_radio"
+                android:layout_marginEnd="20dp"
                 android:textSize="20sp" />
 
             <RadioButton
