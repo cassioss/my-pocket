@@ -86,10 +86,16 @@ public class TransactionDAO {
      * @return a Cursor object containing the data brought from the query.
      */
     public Cursor readDataTransList() {
+        Cursor c = database.rawQuery("select transactionID _id, description, transactionValue from transactions", null);
+        if (c != null) c.moveToFirst();
+        return c;
+
+        /*
         String[] someColumns = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
         Cursor c = database.query(DBHelper.TABLE_TRANSACTION, someColumns, null, null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
+        */
     }
 
     /**
