@@ -1,8 +1,8 @@
 package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.widget.RadioGroup;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
-import edu.illinois.dscs.mypocket.model.Account;
 
 
 public class AddAccountActivity extends ActionBarActivity {
@@ -62,7 +61,9 @@ public class AddAccountActivity extends ActionBarActivity {
 
     public double getInitialValue() {
         EditText accountInitialValue = (EditText) findViewById(R.id.account_initial_Value_edit_view);
-        return Double.valueOf(accountInitialValue.getText().toString());
+        String cleanValue = accountInitialValue.getText().toString().replaceAll("[$,.]", "");
+        double doubleValue100Times = Double.parseDouble(cleanValue);
+        return doubleValue100Times / 100.0;
     }
 
     public int getAccountActive() {
@@ -85,14 +86,13 @@ public class AddAccountActivity extends ActionBarActivity {
     private void insertAccountData() {
         String desc = getName();
         double initialValue = getInitialValue();
-        double currentValue = initialValue;
         int type = getAccountActive();
 
 
         // opening database
         dbAccount.open();
         // insert data into table
-        dbAccount.insertData(desc, initialValue, currentValue, type);
+        dbAccount.insertData(desc, initialValue, initialValue, type);
     }
 
 
