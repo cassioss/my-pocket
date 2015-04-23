@@ -26,6 +26,10 @@ public class AccountDAO {
             DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
             DBHelper.KEY_ACCOUNT_ACTIVE};
 
+    private String[] listAccounts = {
+            DBHelper.KEY_ACCOUNT_NAME,
+            DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
+
     /**
      * DAO constructor for accounts.
      *
@@ -60,6 +64,17 @@ public class AccountDAO {
      */
     public Cursor readData() {
         Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allAccounts, null, null, null, null, null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    /**
+     * Gets all the rows inside the Account table, equivalent to: SELECT * from Account;
+     *
+     * @return a Cursor object containing the data brought from the query.
+     */
+    public Cursor readDataList() {
+        Cursor c = database.query(DBHelper.TABLE_ACCOUNT, listAccounts, null, null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
     }

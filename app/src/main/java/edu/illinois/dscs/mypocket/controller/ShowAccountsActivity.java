@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -22,8 +21,10 @@ import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
 public class ShowAccountsActivity extends ActionBarActivity {
 
-    public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
-    public static ArrayList<Account> showAccounts = new ArrayList<>();
+
+    AccountDAO db = new AccountDAO(this);
+    //public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
+    //public static ArrayList<Account> showAccounts = new ArrayList<>();
     ListAdapter showAccountAdapter;
     ListView showAccountList;
     AccountDAO dbAccount;
@@ -80,4 +81,21 @@ public class ShowAccountsActivity extends ActionBarActivity {
         startActivity(AddAccountIntent);
 
     }
+
+    public void loadAccountList(){
+        ArrayList<Account> showAccounts = new ArrayList<>();
+        Account accountObj = new Account(0,null,0.0,true);
+        Cursor c = db.readData();
+
+        while (!c.isAfterLast()) {
+            String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
+            Double currentValue = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
+            accountObj.setName(name);
+            accountObj.setCurrentBalance(currentValue);
+            showAccounts.add(accountObj);
+            c.moveToNext();
+        }
+    }
+
+
 }
