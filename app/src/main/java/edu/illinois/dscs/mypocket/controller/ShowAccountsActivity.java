@@ -2,26 +2,19 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
-import java.util.ArrayList;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
-import edu.illinois.dscs.mypocket.model.Account;
-import edu.illinois.dscs.mypocket.model.AccountAdapter;
 
 public class ShowAccountsActivity extends ActionBarActivity {
-
 
     AccountDAO db;
     ListView showAccountList;
@@ -76,12 +69,12 @@ public class ShowAccountsActivity extends ActionBarActivity {
 
     }
 
-    public void loadAccountList(){
+    public void loadAccountList() {
         Cursor c = db.readDataList();
-        String[] fromFieldNames = new String[] {DBHelper._ID,DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
-        int[] toViewIDs = new int[] {R.id.account_id_text, R.id.account_name_account_button,R.id.account_text_view};
+        String[] fromFieldNames = new String[]{DBHelper._ID, DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
+        int[] toViewIDs = new int[]{R.id.account_id_text, R.id.account_name_account_button, R.id.account_text_view};
         SimpleCursorAdapter myCursorAdapter;
-        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs,0);
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs, 0);
         showAccountList = (ListView) findViewById(R.id.showAccountList);
         showAccountList.setAdapter(myCursorAdapter);
 
@@ -100,5 +93,10 @@ public class ShowAccountsActivity extends ActionBarActivity {
         //showAccountList.getAdapter(showAccountAdapter);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
