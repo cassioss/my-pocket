@@ -27,6 +27,7 @@ public class AccountDAO {
             DBHelper.KEY_ACCOUNT_ACTIVE};
 
     private String[] listAccounts = {
+            DBHelper._ID,
             DBHelper.KEY_ACCOUNT_NAME,
             DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
 

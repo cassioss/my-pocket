@@ -24,11 +24,7 @@ public class ShowAccountsActivity extends ActionBarActivity {
 
 
     AccountDAO db;
-    //public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
-    //public static ArrayList<Account> showAccounts = new ArrayList<>();
-    ListAdapter showAccountAdapter;
     ListView showAccountList;
-    AccountDAO dbAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +41,8 @@ public class ShowAccountsActivity extends ActionBarActivity {
         //showAccountList.setAdapter(showAccountAdapter);
 
         db = new AccountDAO(this);
+        db.open();
+        loadAccountList();
 
     }
 
@@ -79,15 +77,14 @@ public class ShowAccountsActivity extends ActionBarActivity {
     }
 
     public void loadAccountList(){
-        ArrayList<Account> showAccounts = new ArrayList<>();
-        Account accountObj = new Account(0,null,0.0,true);
         Cursor c = db.readDataList();
-        String[] fromFieldNames = new String[] {DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
-        int[] toViewIDs = new int[] {R.id.account_name_account_button,R.id.account_text_view};
+        String[] fromFieldNames = new String[] {DBHelper._ID,DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
+        int[] toViewIDs = new int[] {R.id.account_id_text, R.id.account_name_account_button,R.id.account_text_view};
         SimpleCursorAdapter myCursorAdapter;
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs,0);
         showAccountList = (ListView) findViewById(R.id.showAccountList);
         showAccountList.setAdapter(myCursorAdapter);
+
         /*
         while (!c.isAfterLast()) {
             String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
