@@ -81,7 +81,7 @@ public class AccountDAO {
         return c;
     }
 
-    public void insertData(String name, int initialValue, int CurrentValue, int accountActive) {
+    public void insertData(String name, double initialValue, double CurrentValue, int accountActive) {
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.KEY_ACCOUNT_NAME, name);
         cv.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, initialValue);

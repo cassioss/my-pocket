@@ -10,13 +10,14 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.model.Account;
 
 
 public class AddAccountActivity extends ActionBarActivity {
 
     private boolean accountActive;
-    
+    AccountDAO dbAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +85,19 @@ public class AddAccountActivity extends ActionBarActivity {
     private void insertAccountData() {
         String desc = getName();
         double initialValue = getInitialValue();
+        double currentValue = initialValue;
         int type = getAccountActive();
+
 
         // opening database
         dbAccount.open();
         // insert data into table
-        dbTransaction.insertData(type, desc, value, date, 1, 1);
+        dbAccount.insertData(desc, initialValue, currentValue, type);
+    }
+
+
+    public Intent goBackToShowAccounts() {
+        return new Intent(this, ShowAccountsActivity.class);
     }
 
     /**
@@ -99,6 +107,6 @@ public class AddAccountActivity extends ActionBarActivity {
      */
     public void saveAccount(View view) {
         insertAccountData();
-        startActivity(goBackToMainActivity());
+        startActivity(goBackToShowAccounts());
     }
 }
