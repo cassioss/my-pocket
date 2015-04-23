@@ -134,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void loadTotalBalance() {
         Cursor c = accountDB.readTotalBalance();
-        totalBalanceText.setText(c.getString(c.getColumnIndex("initialValue")));
+        totalBalanceText.setText(c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
     }
 
     public void loadTransactionList() {
