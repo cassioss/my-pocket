@@ -27,7 +27,7 @@ public class AccountDAO {
             DBHelper.KEY_ACCOUNT_ACTIVE};
 
     private String[] listAccounts = {
-            DBHelper._ID,
+            DBHelper.KEY_ACCOUNT_ID,
             DBHelper.KEY_ACCOUNT_NAME,
             DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
 
@@ -75,7 +75,8 @@ public class AccountDAO {
      * @return a Cursor object containing the data brought from the query.
      */
     public Cursor readDataList() {
-        Cursor c = database.query(DBHelper.TABLE_ACCOUNT, listAccounts, null, null, null, null, null);
+        Cursor c = database.rawQuery("select accountID _id, accountName, currentBalance from account", null);
+        //Cursor c = database.query(DBHelper.TABLE_ACCOUNT, listAccounts, null, null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
     }

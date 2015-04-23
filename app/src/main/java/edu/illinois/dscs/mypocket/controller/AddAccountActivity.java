@@ -16,6 +16,7 @@ import edu.illinois.dscs.mypocket.model.Account;
 public class AddAccountActivity extends ActionBarActivity {
 
     private boolean accountActive;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +46,13 @@ public class AddAccountActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
     public void saveAccount(View view) {
         Intent goBackToShowAccount = new Intent(this, ShowAccountsActivity.class);
         //Account newAccount = new Account(getName(), getInitialValue(), true);
         //ShowAccountsActivity.showAccounts.add(newAccount);
         startActivity(goBackToShowAccount);
-    }
+    }*/
 
     public String getName() {
         EditText accountNameView = (EditText) findViewById(R.id.account_name_edit_view);
@@ -62,17 +64,41 @@ public class AddAccountActivity extends ActionBarActivity {
         return Double.valueOf(accountInitialValue.getText().toString());
     }
 
-    public boolean getAccountActive() {
+    public int getAccountActive() {
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.account_choice_radio_group);
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
-        boolean ActiveValue = true;
+        int ActiveValue = 1;
 
         switch (radioButtonID) {
             case R.id.account_active_yes_radio:
                 break;
             case R.id.account_active_no_radio:
-                ActiveValue = false;
+                ActiveValue = 0;
         }
         return ActiveValue;
+    }
+
+    /**
+     * Inserts all user inputs into the Account table.
+     */
+    private void insertAccountData() {
+        String desc = getName();
+        double initialValue = getInitialValue();
+        int type = getAccountActive();
+
+        // opening database
+        dbAccount.open();
+        // insert data into table
+        dbTransaction.insertData(type, desc, value, date, 1, 1);
+    }
+
+    /**
+     * Inserts all data inserted by the user into the Account table as a new Account.
+     *
+     * @param view the View object (button) that calls this method.
+     */
+    public void saveAccount(View view) {
+        insertAccountData();
+        startActivity(goBackToMainActivity());
     }
 }

@@ -16,7 +16,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_ACCOUNT = "Account";
 
-    public static final String _ID = "accountID";
+    public static final String _ID = "_id";
     public static final String KEY_ACCOUNT_ID = "accountID";
     public static final String KEY_ACCOUNT_NAME = "accountName";
     public static final String KEY_ACCOUNT_INITIAL_VALUE = "initialValue";
