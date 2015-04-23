@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import edu.illinois.dscs.mypocket.model.AccountAdapter;
 public class ShowAccountsActivity extends ActionBarActivity {
 
 
-    AccountDAO db = new AccountDAO(this);
+    AccountDAO db;
     //public static Account myPocket = new Account(1, "MyPocket", 0.00, true);
     //public static ArrayList<Account> showAccounts = new ArrayList<>();
     ListAdapter showAccountAdapter;
@@ -39,16 +40,11 @@ public class ShowAccountsActivity extends ActionBarActivity {
 
         //showAccountAdapter = new AccountAdapter(this, showAccounts);
 
-        showAccountList = (ListView) findViewById(R.id.showAccountList);
+        //showAccountList = (ListView) findViewById(R.id.showAccountList);
 
-        showAccountList.setAdapter(showAccountAdapter);
+        //showAccountList.setAdapter(showAccountAdapter);
 
-        showAccountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+        db = new AccountDAO(this);
 
     }
 
@@ -85,8 +81,14 @@ public class ShowAccountsActivity extends ActionBarActivity {
     public void loadAccountList(){
         ArrayList<Account> showAccounts = new ArrayList<>();
         Account accountObj = new Account(0,null,0.0,true);
-        Cursor c = db.readData();
-
+        Cursor c = db.readDataList();
+        String[] fromFieldNames = new String[] {DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
+        int[] toViewIDs = new int[] {R.id.account_name_account_button,R.id.account_text_view};
+        SimpleCursorAdapter myCursorAdapter;
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(),R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs,0);
+        showAccountList = (ListView) findViewById(R.id.showAccountList);
+        showAccountList.setAdapter(myCursorAdapter);
+        /*
         while (!c.isAfterLast()) {
             String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
             Double currentValue = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
@@ -94,7 +96,11 @@ public class ShowAccountsActivity extends ActionBarActivity {
             accountObj.setCurrentBalance(currentValue);
             showAccounts.add(accountObj);
             c.moveToNext();
-        }
+        }*/
+
+
+        //showAccountAdapter = new AccountAdapter(this, showAccounts);
+        //showAccountList.getAdapter(showAccountAdapter);
     }
 
 

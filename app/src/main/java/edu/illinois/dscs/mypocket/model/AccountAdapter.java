@@ -35,10 +35,10 @@ public class AccountAdapter extends ArrayAdapter<Account> {
         double valueDouble = currentAccount.getInitialValue();
         String initialValue = String.format("%.2f", Math.abs(valueDouble));
 
-        TextView nameTextView = (TextView) accountView.findViewById(R.id.account_name_text_view);
+        TextView nameTextView = (TextView) accountView.findViewById(R.id.account_name_account_button);
         nameTextView.setText(name);
 
-        TextView valueTextView = (TextView) accountView.findViewById(R.id.account_value_text_view);
+        TextView valueTextView = (TextView) accountView.findViewById(R.id.account_text_view);
 
         if (valueDouble < 0.00) {
             valueTextView.setText("-" + valueTextView.getText() + " " + initialValue);
