@@ -20,6 +20,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.illinois.dscs.mypocket.AddCategory;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
@@ -166,6 +167,8 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         int type = getTransactionChoice();
         String date = getDate();
         Double value = getValue();
+        String category = categorySpinner.getSelectedItem().toString();
+        String account = accountSpinner.getSelectedItem().toString();
 
         // opening database
         dbTransaction.open();
@@ -225,6 +228,14 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
 
+    }
+
+    public void createCategory(MenuItem item) {
+        startActivity(new Intent(this, AddCategoryActivity.class));
+    }
+
+    public void createAccount(MenuItem item) {
+        startActivity(new Intent(this, AddAccountActivity.class));
     }
 
     /**

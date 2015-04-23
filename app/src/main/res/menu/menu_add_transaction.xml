@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.illinois.dscs.mypocket.controller.AddTransactionActivity">
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+        android:id="@+id/action_category"
+        android:title="@string/action_category"
         android:orderInCategory="100"
+        android:onClick="createCategory"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_account"
+        android:orderInCategory="100"
+        android:onClick="createAccount"
         app:showAsAction="never" />
 </menu>
