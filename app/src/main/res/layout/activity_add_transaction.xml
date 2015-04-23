@@ -95,6 +95,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/date_field"
             android:inputType="date"
+            android:text="@string/date_field_edit_text"
             android:gravity="end" />
 
     </LinearLayout>

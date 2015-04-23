@@ -243,13 +243,13 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
             if (clean.equals(cleanC)) sel--;
 
             if (clean.length() < 8) {
-                String ddmmyyyy = "DDMMYYYY";
+                String ddmmyyyy = "MMDDYYYY";
                 clean = clean + ddmmyyyy.substring(clean.length());
             } else {
                 //This part makes sure that when we finish entering numbers
                 //the date is correct, fixing it otherwise
-                int day = Integer.parseInt(clean.substring(0, 2));
-                int mon = Integer.parseInt(clean.substring(2, 4));
+                int day = Integer.parseInt(clean.substring(2, 4));
+                int mon = Integer.parseInt(clean.substring(0, 2));
                 int year = Integer.parseInt(clean.substring(4, 8));
 
                 if (mon > 12) mon = 12;

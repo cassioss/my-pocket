@@ -21,6 +21,7 @@
     <string name="description_text_view">Description</string>
     <string name="value_text_view">Value</string>
     <string name="date_text_view">Date</string>
+    <string name="date_field_edit_text">MM/DD/YYYY</string>
     <string name="category_text_view">Category</string>
     <string name="account_text_view">Account</string>
     <string name="save_transaction_button">Save transaction</string>
