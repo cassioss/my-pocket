@@ -102,8 +102,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      */
     public void saveTransaction(View view) {
         insertTransData();
-        Intent goBackToMain = new Intent(this, MainActivity.class);
-        startActivity(goBackToMain);
+        startActivity(goBackToMainActivity());
+    }
+
+    public Intent goBackToMainActivity() {
+        return new Intent(this, MainActivity.class);
     }
 
     /**
@@ -168,7 +171,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         dbTransaction.open();
         // insert data into table
         dbTransaction.insertData(type, desc, value, date, 1, 1);
-
     }
 
     /**
