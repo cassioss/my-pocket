@@ -2,8 +2,8 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +19,11 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.Transaction;
-import edu.illinois.dscs.mypocket.model.TransactionAdapter;
 
 /**
  * @author Cassio, Dennis
- * @version 1.1
- * @since 1.0
+ * @version 1.2
+ * @since 1.1
  */
 public class MainActivity extends ActionBarActivity {
 
@@ -51,27 +50,6 @@ public class MainActivity extends ActionBarActivity {
 
         loadTotalBalance();
         loadTransactionList();
-
-        /*
-        //ListAdapter entriesAdapter = new TransactionAdapter(this, lastTransactions);
-        //lastEntries.setAdapter(entriesAdapter);
-        double totalValue = getTotalBalance();
-
-        TextView totalBalance = (TextView) findViewById(R.id.total_balance_value_text_view);
-        double module = Math.abs(totalValue);
-        String moduleText = String.format("%.2f", module);
-
-        if (totalValue < 0.00) {
-            totalBalance.setTextColor(Color.RED);
-            totalBalance.setText("-US$ " + moduleText);
-        } else {
-            totalBalance.setText("US$ " + moduleText);
-            if (totalValue > 0.00)
-                totalBalance.setTextColor(Color.GREEN);
-            else
-                totalBalance.setTextColor(Color.BLACK);
-        }
-        */
 
         lastEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
