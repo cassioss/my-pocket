@@ -61,6 +61,12 @@ public class CategoryDAO {
         return c;
     }
 
+    public Cursor getCategoryId(String name){
+        Cursor c = database.rawQuery("select categoryID from category WHERE categoryName like '" + name + "';", null);
+        return c;
+    }
+
+
     /**
      * Turns a cursor item into a full category.
      *

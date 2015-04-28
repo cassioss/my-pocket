@@ -98,6 +98,23 @@ public class AccountDAO {
         database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
     }
 
+    public Cursor getAccountId(String name){
+        Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
+        return c;
+    }
+
+    public void updateAccountValue(String name, double initialValue, double CurrentValue, int accountActive) {
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.KEY_ACCOUNT_NAME, name);
+        cv.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
+        cv.put(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE, CurrentValue);
+        cv.put(DBHelper.KEY_ACCOUNT_ACTIVE, accountActive);
+
+        //select SUM(transactionValue) from Transactions where accountID = (select accountID from Account where accountName like 'MyPocket')
+
+        database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
+    }
+
     /**
      * Creates an Account object from all the data obtained from user interactions,
      * inserting it into the database.
