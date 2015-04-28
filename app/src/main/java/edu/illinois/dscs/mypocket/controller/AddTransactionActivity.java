@@ -238,6 +238,16 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     /**
+     * In order to always come back to MainActivity.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    /**
      * Private class that uses a TextWatcher specifically for date. Format MM/DD/YYYY.
      *
      * @author Cassio

@@ -96,6 +96,9 @@ public class ShowAccountsActivity extends ActionBarActivity {
         //showAccountList.getAdapter(showAccountAdapter);
     }
 
+    /**
+     * In order to always come back to MainActivity.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
