@@ -106,12 +106,26 @@ public class MainActivity extends ActionBarActivity {
         int[] toViewIDs = new int[]{R.id.transaction_name_text_view, R.id.transaction_value_text_view};
         SimpleCursorAdapter myCursorAdapter;
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
+
+     /*   myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                int getIndex = cursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE);
+                System.out.println(getIndex);
+                String value = cursor.getString(getIndex);
+                TextView tv = (TextView) view.findViewById(R.id.account_text_view);
+                tv.setText(moneyWithTwoDecimals(value));
+                tv.setTextColor(setMoneyColor(value));
+                return true;
+            }
+        });*/
+
         lastEntries.setAdapter(myCursorAdapter);
     }
 
     public String moneyWithTwoDecimals(String stringValue) {
         double parsedValue = Double.valueOf(stringValue);
-        return "$" + NumberFormat.getCurrencyInstance().format(parsedValue).replaceAll("[$,]", "").replaceAll("^-(?=0(.00*)?$)", "");
+        return "$" + NumberFormat.getCurrencyInstance().format(parsedValue).replace("$", "").replaceAll("^-(?=0(.00*)?$)", "");
     }
 
     public int setMoneyColor(String stringValue) {
