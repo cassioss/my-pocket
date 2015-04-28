@@ -16,7 +16,11 @@ import java.text.NumberFormat;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 
-
+/**
+ * @author Cassio, Dennis
+ * @version 1.1
+ * @since 1.0
+ */
 public class AddAccountActivity extends ActionBarActivity {
 
     AccountDAO dbAccount;
@@ -133,13 +137,14 @@ public class AddAccountActivity extends ActionBarActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             if (!s.toString().equals(current)) {
                 value.removeTextChangedListener(this);
 
                 String cleanString = s.toString().replaceAll("[$,.]", "");
 
                 double parsed = Double.parseDouble(cleanString);
-                String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100.0));
+                String formatted = NumberFormat.getCurrencyInstance().format(parsed / 100.0);
 
                 current = formatted;
                 value.setText(formatted);

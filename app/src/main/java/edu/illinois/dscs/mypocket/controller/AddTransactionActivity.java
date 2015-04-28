@@ -200,7 +200,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         accountDB.open();
 
 
-
     }
 
     /**
@@ -279,7 +278,8 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * Private class that uses a TextWatcher specifically for date. Format MM/DD/YYYY.
      *
      * @author Cassio
-     * @version 1.0
+     * @version 1.1
+     * @since 1.0
      */
     private class DateTextWatcher implements TextWatcher {
 
@@ -345,7 +345,8 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * Private class that uses a TextWatcher specifically for currency. Format $#.##
      *
      * @author Cassio
-     * @version 1.0
+     * @version 1.1
+     * @since 1.0
      */
     private class CurrencyTextWatcher implements TextWatcher {
 
@@ -364,7 +365,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
                 String cleanString = s.toString().replaceAll("[$,.]", "");
 
                 double parsed = Double.parseDouble(cleanString);
-                String formatted = NumberFormat.getCurrencyInstance().format((parsed / 100));
+                String formatted = NumberFormat.getCurrencyInstance().format(parsed / 100);
 
                 current = formatted;
                 value.setText(formatted);
