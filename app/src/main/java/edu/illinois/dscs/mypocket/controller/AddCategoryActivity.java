@@ -20,15 +20,13 @@ public class AddCategoryActivity extends ActionBarActivity {
     EditText categoryName;
     CategoryDAO categoryDB;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
 
-    categoryName = (EditText) findViewById(R.id.category_name_edit_view);
-    categoryDB = new CategoryDAO(this);
-
+        categoryName = (EditText) findViewById(R.id.category_name_edit_view);
+        categoryDB = new CategoryDAO(this);
     }
 
     @Override

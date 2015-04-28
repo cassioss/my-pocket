@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import edu.illinois.dscs.mypocket.R;
 
@@ -18,7 +17,6 @@ import edu.illinois.dscs.mypocket.R;
  * @version 1.0
  */
 public class AccountAdapter extends ArrayAdapter<Account> {
-
 
     public AccountAdapter(Context context, ArrayList<Account> AccountList) {
         super(context, R.layout.show_account_row_layout, AccountList);
