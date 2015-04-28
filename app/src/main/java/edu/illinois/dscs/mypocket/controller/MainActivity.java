@@ -2,6 +2,7 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.text.NumberFormat;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
@@ -86,15 +89,15 @@ public class MainActivity extends ActionBarActivity {
 
     public void showAccounts(View view) {
         Intent ShowAccountIntent = new Intent(this, ShowAccountsActivity.class);
-
         ShowAccountIntent.putExtra("CallingActivity", "MainActivity");
         startActivity(ShowAccountIntent);
-
     }
 
     public void loadTotalBalance() {
         Cursor c = accountDB.readTotalBalance();
-        totalBalanceText.setText(c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
+        String totalBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
+        totalBalanceText.setText(moneyWithTwoDecimals(totalBalance));
+        totalBalanceText.setTextColor(setMoneyColor(totalBalance));
     }
 
     public void loadTransactionList() {
@@ -105,4 +108,20 @@ public class MainActivity extends ActionBarActivity {
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
         lastEntries.setAdapter(myCursorAdapter);
     }
+
+    public String moneyWithTwoDecimals(String stringValue) {
+        double parsedValue = Double.valueOf(stringValue);
+        return "$" + NumberFormat.getCurrencyInstance().format(parsedValue).replaceAll("[$,]", "").replaceAll("^-(?=0(.00*)?$)", "");
+    }
+
+    public int setMoneyColor(String stringValue) {
+        Double doubleValue = Double.valueOf(moneyWithTwoDecimals(stringValue).replaceAll("[$,]", ""));
+        if (doubleValue > 0.00)
+            return Color.argb(255, 0, 200, 0);  // Green
+        else if (doubleValue < 0.00)
+            return Color.RED;
+        else
+            return Color.BLACK;
+    }
+
 }
