@@ -26,20 +26,9 @@ public class ShowAccountsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_accounts);
-
-        //if (!showAccounts.contains(myPocket))
-        //    showAccounts.add(myPocket);
-
-        //showAccountAdapter = new AccountAdapter(this, showAccounts);
-
-        //showAccountList = (ListView) findViewById(R.id.showAccountList);
-
-        //showAccountList.setAdapter(showAccountAdapter);
-
         db = new AccountDAO(this);
         db.open();
         loadAccountList();
-
     }
 
     @Override
@@ -80,20 +69,6 @@ public class ShowAccountsActivity extends ActionBarActivity {
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs, 0);
         showAccountList = (ListView) findViewById(R.id.showAccountList);
         showAccountList.setAdapter(myCursorAdapter);
-
-        /*
-        while (!c.isAfterLast()) {
-            String name = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
-            Double currentValue = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
-            accountObj.setName(name);
-            accountObj.setCurrentBalance(currentValue);
-            showAccounts.add(accountObj);
-            c.moveToNext();
-        }*/
-
-
-        //showAccountAdapter = new AccountAdapter(this, showAccounts);
-        //showAccountList.getAdapter(showAccountAdapter);
     }
 
     /**
