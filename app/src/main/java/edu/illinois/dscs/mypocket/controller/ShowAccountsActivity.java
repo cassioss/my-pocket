@@ -11,8 +11,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
-
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
@@ -64,9 +62,24 @@ public class ShowAccountsActivity extends ActionBarActivity {
     public void loadAccountList() {
         Cursor c = db.readDataList();
         String[] fromFieldNames = new String[]{DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
-        int[] toViewIDs = new int[]{R.id.account_name_account_button, R.id.account_text_view};
+        int[] toViewIDs = new int[]{R.id.account_name_account_button, R.id.account_value_text_view};
         SimpleCursorAdapter myCursorAdapter;
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.show_account_row_layout, c, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                int getIndex = cursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE);
+                System.out.println(getIndex);
+                String value = cursor.getString(getIndex);
+                TextView tv = (TextView) view.findViewById(R.id.account_value_text_view);
+                MainActivity mActivity = new MainActivity();
+                if (tv != null) {
+                    tv.setText(mActivity.moneyWithTwoDecimals(value));
+                    tv.setTextColor(mActivity.setMoneyColor(value));
+                    return true;
+                } else return false;
+            }
+        });
         showAccountList = (ListView) findViewById(R.id.showAccountList);
         showAccountList.setAdapter(myCursorAdapter);
     }
@@ -79,18 +92,5 @@ public class ShowAccountsActivity extends ActionBarActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-
-    public void setCurrencyFormat(SimpleCursorAdapter currencyFormat) {
-        for (int i = 0; i < currencyFormat.getCount(); i++) {
-            View currentBalanceView = currencyFormat.getView(i, null, null);
-            TextView currentBalanceTextView = (TextView) currentBalanceView.findViewById(R.id.account_text_view);
-            String currentBalanceString = currentBalanceTextView.getText().toString();
-            System.out.println(currentBalanceString);
-            double parsed = Double.parseDouble(currentBalanceString);
-            String formatted = NumberFormat.getCurrencyInstance().format(parsed);
-            System.out.println(formatted);
-            currentBalanceTextView.setText(formatted);
-        }
     }
 }
