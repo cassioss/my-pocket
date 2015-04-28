@@ -12,13 +12,10 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
-import edu.illinois.dscs.mypocket.model.Transaction;
 
 /**
  * @author Cassio, Dennis
@@ -31,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
     AccountDAO accountDB;
     ListView lastEntries;
     TextView totalBalanceText;
-
-    public static ArrayList<Transaction> lastTransactions = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +75,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private double getTotalBalance() {
-        double totalValue = 0.00;
-        for (Transaction transaction : lastTransactions) {
-            if (transaction.getType() == 0)
-                totalValue -= transaction.getValue();
-            else if (transaction.getType() == 1)
-                totalValue += transaction.getValue();
-        }
-        return totalValue;
     }
 
     public void addTransaction(View view) {
