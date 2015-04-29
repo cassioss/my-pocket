@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -53,10 +54,8 @@ public class ShowAccountsActivity extends ActionBarActivity {
 
     public void add_account_button(View view) {
         Intent AddAccountIntent = new Intent(this, AddAccountActivity.class);
-
         AddAccountIntent.putExtra("CallActivity", "ShowAccountsActivity");
         startActivity(AddAccountIntent);
-
     }
 
     public void loadAccountList() {
@@ -92,5 +91,13 @@ public class ShowAccountsActivity extends ActionBarActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void showAccountTransactions(View view) {
+        Button b = (Button) view;
+        String accountName = b.getText().toString();
+        Intent showTransIntent = new Intent(this, ShowAccountTransActivity.class);
+        showTransIntent.putExtra("accountName", accountName);
+        startActivity(showTransIntent);
     }
 }

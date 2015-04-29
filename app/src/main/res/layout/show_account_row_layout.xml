@@ -16,7 +16,8 @@
         android:text="@string/hello_world"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:onClick="showAccountTransactions"/>
 
     <TextView
         android:layout_width="match_parent"

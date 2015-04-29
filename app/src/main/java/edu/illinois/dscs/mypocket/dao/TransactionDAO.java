@@ -60,7 +60,8 @@ public class TransactionDAO {
     /**
      * Inserts all values of a Transaction object into the Transactions table. Equivalent to
      * INSERT INTO Transactions VALUES(type, description, value, date, categoryID, accountID);
-     *  @param type        the transaction type (expense or income).
+     *
+     * @param type        the transaction type (expense or income).
      * @param description the transaction's description.
      * @param value       the transaction value.
      * @param date        the transaction date (not necessarily today's date).
@@ -78,8 +79,14 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
-    public Cursor getTransValueData(String AccountName){
-        Cursor c = database.rawQuery("select SUM(transactionValue) AS totalBalance from Transactions where accountID = (select accountID from Account where accountName like'" + AccountName + "');", null);
+    public Cursor getTransValueData(String accountName) {
+        Cursor c = database.rawQuery("select SUM(transactionValue) AS totalBalance from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    public Cursor readAccountTrans(String accountName) {
+        Cursor c = database.rawQuery("select transactionID AS _id, description, transactionValue from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
         if (c != null) c.moveToFirst();
         return c;
     }

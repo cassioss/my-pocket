@@ -27,9 +27,6 @@
             android:name=".controller.ShowAccountsActivity"
             android:label="@string/label_show_accounts" />
         <activity
-            android:name=".controller.SeeAccountActivity"
-            android:label="@string/label_see_account" />
-        <activity
             android:name=".controller.EditTransactionActivity"
             android:label="@string/label_edit_transaction" />
         <activity

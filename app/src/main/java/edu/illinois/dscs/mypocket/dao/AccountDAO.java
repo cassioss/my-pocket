@@ -88,6 +88,19 @@ public class AccountDAO {
         return c;
     }
 
+
+    public Cursor readInitialValue(String accountName) {
+        Cursor c = database.rawQuery("select initialValue from account WHERE accountName like'" + accountName + "';", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    public Cursor readCurrentBalance(String accountName) {
+        Cursor c = database.rawQuery("select currentBalance from account WHERE accountName like'" + accountName + "';", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public void insertData(String name, double initialValue, double CurrentValue, int accountActive) {
         ContentValues cv = new ContentValues();
         cv.put(DBHelper.KEY_ACCOUNT_NAME, name);
@@ -98,7 +111,7 @@ public class AccountDAO {
         database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
     }
 
-    public Cursor getAccountId(String name){
+    public Cursor getAccountId(String name) {
         Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
         if (c != null) c.moveToFirst();
         return c;
@@ -106,7 +119,7 @@ public class AccountDAO {
 
     public void updateAccountValue(double total, String account) {
         //select SUM(transactionValue) from Transactions where accountID = (select accountID from Account where accountName like 'MyPocket')
-        Cursor c = database.rawQuery("Update account set currentBalance = " + total + "where accountName like '"+ account + "';", null);
+        Cursor c = database.rawQuery("Update account set currentBalance = " + total + "where accountName like '" + account + "';", null);
         //Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
         //if (c != null) c.moveToFirst();
         //return c;

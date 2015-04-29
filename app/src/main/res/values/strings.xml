@@ -61,7 +61,7 @@
     <string name="category_name_text_view">Name</string>
     <string name="add_category_button">Save Category</string>
     <string name="title_activity_add_category">Add Category</string>
-    <string name="title_activity_show_account_trans">ShowAccountTransActivity</string>
+    <string name="title_activity_show_account_trans">Account Details</string>
 
     <!-- Show account transactions -->
     <string name="show_acc_trans_current_balance">Current Balance</string>
