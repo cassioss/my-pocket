@@ -22,6 +22,8 @@ import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 
 /**
+ * MyPocket's first (main) screen.
+ *
  * @author Cassio, Dennis
  * @version 1.3
  * @since 1.2

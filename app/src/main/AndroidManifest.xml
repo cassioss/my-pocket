@@ -39,6 +39,10 @@
             android:name=".AddCategory"
             android:label="@string/title_activity_add_category" >
         </activity>
+        <activity
+            android:name=".controller.ShowAccountTransActivity"
+            android:label="@string/title_activity_show_account_trans" >
+        </activity>
     </application>
 
 </manifest>
