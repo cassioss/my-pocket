@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/account_value_text_view"
-        android:gravity="end"
+        android:gravity="start"
         android:text="@string/show_accounts_value"
         android:textSize="24sp" />
 

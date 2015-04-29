@@ -142,7 +142,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void makeBackup(MenuItem item) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Saving data...", Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(getApplicationContext(), "Saving data...", Toast.LENGTH_SHORT);
         toast.show();
     }
 }
