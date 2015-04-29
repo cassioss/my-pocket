@@ -11,6 +11,9 @@
     <string name="show_accounts_button">Show Accounts</string>
     <string name="last_entries_text_view">Last Entries</string>
 
+    <!-- Main activity menu -->
+    <string name="menu_main_save_csv">Save as CSV</string>
+
     <!-- Transaction row -->
     <string name="transaction_value">$</string>
 
@@ -26,6 +29,10 @@
     <string name="category_text_view">Category</string>
     <string name="account_text_view">Account</string>
     <string name="save_transaction_button">Save transaction</string>
+
+    <!-- Add transaction menu -->
+    <string name="action_category">+ Category</string>
+    <string name="action_account">+ Account</string>
 
     <!-- Show accounts -->
     <string name="label_show_accounts">Show Accounts</string>
@@ -53,8 +60,6 @@
     <string name="label_create_category">Create category</string>
     <string name="category_name_text_view">Name</string>
     <string name="add_category_button">Save Category</string>
-    <string name="action_category">New Category</string>
     <string name="title_activity_add_category">Add Category</string>
-    <string name="action_account">New Account</string>
 
 </resources>
