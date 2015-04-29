@@ -6,10 +6,12 @@
         android:icon="@android:drawable/ic_menu_save"
         android:title="@string/menu_main_save_csv"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"
+        android:onClick="makeBackup" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/menu_main_save_csv"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom|withText"
+        android:onClick="makeBackup" />
 </menu>

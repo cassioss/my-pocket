@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 
@@ -140,4 +141,8 @@ public class MainActivity extends ActionBarActivity {
             return Color.BLACK;
     }
 
+    public void makeBackup(MenuItem item) {
+        Toast toast = Toast.makeText(getApplicationContext(), "Saving data...", Toast.LENGTH_LONG);
+        toast.show();
+    }
 }
