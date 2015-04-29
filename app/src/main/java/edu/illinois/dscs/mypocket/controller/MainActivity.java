@@ -126,11 +126,23 @@ public class MainActivity extends ActionBarActivity {
         lastEntries.setAdapter(myCursorAdapter);
     }
 
-    public String moneyWithTwoDecimals(String stringValue) {
-        double parsedValue = Double.valueOf(stringValue);
+    /**
+     * Given a string that contains a double value, returns a string with the correct format for currency.
+     *
+     * @param doubleValue string that corresponds to a double.
+     * @return "$ " followed by the money sign (if any) and a number with commas for thousands and two decimal digits.
+     */
+    public String moneyWithTwoDecimals(String doubleValue) {
+        double parsedValue = Double.valueOf(doubleValue);
         return "$ " + NumberFormat.getCurrencyInstance().format(parsedValue).replaceAll("[$ ]", "").replaceAll("^-(?=0(.00*)?$)", "");
     }
 
+    /**
+     * Returns an integer that corresponds to a color for a given (money) value contained in a string.
+     *
+     * @param stringValue a string that contains a (money) value.
+     * @return red if positive, green if negative, black if exactly 0.00
+     */
     public int setMoneyColor(String stringValue) {
         Double doubleValue = Double.valueOf(moneyWithTwoDecimals(stringValue).replaceAll("[$, ]", ""));
         if (doubleValue > 0.00)
@@ -141,7 +153,12 @@ public class MainActivity extends ActionBarActivity {
             return Color.BLACK;
     }
 
-    public void makeBackup(MenuItem item) {
+    /**
+     * Creates a CSV file that contains all user inputs so far.
+     *
+     * @param item menu item that called the backup function (not being used here).
+     */
+    public void saveAsCSV(MenuItem item) {
         Toast toast = Toast.makeText(getApplicationContext(), "Saving data...", Toast.LENGTH_SHORT);
         toast.show();
     }

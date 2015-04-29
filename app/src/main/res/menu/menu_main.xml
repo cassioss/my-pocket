@@ -7,11 +7,11 @@
         android:title="@string/menu_main_save_csv"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:onClick="makeBackup" />
+        android:onClick="saveAsCSV" />
     <item
         android:id="@+id/action_settings"
         android:title="@string/menu_main_save_csv"
         android:orderInCategory="100"
         app:showAsAction="ifRoom|withText"
-        android:onClick="makeBackup" />
+        android:onClick="saveAsCSV" />
 </menu>
