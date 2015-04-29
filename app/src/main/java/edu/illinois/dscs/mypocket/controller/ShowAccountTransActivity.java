@@ -4,8 +4,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import edu.illinois.dscs.mypocket.R;
+import edu.illinois.dscs.mypocket.dao.AccountDAO;
+import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 
 /**
  * @author Cassio
@@ -13,10 +19,44 @@ import edu.illinois.dscs.mypocket.R;
  */
 public class ShowAccountTransActivity extends ActionBarActivity {
 
+    TransactionDAO transDB;
+    AccountDAO accountDB;
+
+    ListView allEntries;
+    TextView currentBalanceTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_account_trans);
+
+        transDB = new TransactionDAO(this);
+        transDB.open();
+
+        accountDB = new AccountDAO(this);
+        accountDB.open();
+
+        currentBalanceTextView = (TextView) findViewById(R.id.current_balance_value_text_view);
+        allEntries = (ListView) findViewById(R.id.all_entries_list_view);
+
+        loadCurrentBalance();
+        loadAccountTransactions();
+
+        allEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+    }
+
+    private void loadCurrentBalance() {
+
+    }
+
+    private void loadAccountTransactions() {
+
     }
 
     @Override
