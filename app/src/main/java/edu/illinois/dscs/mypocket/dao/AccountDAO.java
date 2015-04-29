@@ -104,16 +104,12 @@ public class AccountDAO {
         return c;
     }
 
-    public void updateAccountValue(String name, double initialValue, double CurrentValue, int accountActive) {
-        ContentValues cv = new ContentValues();
-        cv.put(DBHelper.KEY_ACCOUNT_NAME, name);
-        cv.put(DBHelper.KEY_ACCOUNT_INITIAL_VALUE, initialValue);
-        cv.put(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE, CurrentValue);
-        cv.put(DBHelper.KEY_ACCOUNT_ACTIVE, accountActive);
-
+    public void updateAccountValue(double total, String account) {
         //select SUM(transactionValue) from Transactions where accountID = (select accountID from Account where accountName like 'MyPocket')
-
-        database.insert(DBHelper.TABLE_ACCOUNT, null, cv);
+        Cursor c = database.rawQuery("Update account set currentBalance = " + total + "where accountName like '"+ account + "';", null);
+        //Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
+        //if (c != null) c.moveToFirst();
+        //return c;
     }
 
     /**
@@ -195,5 +191,6 @@ public class AccountDAO {
         account.setAccountActive(cursor.getInt(4) > 0);
         return account;
     }
+
 
 }

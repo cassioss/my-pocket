@@ -176,31 +176,27 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         int categoryID = 0;
         int AccountID = 0;
 
-
         Cursor categoryC = categoryDB.getCategoryId(category);
         Cursor accountC = accountDB.getAccountId(account);
 
-        //while (!categoryC.isAfterLast()) {
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
-           // categoryC.moveToNext();
-        //}
-
-
-        //while (!accountC.isAfterLast()) {
         AccountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
-            //accountC.moveToNext();
-       // }
 
         // opening database
         dbTransaction.open();
         // insert data into table
         dbTransaction.insertData(type, desc, value, date, categoryID, AccountID);
 
-
-        accountDB.open();
-
-
+        updateAccountValue(account);
     }
+
+    public void updateAccountValue(String account){
+        Cursor totalTransCursor = dbTransaction.getTransValueData(account);
+        double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
+
+        dbAccount.updateAccountValue(totalAccount, account);
+    }
+
 
     /**
      * Loads all categories inside the Category dropdown for AddTransaction.

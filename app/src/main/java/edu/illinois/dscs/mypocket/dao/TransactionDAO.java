@@ -78,6 +78,12 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
+    public Cursor getTransValueData(String AccountName){
+        Cursor c = database.rawQuery("select SUM(transactionValue) AS totalBalance from Transactions where accountID = (select accountID from Account where accountName like'" + AccountName + "');", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     /**
      * Reads only the description and the value of all the transactions inside the Transactions table.
      * Equivalent to: SELECT description, value FROM Transactions;
