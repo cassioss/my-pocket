@@ -173,28 +173,28 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         CategoryDAO categoryDB = new CategoryDAO(this);
         accountDB.open();
         categoryDB.open();
-        int nameC = 0;
-        int nameA = 0;
+        int categoryID = 0;
+        int AccountID = 0;
 
 
         Cursor categoryC = categoryDB.getCategoryId(category);
         Cursor accountC = accountDB.getAccountId(account);
 
-        while (!categoryC.isAfterLast()) {
-            nameC = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
-            categoryC.moveToNext();
-        }
+        //while (!categoryC.isAfterLast()) {
+        categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
+           // categoryC.moveToNext();
+        //}
 
 
-        while (!accountC.isAfterLast()) {
-            nameA = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
-            accountC.moveToNext();
-        }
+        //while (!accountC.isAfterLast()) {
+        AccountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
+            //accountC.moveToNext();
+       // }
 
         // opening database
         dbTransaction.open();
         // insert data into table
-        dbTransaction.insertData(type, desc, value, date, nameA, nameC);
+        dbTransaction.insertData(type, desc, value, date, categoryID, AccountID);
 
 
         accountDB.open();

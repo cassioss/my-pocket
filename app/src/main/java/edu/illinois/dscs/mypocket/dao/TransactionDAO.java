@@ -60,8 +60,7 @@ public class TransactionDAO {
     /**
      * Inserts all values of a Transaction object into the Transactions table. Equivalent to
      * INSERT INTO Transactions VALUES(type, description, value, date, categoryID, accountID);
-     *
-     * @param type        the transaction type (expense or income).
+     *  @param type        the transaction type (expense or income).
      * @param description the transaction's description.
      * @param value       the transaction value.
      * @param date        the transaction date (not necessarily today's date).

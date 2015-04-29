@@ -100,6 +100,7 @@ public class AccountDAO {
 
     public Cursor getAccountId(String name){
         Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
+        if (c != null) c.moveToFirst();
         return c;
     }
 

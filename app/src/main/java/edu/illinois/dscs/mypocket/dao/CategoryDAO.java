@@ -63,6 +63,7 @@ public class CategoryDAO {
 
     public Cursor getCategoryId(String name){
         Cursor c = database.rawQuery("select categoryID from category WHERE categoryName like '" + name + "';", null);
+        if (c != null) c.moveToFirst();
         return c;
     }
 
