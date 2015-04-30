@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -139,5 +140,13 @@ public class AccountDetailsActivity extends ActionBarActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, ShowAccountsActivity.class);
         startActivity(intent);
+    }
+
+    public void editTransactions(View view) {
+        TextView textTransName = (TextView) view;
+        String transName = textTransName.getText().toString();
+        Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
+        showTransIntent.putExtra("transName", transName);
+        startActivity(showTransIntent);
     }
 }
