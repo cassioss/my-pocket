@@ -21,7 +21,7 @@ import edu.illinois.dscs.mypocket.dao.TransactionDAO;
  * @author Cassio
  * @version 1.0
  */
-public class ShowAccountTransActivity extends ActionBarActivity {
+public class AccountDetailsActivity extends ActionBarActivity {
 
     TransactionDAO transDB;
     AccountDAO accountDB;
@@ -34,7 +34,7 @@ public class ShowAccountTransActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_account_trans);
+        setContentView(R.layout.activity_account_details);
 
         transDB = new TransactionDAO(this);
         transDB.open();
@@ -106,7 +106,7 @@ public class ShowAccountTransActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_show_account_trans, menu);
+        getMenuInflater().inflate(R.menu.menu_account_details, menu);
         return true;
     }
 
@@ -123,5 +123,15 @@ public class ShowAccountTransActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * In order to always come back to ShowAccounts.
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, ShowAccountsActivity.class);
+        startActivity(intent);
     }
 }

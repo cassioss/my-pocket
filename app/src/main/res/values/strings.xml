@@ -63,9 +63,9 @@
     <string name="title_activity_add_category">Add Category</string>
     <string name="title_activity_show_account_trans">Account Details</string>
 
-    <!-- Show account transactions -->
-    <string name="show_acc_trans_current_balance">Current Balance</string>
-    <string name="show_acc_trans_initial_value">Initial value</string>
-    <string name="show_acc_trans_all_entries">All Entries</string>
+    <!-- Account details -->
+    <string name="acc_details_current_balance">Current Balance</string>
+    <string name="acc_details_initial_value">Initial value</string>
+    <string name="acc_details_all_entries">All Entries</string>
 
 </resources>

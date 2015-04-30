@@ -96,7 +96,7 @@ public class ShowAccountsActivity extends ActionBarActivity {
     public void showAccountTransactions(View view) {
         Button b = (Button) view;
         String accountName = b.getText().toString();
-        Intent showTransIntent = new Intent(this, ShowAccountTransActivity.class);
+        Intent showTransIntent = new Intent(this, AccountDetailsActivity.class);
         showTransIntent.putExtra("accountName", accountName);
         startActivity(showTransIntent);
     }
