@@ -2,6 +2,7 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
@@ -29,6 +31,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     ListView allEntries;
     TextView currentBalanceTextView;
     TextView initialValueTextView;
+    ToggleButton activateAccount;
     MainActivity mActivity;
     String accountName;
 
@@ -48,6 +51,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
         currentBalanceTextView = (TextView) findViewById(R.id.current_balance_value_text_view);
         initialValueTextView = (TextView) findViewById(R.id.initial_value_text_view);
         allEntries = (ListView) findViewById(R.id.all_entries_list_view);
+        activateAccount = (ToggleButton) findViewById(R.id.activate_account_toggle_button);
 
         Intent calledIntent = getIntent();
         accountName = calledIntent.getStringExtra("accountName");
@@ -55,6 +59,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
         loadCurrentBalance();
         loadInitialValue();
         loadAccountTransactions();
+        loadActivateToggle();
 
         allEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,11 +72,8 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     private void loadCurrentBalance() {
         Cursor c = accountDB.readCurrentBalance(accountName);
-        Cursor ci = accountDB.readInitialValue(accountName);
-
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         String totalBalance = currentBalance.toString();
-
         currentBalanceTextView.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
         currentBalanceTextView.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
     }
@@ -106,6 +108,17 @@ public class AccountDetailsActivity extends ActionBarActivity {
         });
 
         allEntries.setAdapter(myCursorAdapter);
+    }
+
+    private void loadActivateToggle() {
+        Cursor c = accountDB.getAccountActive(accountName);
+        String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
+        boolean checkActive = Integer.valueOf(isActive) > 0;
+        activateAccount.setChecked(checkActive);
+        if (checkActive)
+            activateAccount.setBackgroundColor(Color.RED);
+        else
+            activateAccount.setBackgroundColor(Color.argb(255, 0, 100, 0)); // Dark green
     }
 
     @Override
@@ -147,5 +160,20 @@ public class AccountDetailsActivity extends ActionBarActivity {
         showTransIntent.putExtra("transName", transName);
         showTransIntent.putExtra("accountName", accountName);
         startActivity(showTransIntent);
+    }
+
+    public void changeActivation(View view) {
+        updateAccountStatus();
+        Intent showTransIntent = new Intent(this, ShowAccountsActivity.class);
+        startActivity(showTransIntent);
+    }
+
+    private void updateAccountStatus() {
+        Cursor c = accountDB.getAccountActive(accountName);
+        String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
+        boolean checkActive = Integer.valueOf(isActive) > 0;
+        Integer newActive = 0;
+        if (!checkActive) newActive = 1;
+        accountDB.updateAccountActive(newActive, accountName);
     }
 }
