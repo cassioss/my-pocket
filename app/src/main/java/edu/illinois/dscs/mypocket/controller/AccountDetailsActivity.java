@@ -143,6 +143,9 @@ public class AccountDetailsActivity extends ActionBarActivity {
         TextView textTransName = (TextView) view;
         String transName = textTransName.getText().toString();
         Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
+
+        transDB.open();
+        Cursor C = (Cursor) transDB.
         showTransIntent.putExtra("transName", transName);
         startActivity(showTransIntent);
     }

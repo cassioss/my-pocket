@@ -79,6 +79,12 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
+    public Cursor selectTrans(int transID) {
+        Cursor c = database.rawQuery("select transactionID, transType, description, transactionValue, creationDate, categoryID, accountID from Transactions where accountID = "+ transID +";", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public Cursor getTransValueData(String accountName) {
         Cursor c = database.rawQuery("select SUM(transactionValue) AS totalBalance from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
         if (c != null) c.moveToFirst();
