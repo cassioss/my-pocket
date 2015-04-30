@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,15 +14,15 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.utils.CurrencyTextWatcher;
+import edu.illinois.dscs.mypocket.utils.DateTextWatcher;
 import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
@@ -41,9 +39,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     private AccountDAO dbAccount;
     private EditText date;
     private EditText value;
-
-    private String current = "";
-    private Calendar cal = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +58,9 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         loadSpinnerDataCategory();
         loadSpinnerDataAccount();
         date = (EditText) findViewById(R.id.date_field);
-        date.addTextChangedListener(new DateTextWatcher());
+        date.addTextChangedListener(new DateTextWatcher(date));
         value = (EditText) findViewById(R.id.value_entry);
-        value.addTextChangedListener(new CurrencyTextWatcher());
+        value.addTextChangedListener(new CurrencyTextWatcher(value));
     }
 
     @Override
@@ -284,111 +279,4 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         startActivity(intent);
     }
 
-    /**
-     * Private class that uses a TextWatcher specifically for date. Format MM/DD/YYYY.
-     *
-     * @author Cassio
-     * @version 1.1
-     * @since 1.0
-     */
-    private class DateTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (!s.toString().equals(current)) {
-                String clean = s.toString().replaceAll("[^\\d.]", "");
-                String cleanC = current.replaceAll("[^\\d.]", "");
-
-                int cl = clean.length();
-                int sel = cl;
-                for (int i = 2; i <= cl && i < 6; i += 2) {
-                    sel++;
-                }
-                //Fix for pressing delete next to a forward slash
-                if (clean.equals(cleanC)) sel--;
-
-                if (clean.length() < 8) {
-                    String mmddyyyy = "MMDDYYYY";
-                    clean = clean + mmddyyyy.substring(clean.length());
-                } else {
-                    //This part makes sure that when we finish entering numbers
-                    //the date is correct, fixing it otherwise
-                    int mon = Integer.parseInt(clean.substring(0, 2));
-                    int day = Integer.parseInt(clean.substring(2, 4));
-                    int year = Integer.parseInt(clean.substring(4, 8));
-
-                    if (mon > 12) mon = 12;
-                    cal.set(Calendar.MONTH, mon - 1);
-                    year = (year < 1900) ? 1900 : (year > 2100) ? 2100 : year;
-                    cal.set(Calendar.YEAR, year);
-                    // ^ first set year for the line below to work correctly
-                    //with leap years - otherwise, date e.g. 29/02/2012
-                    //would be automatically corrected to 28/02/2012
-
-                    day = (day > cal.getActualMaximum(Calendar.DATE)) ? cal.getActualMaximum(Calendar.DATE) : day;
-                    clean = String.format("%02d%02d%02d", mon, day, year);
-                }
-
-                clean = String.format("%s/%s/%s", clean.substring(0, 2),
-                        clean.substring(2, 4),
-                        clean.substring(4, 8));
-
-                sel = sel < 0 ? 0 : sel;
-                current = clean;
-                date.setText(current);
-                date.setSelection(sel < current.length() ? sel : current.length());
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    }
-
-    /**
-     * Private class that uses a TextWatcher specifically for currency. Format $#.##
-     *
-     * @author Cassio
-     * @version 1.1
-     * @since 1.0
-     */
-    private class CurrencyTextWatcher implements TextWatcher {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        private String current = "";
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (!s.toString().equals(current)) {
-                value.removeTextChangedListener(this);
-
-                String cleanString = s.toString().replaceAll("[$,.]", "");
-
-                double parsed = Double.parseDouble(cleanString);
-                String formatted = NumberFormat.getCurrencyInstance().format(parsed / 100);
-
-                current = formatted;
-                value.setText(formatted);
-                value.setSelection(formatted.length());
-
-                value.addTextChangedListener(this);
-            }
-        }
-
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    }
 }

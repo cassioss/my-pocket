@@ -20,6 +20,9 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.utils.CurrencyTextWatcher;
+import edu.illinois.dscs.mypocket.utils.DateTextWatcher;
+import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
  * @author Cassio
@@ -43,11 +46,6 @@ public class EditTransactionActivity extends ActionBarActivity {
     Cursor accountCursor;
     int transType = 0;
     int transID = 0;
-    //private String description;
-    //private int transactionChoice;
-    //private String date;
-    //private Double value;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +59,10 @@ public class EditTransactionActivity extends ActionBarActivity {
         transDate = (EditText) findViewById(R.id.edit_transaction_date);
         transCategory = (Spinner) findViewById(R.id.edit_transaction_category);
         transAccount = (Spinner) findViewById(R.id.edit_transaction_account);
+
+        transValue.addTextChangedListener(new CurrencyTextWatcher(transValue));
+        transDate.addTextChangedListener(new DateTextWatcher(transDate));
+
         accountDB = new AccountDAO(this);
         categoryDB = new CategoryDAO(this);
         transDB = new TransactionDAO(this);
@@ -99,10 +101,16 @@ public class EditTransactionActivity extends ActionBarActivity {
 
     public void updateTransaction(View view) {
         String desc = getDescription();
-        int type = getTransactionChoice();
-        String date = getDate();
         Double value = getValue();
+        String date = getDate();
+
+        if (ValidationUtils.invalidDescription(getApplicationContext(), getDescription())) return;
+        if (ValidationUtils.invalidValue(getApplicationContext(), getValue())) return;
+        if (ValidationUtils.invalidDate(getApplicationContext(), getDate())) return;
+
+        int type = getTransactionChoice();
         if (type == 0) value *= -1.00;
+
         String category = transCategory.getSelectedItem().toString();
         String account = transAccount.getSelectedItem().toString();
 
@@ -124,11 +132,8 @@ public class EditTransactionActivity extends ActionBarActivity {
         // insert data into table
         transDB.updateData(transID, type, desc, value, date, categoryID, accountID);
 
-
         startActivity(goBackToDetailActivity());
-
-
-       updateAccountValue(accountName);
+        updateAccountValue(accountName);
     }
 
     public void updateAccountValue(String account) {
@@ -165,7 +170,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         while (!c.isAfterLast()) {
             transID = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_ID));
             transDescription.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_DESCRIPTION)));
-            transValue.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_VALUE)));
+            transValue.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_VALUE)).replace("-", ""));
             transDate.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_CREATION_DATE)));
             transType = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_TYPE));
             category = c.getString(c.getColumnIndex((DBHelper.KEY_CATEGORY_NAME)));
