@@ -18,8 +18,8 @@ import edu.illinois.dscs.mypocket.dao.DBHelper;
 
 public class ShowAccountsActivity extends ActionBarActivity {
 
-    AccountDAO db;
-    ListView showAccountList;
+    private AccountDAO db;
+    private ListView showAccountList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

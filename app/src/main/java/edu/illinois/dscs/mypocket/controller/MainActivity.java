@@ -30,10 +30,10 @@ import edu.illinois.dscs.mypocket.dao.TransactionDAO;
  */
 public class MainActivity extends ActionBarActivity {
 
-    TransactionDAO transDB;
-    AccountDAO accountDB;
-    ListView lastEntries;
-    TextView totalBalanceText;
+    private TransactionDAO transDB;
+    private AccountDAO accountDB;
+    private ListView lastEntries;
+    private TextView totalBalanceText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
      * @param doubleValue string that corresponds to a double.
      * @return "$ " followed by the money sign (if any) and a number with commas for thousands and two decimal digits.
      */
-    public String moneyWithTwoDecimals(String doubleValue) {
+    protected String moneyWithTwoDecimals(String doubleValue) {
         double parsedValue = Double.valueOf(doubleValue);
         return "$ " + NumberFormat.getCurrencyInstance().format(parsedValue).replaceAll("[$ ]", "").replaceAll("^-(?=0(.00*)?$)", "");
     }
@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
      * @param stringValue a string that contains a (money) value.
      * @return red if positive, green if negative, black if exactly 0.00
      */
-    public int setMoneyColor(String stringValue) {
+    protected int setMoneyColor(String stringValue) {
         Double doubleValue = Double.valueOf(moneyWithTwoDecimals(stringValue).replaceAll("[$, ]", ""));
         if (doubleValue > 0.00)
             return Color.argb(255, 0, 200, 0);  // Green
