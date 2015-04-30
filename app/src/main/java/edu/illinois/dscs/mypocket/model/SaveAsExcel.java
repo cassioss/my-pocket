@@ -73,8 +73,6 @@ public class SaveAsExcel {
             // Write a few headers
             addCaption(sheet, 0, 0, "Header 1");
             addCaption(sheet, 1, 0, "This is another header");
-
-
         }
 
         private void createContent(WritableSheet sheet) throws WriteException {
@@ -111,8 +109,8 @@ public class SaveAsExcel {
             sheet.addCell(label);
         }
 
-        private void addNumber(WritableSheet sheet, int column, int row,
-                               Integer integer) throws WriteException {
+        private void addNumber(WritableSheet sheet, int column, int row, Integer integer)
+                throws WriteException {
             Number number;
             number = new Number(column, row, integer, times);
             sheet.addCell(number);
@@ -127,10 +125,9 @@ public class SaveAsExcel {
 
         public static void main(String[] args) throws WriteException, IOException {
             WriteExcel test = new WriteExcel();
-            test.setOutputFile("c:/temp/lars.xls");
+            test.setOutputFile("ABC.xls");
             test.write();
-            System.out
-                    .println("Please check the result file under c:/temp/lars.xls ");
+            System.out.println("Please check the result file under c:/temp/lars.xls ");
         }
     }
 }

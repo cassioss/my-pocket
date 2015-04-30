@@ -2,7 +2,6 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -14,12 +13,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.NumberFormat;
-
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
 
 /**
  * MyPocket's first (main) screen.
@@ -98,8 +96,8 @@ public class MainActivity extends ActionBarActivity {
     public void loadTotalBalance() {
         Cursor c = accountDB.readTotalBalance();
         String totalBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
-        totalBalanceText.setText(moneyWithTwoDecimals(totalBalance));
-        totalBalanceText.setTextColor(setMoneyColor(totalBalance));
+        totalBalanceText.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
+        totalBalanceText.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
     }
 
     public void loadTransactionList() {
@@ -116,41 +114,14 @@ public class MainActivity extends ActionBarActivity {
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {
-                    tv.setText(moneyWithTwoDecimals(value));
-                    tv.setTextColor(setMoneyColor(value));
+                    tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
+                    tv.setTextColor(CurrencyUtils.setMoneyColor(value));
                     return true;
                 } else return false;
             }
         });
 
         lastEntries.setAdapter(myCursorAdapter);
-    }
-
-    /**
-     * Given a string that contains a double value, returns a string with the correct format for currency.
-     *
-     * @param doubleValue string that corresponds to a double.
-     * @return "$ " followed by the money sign (if any) and a number with commas for thousands and two decimal digits.
-     */
-    protected String moneyWithTwoDecimals(String doubleValue) {
-        double parsedValue = Double.valueOf(doubleValue);
-        return "$ " + NumberFormat.getCurrencyInstance().format(parsedValue).replaceAll("[$ ]", "").replaceAll("^-(?=0(.00*)?$)", "");
-    }
-
-    /**
-     * Returns an integer that corresponds to a color for a given (money) value contained in a string.
-     *
-     * @param stringValue a string that contains a (money) value.
-     * @return red if positive, green if negative, black if exactly 0.00
-     */
-    protected int setMoneyColor(String stringValue) {
-        Double doubleValue = Double.valueOf(moneyWithTwoDecimals(stringValue).replaceAll("[$, ]", ""));
-        if (doubleValue > 0.00)
-            return Color.argb(255, 0, 200, 0);  // Green
-        else if (doubleValue < 0.00)
-            return Color.RED;
-        else
-            return Color.BLACK;
     }
 
     /**

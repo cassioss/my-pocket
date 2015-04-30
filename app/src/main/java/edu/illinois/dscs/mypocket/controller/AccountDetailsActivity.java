@@ -66,8 +66,11 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     private void loadCurrentBalance() {
         Cursor c = accountDB.readCurrentBalance(accountName);
+        Cursor ci = accountDB.readInitialValue(accountName);
+
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
-        String totalBalance = currentBalance.toString();
+        String totalBalance = urrentBalance);
+
         currentBalanceTextView.setText(mActivity.moneyWithTwoDecimals(totalBalance));
         currentBalanceTextView.setTextColor(mActivity.setMoneyColor(totalBalance));
     }
