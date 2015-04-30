@@ -2,6 +2,7 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -13,11 +14,16 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
+
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.model.SaveAsExcel;
 import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
+import jxl.write.WriteException;
 
 /**
  * MyPocket's first (main) screen.
@@ -130,7 +136,16 @@ public class MainActivity extends ActionBarActivity {
      * @param item menu item that called the backup function (not being used here).
      */
     public void saveAsCSV(MenuItem item) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Saving data...", Toast.LENGTH_SHORT);
-        toast.show();
+        SaveAsExcel saveAsExcel = new SaveAsExcel();
+        try {
+            File file = saveAsExcel.abc();
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent.setData(Uri.fromFile(file));
+            sendBroadcast(intent);
+            Toast toast = Toast.makeText(getApplicationContext(), "Saving data to Download/MyPocket.xls ...", Toast.LENGTH_LONG);
+            toast.show();
+        } catch (WriteException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

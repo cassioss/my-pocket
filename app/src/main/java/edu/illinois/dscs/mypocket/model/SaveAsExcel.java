@@ -1,5 +1,7 @@
 package edu.illinois.dscs.mypocket.model;
 
+import android.os.Environment;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
@@ -23,18 +25,31 @@ import jxl.write.WriteException;
  */
 public class SaveAsExcel {
 
+    public File abc() throws WriteException, IOException {
+        WriteExcel test = new WriteExcel();
+        test.setOutputFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MyPocket.xls");
+        test.write();
+        return test.getFile();
+    }
+
     public static class WriteExcel {
 
         private WritableCellFormat timesBoldUnderline;
         private WritableCellFormat times;
         private String inputFile;
+        private File file;
 
         public void setOutputFile(String inputFile) {
             this.inputFile = inputFile;
+            this.file = new File(inputFile);
+        }
+
+        public File getFile() {
+            return this.file;
         }
 
         public void write() throws IOException, WriteException {
-            File file = new File(inputFile);
+            file = new File(inputFile);
             WorkbookSettings wbSettings = new WorkbookSettings();
 
             wbSettings.setLocale(new Locale("en", "EN"));
@@ -121,13 +136,6 @@ public class SaveAsExcel {
             Label label;
             label = new Label(column, row, s, times);
             sheet.addCell(label);
-        }
-
-        public static void main(String[] args) throws WriteException, IOException {
-            WriteExcel test = new WriteExcel();
-            test.setOutputFile("ABC.xls");
-            test.write();
-            System.out.println("Please check the result file under c:/temp/lars.xls ");
         }
     }
 }
