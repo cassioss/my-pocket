@@ -24,7 +24,7 @@ public class Account {
         this.accountID = accountID;
         this.name = name;
         this.initialValue = initialValue;
-        this.currentBalance = 0.00;
+        this.currentBalance = this.initialValue;
         this.accountActive = accountActive;
     }
 

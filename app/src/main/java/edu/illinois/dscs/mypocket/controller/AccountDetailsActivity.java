@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -67,13 +66,8 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     private void loadCurrentBalance() {
         Cursor c = accountDB.readCurrentBalance(accountName);
-        Cursor ci = accountDB.readInitialValue(accountName);
-
-        double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
-        double initialValue = ci.getDouble((ci.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
-        double Balance = currentBalance + initialValue;
-        String totalBalance = Double.toString(Balance);
-
+        Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
+        String totalBalance = currentBalance.toString();
         currentBalanceTextView.setText(mActivity.moneyWithTwoDecimals(totalBalance));
         currentBalanceTextView.setTextColor(mActivity.setMoneyColor(totalBalance));
     }
