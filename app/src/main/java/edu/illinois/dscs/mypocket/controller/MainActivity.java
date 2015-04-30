@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import java.io.IOException;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
+import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.SaveAsExcel;
@@ -36,6 +38,7 @@ public class MainActivity extends ActionBarActivity {
 
     private TransactionDAO transDB;
     private AccountDAO accountDB;
+    private CategoryDAO categoryDB;
     private ListView lastEntries;
     private TextView totalBalanceText;
 
@@ -49,6 +52,9 @@ public class MainActivity extends ActionBarActivity {
 
         accountDB = new AccountDAO(this);
         accountDB.open();
+
+        categoryDB = new CategoryDAO(this);
+        categoryDB.open();
 
         lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
         totalBalanceText = (TextView) findViewById(R.id.total_balance_value_text_view);
@@ -137,8 +143,11 @@ public class MainActivity extends ActionBarActivity {
      */
     public void saveAsCSV(MenuItem item) throws WriteException, IOException {
         SaveAsExcel myPocketExcel = new SaveAsExcel();
-        File myPocketFile = myPocketExcel.saveAsXLS();
-        broadcastSave(myPocketFile, "Saving data to Download/MyPocket.xls ...");
+        myPocketExcel.setOutputFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MyPocket.xls");
+        myPocketExcel.setCursors(transDB.completeTransData(), accountDB.readData(), categoryDB.readData());
+        ValidationUtils.makeToast(getApplicationContext(), "Saving data to Download/MyPocket.xls ...");
+        myPocketExcel.write();
+        broadcastSave(myPocketExcel.getFile(), "Data saved successfully!");
     }
 
     /**
@@ -146,6 +155,7 @@ public class MainActivity extends ActionBarActivity {
      *
      * @param file the File object being created.
      */
+
     private void broadcastSave(File file, String message) {
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(Uri.fromFile(file));
