@@ -80,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/account_active_yes_radio"
                 android:layout_marginEnd="20dp"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:checked="true"/>
 
             <RadioButton
                 android:id="@+id/account_active_no_radio"
