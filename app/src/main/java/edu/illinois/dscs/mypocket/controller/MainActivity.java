@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -143,7 +142,7 @@ public class MainActivity extends ActionBarActivity {
      */
     public void saveAsCSV(MenuItem item) throws WriteException, IOException {
         SaveAsExcel myPocketExcel = new SaveAsExcel();
-        myPocketExcel.setOutputFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MyPocket.xls");
+        myPocketExcel.setOutputFile("MyPocket");
         myPocketExcel.setCursors(transDB.completeTransData(), accountDB.readData(), categoryDB.readData());
         ValidationUtils.makeToast(getApplicationContext(), "Saving data to Download/MyPocket.xls ...");
         myPocketExcel.write();
