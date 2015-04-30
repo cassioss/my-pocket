@@ -32,10 +32,18 @@ public class CurrencyTextWatcher implements TextWatcher {
         if (!s.toString().equals(current)) {
             value.removeTextChangedListener(this);
 
-            String cleanString = s.toString().replaceAll("[$,.]", "");
+            String cleanString = s.toString().replaceAll("[$,]", "");
 
-            double parsed = Double.parseDouble(cleanString);
-            String formatted = NumberFormat.getCurrencyInstance().format(parsed / 100);
+            double parsed;
+            String formatted;
+
+            if (cleanString.contains(".")) {
+                parsed = Double.parseDouble(cleanString.replace(".", ""));
+                formatted = NumberFormat.getCurrencyInstance().format(parsed / 100);
+            } else {
+                parsed = Double.parseDouble(cleanString);
+                formatted = NumberFormat.getCurrencyInstance().format(parsed);
+            }
 
             current = formatted;
             value.setText(formatted);
