@@ -153,10 +153,11 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="?android:buttonBarButtonStyle"
             android:text="@string/save_transaction_button"
+            android:textSize="20sp"
             android:onClick="saveTransaction"
             android:id="@+id/addTrans_id"
+            style="?android:buttonBarButtonStyle"
             android:background="@android:color/holo_green_dark"
             android:textColor="@android:color/white" />
 

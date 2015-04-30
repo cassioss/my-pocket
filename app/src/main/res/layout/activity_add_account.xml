@@ -100,11 +100,15 @@
 
         <Button
             android:id="@+id/add_account_back_button1"
-            style="?android:buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:onClick="saveAccount"
-            android:text="@string/add_account_button" />
+            android:text="@string/add_account_button"
+            android:textSize="20sp"
+            style="?android:buttonBarButtonStyle"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 
