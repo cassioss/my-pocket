@@ -79,21 +79,21 @@ public class SaveAsExcel {
             createLabel(excelSheet);
             addTransactionLabels(excelSheet);
             createContent(excelSheet);
-            resizeColumns(excelSheet);
+            resizeColumns(excelSheet, 5);
         }
 
         private void writeAccountContentOn(WritableSheet excelSheet) throws WriteException {
             createLabel(excelSheet);
             addAccountLabels(excelSheet);
             createContent(excelSheet);
-            resizeColumns(excelSheet);
+            resizeColumns(excelSheet, 4);
         }
 
         private void writeCategoryContentOn(WritableSheet excelSheet) throws WriteException {
             createLabel(excelSheet);
             addCategoryLabels(excelSheet);
             createContent(excelSheet);
-            resizeColumns(excelSheet);
+            resizeColumns(excelSheet, 1);
         }
 
         private void addTransactionLabels(WritableSheet sheet) throws WriteException {
@@ -115,24 +115,19 @@ public class SaveAsExcel {
             addCaption(sheet, 0, 0, "Name");
         }
 
-        private void createLabel(WritableSheet sheet)
-                throws WriteException {
-            // Lets create a times font
+        private void createLabel(WritableSheet sheet) throws WriteException {
+
+            // Times font for labels
+
             WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-            // Define the cell format
             times = new WritableCellFormat(times10pt);
-            // Lets automatically wrap the cells
             times.setWrap(true);
 
-            // Let's create a bold font
+            // Bold Times font for captions
+
             WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
             timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-            // Let's automatically wrap the cells
             timesBoldUnderline.setWrap(true);
-
-            CellView cv = new CellView();
-            cv.setFormat(times);
-            cv.setFormat(timesBoldUnderline);
         }
 
         private void createContent(WritableSheet sheet) throws WriteException {
@@ -180,9 +175,11 @@ public class SaveAsExcel {
             sheet.addCell(label);
         }
 
-        private void resizeColumns(WritableSheet sheet) throws WriteException {
-            for(int column=0; column < sheet.getColumns(); column++){
-
+        private void resizeColumns(WritableSheet sheet, int columnNumber) throws WriteException {
+            for (int column = 0; column < columnNumber; column++) {
+                CellView cell = sheet.getColumnView(column);
+                cell.setAutosize(true);
+                sheet.setColumnView(column, cell);
             }
         }
     }
