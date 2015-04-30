@@ -66,16 +66,22 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     private void loadCurrentBalance() {
         Cursor c = accountDB.readCurrentBalance(accountName);
-        String currentBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
-        currentBalanceTextView.setText(mActivity.moneyWithTwoDecimals(currentBalance));
-        currentBalanceTextView.setTextColor(mActivity.setMoneyColor(currentBalance));
+        Cursor ci = accountDB.readInitialValue(accountName);
+
+        double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
+        double initialValue = ci.getDouble((ci.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
+        double Balance = currentBalance + initialValue;
+        String totalBalance = Double.toString(Balance);
+
+        currentBalanceTextView.setText(mActivity.moneyWithTwoDecimals(totalBalance));
+        currentBalanceTextView.setTextColor(mActivity.setMoneyColor(totalBalance));
     }
 
     private void loadInitialValue() {
         Cursor c = accountDB.readInitialValue(accountName);
-        String currentBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
-        initialValueTextView.setText(mActivity.moneyWithTwoDecimals(currentBalance));
-        initialValueTextView.setTextColor(mActivity.setMoneyColor(currentBalance));
+        String initialValue = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
+        initialValueTextView.setText(mActivity.moneyWithTwoDecimals(initialValue));
+        initialValueTextView.setTextColor(mActivity.setMoneyColor(initialValue));
     }
 
     private void loadAccountTransactions() {
