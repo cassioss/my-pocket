@@ -55,6 +55,8 @@
 
     <!-- Edit transaction -->
     <string name="label_edit_transaction">Edit Transaction</string>
+    <string name="edit_transaction_update_button">Update Transaction</string>
+    <string name="edit_transaction_delete_button">Delete Transaction</string>
 
     <!-- Add category -->
     <string name="label_create_category">Create category</string>
@@ -67,7 +69,5 @@
     <string name="acc_details_current_balance">Total Balance</string>
     <string name="acc_details_initial_value">Initial value</string>
     <string name="acc_details_all_entries">All Entries</string>
-    <string name="edit_transaction_update_button">Update transaction</string>
-    <string name="edit_transaction_delete_button">Delete Transaction</string>
 
 </resources>
