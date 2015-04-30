@@ -1,7 +1,5 @@
 package edu.illinois.dscs.mypocket.model;
 
-import java.util.ArrayList;
-
 /**
  * @author Dennis
  * @version 1.0
@@ -26,7 +24,7 @@ public class Account {
         this.accountID = accountID;
         this.name = name;
         this.initialValue = initialValue;
-        this.currentBalance = this.initialValue;
+        this.currentBalance = 0.00;
         this.accountActive = accountActive;
     }
 
