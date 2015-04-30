@@ -110,8 +110,8 @@ public class AddAccountActivity extends ActionBarActivity {
      */
     public Intent goBack() {
         Intent calledIntent = getIntent();
-        String activityFromIntent = calledIntent.getStringExtra("original");
-        return new Intent(this, activityFromIntent.getClass());
+        //String activityFromIntent = calledIntent.getStringExtra("original");
+        return new Intent(this, AddTransactionActivity.class);
     }
 
     /**
