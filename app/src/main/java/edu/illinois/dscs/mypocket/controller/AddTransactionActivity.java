@@ -2,20 +2,19 @@ package edu.illinois.dscs.mypocket.controller;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
  * @author Cassio, Dennis
@@ -102,11 +102,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @param view the View object (button) that calls this method.
      */
     public void saveTransaction(View view) {
-        if (invalidDescription()) {
+        if (ValidationUtils.invalidDescription(getDescription())) {
             makeToast("Please fill out the description");
-        } else if (invalidValue()) {
+        } else if (ValidationUtils.invalidValue(getValue())) {
             makeToast("Please set a non-zero value");
-        } else if (invalidDate()) {
+        } else if (ValidationUtils.invalidDate(getDate())) {
             makeToast("Please set a valid date");
         } else {
             insertTransData();
@@ -115,23 +115,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     private void makeToast(String message) {
-        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
-        toast.show();
-    }
-
-    private boolean invalidDescription() {
-        String desc = getDescription();
-        return desc.equals("");
-    }
-
-    private boolean invalidValue() {
-        Double value = getValue();
-        return value == 0.00;
-    }
-
-    private boolean invalidDate() {
-        String desc = getDate();
-        return desc.contains("M") || desc.contains("D") || desc.contains("Y");
+        ValidationUtils.makeLongToast(getApplicationContext(), message);
     }
 
     public Intent goBackToMainActivity() {
