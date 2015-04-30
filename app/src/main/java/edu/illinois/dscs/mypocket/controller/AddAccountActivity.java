@@ -97,27 +97,30 @@ public class AddAccountActivity extends ActionBarActivity {
         String desc = getName();
         double initialValue = getInitialValue();
         int type = getAccountActive();
-
-
-        // opening database
-        dbAccount.open();
-        // insert data into table
-        dbAccount.insertData(desc, initialValue, initialValue, type);
+        dbAccount.open();                                               // Opens database
+        dbAccount.insertData(desc, initialValue, initialValue, type);   // Inserts data into table
     }
 
-
-    public Intent goBackToShowAccounts() {
-        return new Intent(this, ShowAccountsActivity.class);
+    /**
+     * Returns to the activity that called this one. This is required to recreate any
+     * database-related information, and consider the new account on them.
+     *
+     * @return an intent to the original activity.
+     */
+    public Intent goBack() {
+        Intent calledIntent = getIntent();
+        String activityFromIntent = calledIntent.getStringExtra("original");
+        return new Intent(this, activityFromIntent.getClass());
     }
 
     /**
      * Inserts all data inserted by the user into the Account table as a new Account.
      *
-     * @param view the View object (button) that calls this method.
+     * @param view the View object (button) that called this method.
      */
     public void saveAccount(View view) {
         insertAccountData();
-        finish();
+        startActivity(goBack());
     }
 
     /**

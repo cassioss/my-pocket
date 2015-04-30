@@ -113,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE);
-                System.out.println(getIndex);
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {

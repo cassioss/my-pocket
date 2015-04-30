@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -101,8 +102,36 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @param view the View object (button) that calls this method.
      */
     public void saveTransaction(View view) {
-        insertTransData();
-        startActivity(goBackToMainActivity());
+        if (invalidDescription()) {
+            makeToast("Please fill out the description");
+        } else if (invalidValue()) {
+            makeToast("Please set a non-zero value");
+        } else if (invalidDate()) {
+            makeToast("Please set a valid date");
+        } else {
+            insertTransData();
+            startActivity(goBackToMainActivity());
+        }
+    }
+
+    private void makeToast(String message) {
+        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private boolean invalidDescription() {
+        String desc = getDescription();
+        return desc.equals("");
+    }
+
+    private boolean invalidValue() {
+        Double value = getValue();
+        return value == 0.00;
+    }
+
+    private boolean invalidDate() {
+        String desc = getDate();
+        return desc.contains("M") || desc.contains("D") || desc.contains("Y");
     }
 
     public Intent goBackToMainActivity() {
@@ -174,23 +203,23 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         accountDB.open();
         categoryDB.open();
         int categoryID = 0;
-        int AccountID = 0;
+        int accountID = 0;
 
         Cursor categoryC = categoryDB.getCategoryId(category);
         Cursor accountC = accountDB.getAccountId(account);
 
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
-        AccountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
+        accountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
 
         // opening database
         dbTransaction.open();
         // insert data into table
-        dbTransaction.insertData(type, desc, value, date, categoryID, AccountID);
+        dbTransaction.insertData(type, desc, value, date, categoryID, accountID);
 
         updateAccountValue(account);
     }
 
-    public void updateAccountValue(String account){
+    public void updateAccountValue(String account) {
         Cursor totalTransCursor = dbTransaction.getTransValueData(account);
         double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
 
@@ -257,7 +286,14 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         startActivity(new Intent(this, AddCategoryActivity.class));
     }
 
+    /**
+     * Starts a new "Add Account" activity and sets it to come back to this activity.
+     *
+     * @param item the menu item that called this method.
+     */
     public void createAccount(MenuItem item) {
+        Intent createAccIntent = new Intent(this, AddAccountActivity.class);
+        createAccIntent.putExtra("original", "AddAccountActivity");
         startActivity(new Intent(this, AddAccountActivity.class));
     }
 

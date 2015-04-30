@@ -54,7 +54,7 @@ public class ShowAccountsActivity extends ActionBarActivity {
 
     public void add_account_button(View view) {
         Intent AddAccountIntent = new Intent(this, AddAccountActivity.class);
-        AddAccountIntent.putExtra("CallActivity", "ShowAccountsActivity");
+        AddAccountIntent.putExtra("original", "ShowAccountsActivity");
         startActivity(AddAccountIntent);
     }
 
@@ -68,7 +68,6 @@ public class ShowAccountsActivity extends ActionBarActivity {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE);
-                System.out.println(getIndex);
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.account_value_text_view);
                 MainActivity mActivity = new MainActivity();
