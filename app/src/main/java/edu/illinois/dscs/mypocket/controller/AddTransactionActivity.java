@@ -197,10 +197,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     public void updateAccountValue(String account) {
         Cursor totalTransCursor = dbTransaction.getTransValueData(account);
-        double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
-
+        double transactionValueSum = totalTransCursor.getDouble(totalTransCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         dbAccount.open();
-        dbAccount.updateAccountValue(totalAccount, account);
+        Cursor initialValueCursor = dbAccount.readInitialValue(account);
+        double initialValue = initialValueCursor.getDouble(totalTransCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
+        dbAccount.updateAccountValue(transactionValueSum + initialValue, account);
     }
 
 
