@@ -159,11 +159,10 @@ public class TransactionDAO {
      *
      * @param transaction the transaction marked for deletion.
      */
-    public void deleteTransaction(Transaction transaction) {
-        long id = transaction.getTransactionID();
-        System.out.println("Transaction deleted with id: " + id);
-        database.delete(DatabaseHandler.TABLE_TRANSACTION, DatabaseHandler.KEY_TRANS_ID
-                + " = " + id, null);
+    public void deleteTransaction(int transaction) {
+        //System.out.println("Transaction deleted with id: " + id);
+        database.delete(DatabaseHandler.TABLE_TRANSACTION, DBHelper.KEY_TRANS_ID
+                + " = " + transaction, null);
     }
 
     /**

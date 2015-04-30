@@ -43,10 +43,10 @@ public class EditTransactionActivity extends ActionBarActivity {
     Cursor accountCursor;
     int transType = 0;
     int transID = 0;
-    private String description;
-    private int transactionChoice;
-    private String date;
-    private Double value;
+    //private String description;
+    //private int transactionChoice;
+    //private String date;
+    //private Double value;
 
 
     @Override
@@ -127,7 +127,19 @@ public class EditTransactionActivity extends ActionBarActivity {
 
         startActivity(goBackToDetailActivity());
 
-        //updateAccountValue(account);
+
+       updateAccountValue(accountName);
+    }
+
+    public void updateAccountValue(String account) {
+        Cursor totalTransCursor = transDB.getTransValueData(account);
+        double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
+
+        accountDB.open();
+        //Cursor initialValueCursor = accountDB.readInitialValue(accountName);
+        //double initialValue = initialValueCursor.getDouble(totalTransCursor.getColumnIndex("initialValue"));
+        //totalAccount += initialValue;
+        accountDB.updateAccountValue(totalAccount, account);
     }
 
     private Intent goBackToDetailActivity() {
@@ -138,6 +150,10 @@ public class EditTransactionActivity extends ActionBarActivity {
     }
 
     public void deleteTransaction(View view) {
+        Cursor c = transDB.selectTrans(transName, accountName);
+        transID = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_ID));
+        transDB.deleteTransaction(transID);
+        startActivity(goBackToDetailActivity());
     }
 
     public void fillTransactionInfo(){
