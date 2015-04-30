@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class EditTransactionActivity extends ActionBarActivity {
     TransactionDAO transDB;
     String transName;
     String accountName;
+    RadioButton expenseButton;
+    RadioButton incomeButton;
     EditText transDescription;
     EditText transValue;
     EditText transDate;
@@ -37,6 +40,7 @@ public class EditTransactionActivity extends ActionBarActivity {
     Spinner transAccount;
     Cursor categoryCursor;
     Cursor accountCursor;
+    int transType = 0;
 
 
     @Override
@@ -44,6 +48,8 @@ public class EditTransactionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_transaction);
 
+    expenseButton = (RadioButton) findViewById(R.id.expense_radio);
+    incomeButton = (RadioButton) findViewById(R.id.income_radio);
     transDescription = (EditText) findViewById(R.id.edit_transaction_description);
     transValue = (EditText) findViewById(R.id.edit_transaction_value);
     transDate = (EditText) findViewById(R.id.edit_transaction_date);
@@ -86,6 +92,7 @@ public class EditTransactionActivity extends ActionBarActivity {
     }
 
     public void updateTransaction(View view) {
+
     }
 
     public void deleteTransaction(View view) {
@@ -101,10 +108,20 @@ public class EditTransactionActivity extends ActionBarActivity {
             transDescription.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_DESCRIPTION)));
             transValue.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_VALUE)));
             transDate.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_CREATION_DATE)));
+            transType = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_TYPE));
             category = c.getString(c.getColumnIndex((DBHelper.KEY_CATEGORY_NAME)));
             account = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
             c.moveToNext();
         }
+
+        if(transType == 0){
+            expenseButton.setChecked(true);
+            incomeButton.setChecked(false);
+        }else
+        {
+            expenseButton.setChecked(false);
+            incomeButton.setChecked(true);
+        } 
 
             loadCategorySpinner(category);
             loadAccountSpinner(account);
@@ -160,4 +177,5 @@ public class EditTransactionActivity extends ActionBarActivity {
 
         categoryDB.close();
     }
+
 }
