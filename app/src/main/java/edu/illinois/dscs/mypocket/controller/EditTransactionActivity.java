@@ -151,7 +151,8 @@ public class EditTransactionActivity extends ActionBarActivity {
         while (!categoryCursor.isAfterLast()) {
             int catID = categoryCursor.getInt(categoryCursor.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
             String name = categoryCursor.getString(categoryCursor.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
-
+            category.add(name);
+            /*
             if(catID == categoryID){
                 category.add(0,name);
             }
@@ -160,6 +161,7 @@ public class EditTransactionActivity extends ActionBarActivity {
                 valDefault++;
             }
             categoryCursor.moveToNext();
+            */
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
