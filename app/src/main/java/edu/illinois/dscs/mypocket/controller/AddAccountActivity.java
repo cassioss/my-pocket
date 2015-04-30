@@ -120,14 +120,10 @@ public class AddAccountActivity extends ActionBarActivity {
      * @param view the View object (button) that called this method.
      */
     public void saveAccount(View view) {
-        if (ValidationUtils.invalidName(getName())) {
-            ValidationUtils.makeToast(getApplicationContext(), "Please fill out the account name");
-        } else if (ValidationUtils.invalidValue(getInitialValue())) {
-            ValidationUtils.makeToast(getApplicationContext(), "Please set a non-zero value");
-        } else {
-            insertAccountData();
-            startActivity(goBack());
-        }
+        if (ValidationUtils.invalidName(getApplicationContext(), getName())) return;
+        if (ValidationUtils.invalidValue(getApplicationContext(), getInitialValue())) return;
+        insertAccountData();
+        startActivity(goBack());
     }
 
     /**

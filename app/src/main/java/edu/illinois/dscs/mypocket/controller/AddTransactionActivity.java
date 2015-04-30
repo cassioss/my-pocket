@@ -102,20 +102,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @param view the View object (button) that calls this method.
      */
     public void saveTransaction(View view) {
-        if (ValidationUtils.invalidDescription(getDescription())) {
-            makeToast("Please fill out the description");
-        } else if (ValidationUtils.invalidValue(getValue())) {
-            makeToast("Please set a non-zero value");
-        } else if (ValidationUtils.invalidDate(getDate())) {
-            makeToast("Please set a valid date");
-        } else {
-            insertTransData();
-            startActivity(goBackToMainActivity());
-        }
-    }
-
-    private void makeToast(String message) {
-        ValidationUtils.makeToast(getApplicationContext(), message);
+        if (ValidationUtils.invalidDescription(getApplicationContext(), getDate())) return;
+        if (ValidationUtils.invalidValue(getApplicationContext(), getValue())) return;
+        if (ValidationUtils.invalidDate(getApplicationContext(), getDate())) return;
+        insertTransData();
+        startActivity(goBackToMainActivity());
     }
 
     public Intent goBackToMainActivity() {

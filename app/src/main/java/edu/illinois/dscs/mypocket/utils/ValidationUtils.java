@@ -14,20 +14,32 @@ public final class ValidationUtils {
         toast.show();
     }
 
-    public static boolean invalidDescription(String desc) {
-        return desc.equals("");
+    public static boolean invalidDescription(Context context, String desc) {
+        if (desc.equals("")) {
+            makeToast(context, "Please fill out the description");
+            return true;
+        } else return false;
     }
 
-    public static boolean invalidName(String name) {
-        return invalidDescription(name);
+    public static boolean invalidName(Context context, String name) {
+        if (name.equals("")) {
+            makeToast(context, "Please fill out the name");
+            return true;
+        } else return false;
     }
 
-    public static boolean invalidValue(double value) {
-        return value == 0.00;
+    public static boolean invalidValue(Context context, double value) {
+        if (value == 0.00) {
+            makeToast(context, "Please set a non-zero value");
+            return true;
+        } else return false;
     }
 
-    public static boolean invalidDate(String date) {
-        return date.contains("M") || date.contains("D") || date.contains("Y");
+    public static boolean invalidDate(Context context, String date) {
+        if (date.contains("M") || date.contains("D") || date.contains("Y")) {
+            makeToast(context, "Please set a valid date");
+            return true;
+        } else return false;
     }
 
 }
