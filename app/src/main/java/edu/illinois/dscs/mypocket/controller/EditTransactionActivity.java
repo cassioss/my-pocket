@@ -92,8 +92,8 @@ public class EditTransactionActivity extends ActionBarActivity {
     }
 
     public void fillTransactionInfo(){
-        int category = 0;
-        int account = 0;
+        String category = "";
+        String account = "";
         transDB.open();
         Cursor c = transDB.selectTrans(transName, accountName);
 
@@ -101,35 +101,24 @@ public class EditTransactionActivity extends ActionBarActivity {
             transDescription.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_DESCRIPTION)));
             transValue.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_VALUE)));
             transDate.setText(c.getString(c.getColumnIndex(DBHelper.KEY_TRANS_CREATION_DATE)));
-            category = c.getInt(c.getColumnIndex((DBHelper.KEY_CATEGORY_ID)));
-            account = c.getInt(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
+            category = c.getString(c.getColumnIndex((DBHelper.KEY_CATEGORY_NAME)));
+            account = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
             c.moveToNext();
         }
 
             loadCategorySpinner(category);
-            //loadAccountSpinner(account);
+            loadAccountSpinner(account);
 
     }
 
-    private void loadAccountSpinner(int accountID) {
+    private void loadAccountSpinner(String accountName) {
         ArrayList<String> account = new ArrayList<>();
         accountCursor = accountDB.readData();
         accountCursor.moveToFirst();
-        int valDefault = 0;
 
         while (!accountCursor.isAfterLast()) {
-            int accID = categoryCursor.getInt(categoryCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
+            //int accID = categoryCursor.getInt(categoryCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
             String name = accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME));
-
-            if(accID == accountID){
-                account.add(0,name);
-            }
-            else{
-                account.add(valDefault,name);
-                valDefault++;
-            }
-            categoryCursor.moveToNext();
-
             account.add(name);
             accountCursor.moveToNext();
         }
@@ -139,29 +128,24 @@ public class EditTransactionActivity extends ActionBarActivity {
                 account);
 
         transAccount.setAdapter(adapter);
+
+        ArrayAdapter adapterTest = (ArrayAdapter) transAccount.getAdapter();
+        int spinnerPosition = adapterTest.getPosition(accountName);
+        transAccount.setSelection(spinnerPosition);
+
         accountCursor.close();
     }
 
-    private void loadCategorySpinner(int categoryID) {
+    private void loadCategorySpinner(String categoryName) {
         ArrayList<String> category = new ArrayList<>();
         categoryCursor = categoryDB.readData();
-        int valDefault = 1;
         categoryCursor.moveToFirst();
 
         while (!categoryCursor.isAfterLast()) {
-            int catID = categoryCursor.getInt(categoryCursor.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
+            //int catID = categoryCursor.getInt(categoryCursor.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
             String name = categoryCursor.getString(categoryCursor.getColumnIndex(DBHelper.KEY_CATEGORY_NAME));
             category.add(name);
-            /*
-            if(catID == categoryID){
-                category.add(0,name);
-            }
-            else{
-                category.add(valDefault,name);
-                valDefault++;
-            }
             categoryCursor.moveToNext();
-            */
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -169,6 +153,11 @@ public class EditTransactionActivity extends ActionBarActivity {
                 category);
 
         transCategory.setAdapter(adapter);
+
+        ArrayAdapter adapterTest = (ArrayAdapter) transCategory.getAdapter();
+        int spinnerPosition = adapterTest.getPosition(categoryName);
+        transCategory.setSelection(spinnerPosition);
+
         categoryDB.close();
     }
 }
