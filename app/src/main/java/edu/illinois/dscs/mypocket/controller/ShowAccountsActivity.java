@@ -15,11 +15,11 @@ import android.widget.TextView;
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
+import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
 
 public class ShowAccountsActivity extends ActionBarActivity {
 
     private AccountDAO db;
-    private ListView showAccountList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +70,14 @@ public class ShowAccountsActivity extends ActionBarActivity {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE);
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.account_value_text_view);
-                MainActivity mActivity = new MainActivity();
                 if (tv != null) {
-                    tv.setText(mActivity.moneyWithTwoDecimals(value));
-                    tv.setTextColor(mActivity.setMoneyColor(value));
+                    tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
+                    tv.setTextColor(CurrencyUtils.setMoneyColor(value));
                     return true;
                 } else return false;
             }
         });
-        showAccountList = (ListView) findViewById(R.id.showAccountList);
+        ListView showAccountList = (ListView) findViewById(R.id.showAccountList);
         showAccountList.setAdapter(myCursorAdapter);
     }
 

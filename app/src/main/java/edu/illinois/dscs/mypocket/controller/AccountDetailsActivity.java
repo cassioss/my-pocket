@@ -16,6 +16,7 @@ import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
+import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
 
 /**
  * @author Cassio
@@ -69,17 +70,17 @@ public class AccountDetailsActivity extends ActionBarActivity {
         Cursor ci = accountDB.readInitialValue(accountName);
 
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
-        String totalBalance = urrentBalance);
+        String totalBalance = currentBalance.toString();
 
-        currentBalanceTextView.setText(mActivity.moneyWithTwoDecimals(totalBalance));
-        currentBalanceTextView.setTextColor(mActivity.setMoneyColor(totalBalance));
+        currentBalanceTextView.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
+        currentBalanceTextView.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
     }
 
     private void loadInitialValue() {
         Cursor c = accountDB.readInitialValue(accountName);
         String initialValue = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
-        initialValueTextView.setText(mActivity.moneyWithTwoDecimals(initialValue));
-        initialValueTextView.setTextColor(mActivity.setMoneyColor(initialValue));
+        initialValueTextView.setText(CurrencyUtils.moneyWithTwoDecimals(initialValue));
+        initialValueTextView.setTextColor(CurrencyUtils.setMoneyColor(initialValue));
     }
 
     private void loadAccountTransactions() {
@@ -96,9 +97,8 @@ public class AccountDetailsActivity extends ActionBarActivity {
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {
-                    MainActivity mActivity = new MainActivity();
-                    tv.setText(mActivity.moneyWithTwoDecimals(value));
-                    tv.setTextColor(mActivity.setMoneyColor(value));
+                    tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
+                    tv.setTextColor(CurrencyUtils.setMoneyColor(value));
                     return true;
                 } else return false;
             }
@@ -145,8 +145,13 @@ public class AccountDetailsActivity extends ActionBarActivity {
         Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
 
         transDB.open();
+<<<<<<< HEAD
         Cursor C = (Cursor) transDB.selectTrans(transName);
         showTransIntent.putExtra("transName", transName);
+=======
+        Cursor C = (Cursor) transDB.
+                showTransIntent.putExtra("transName", transName);
+>>>>>>> origin/master
         startActivity(showTransIntent);
     }
 }
