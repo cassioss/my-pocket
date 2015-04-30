@@ -9,18 +9,17 @@ import android.widget.Toast;
  */
 public final class ValidationUtils {
 
-    public static void makeShortToast(Context context, String message) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public static void makeLongToast(Context context, String message) {
+    public static void makeToast(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         toast.show();
     }
 
     public static boolean invalidDescription(String desc) {
         return desc.equals("");
+    }
+
+    public static boolean invalidName(String name) {
+        return invalidDescription(name);
     }
 
     public static boolean invalidValue(double value) {

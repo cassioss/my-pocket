@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
+import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
  * @author Cassio
@@ -52,12 +53,13 @@ public class AddCategoryActivity extends ActionBarActivity {
     }
 
     public void saveCategory(View view) {
-        String desc = categoryName.getText().toString();
-
-        // opening database
-        categoryDB.open();
-        // insert data into table
-        categoryDB.insertData(desc);
-        startActivity(new Intent(this, AddTransactionActivity.class));
+        String name = categoryName.getText().toString();
+        if (ValidationUtils.invalidName(name)) {
+            ValidationUtils.makeToast(getApplicationContext(), "Please fill out the category name");
+        } else {
+            categoryDB.open();              // Opens the database
+            categoryDB.insertData(name);    // Inserts data into table
+            startActivity(new Intent(this, AddTransactionActivity.class));
+        }
     }
 }

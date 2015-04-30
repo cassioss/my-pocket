@@ -15,6 +15,7 @@ import java.text.NumberFormat;
 
 import edu.illinois.dscs.mypocket.R;
 import edu.illinois.dscs.mypocket.dao.AccountDAO;
+import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
  * @author Cassio, Dennis
@@ -119,8 +120,14 @@ public class AddAccountActivity extends ActionBarActivity {
      * @param view the View object (button) that called this method.
      */
     public void saveAccount(View view) {
-        insertAccountData();
-        startActivity(goBack());
+        if (ValidationUtils.invalidName(getName())) {
+            ValidationUtils.makeToast(getApplicationContext(), "Please fill out the account name");
+        } else if (ValidationUtils.invalidValue(getInitialValue())) {
+            ValidationUtils.makeToast(getApplicationContext(), "Please set a non-zero value");
+        } else {
+            insertAccountData();
+            startActivity(goBack());
+        }
     }
 
     /**

@@ -115,7 +115,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     }
 
     private void makeToast(String message) {
-        ValidationUtils.makeLongToast(getApplicationContext(), message);
+        ValidationUtils.makeToast(getApplicationContext(), message);
     }
 
     public Intent goBackToMainActivity() {
