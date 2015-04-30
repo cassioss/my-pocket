@@ -117,7 +117,7 @@ public class AddAccountActivity extends ActionBarActivity {
      */
     public void saveAccount(View view) {
         insertAccountData();
-        this.onBackPressed();
+        finish();
     }
 
     /**
