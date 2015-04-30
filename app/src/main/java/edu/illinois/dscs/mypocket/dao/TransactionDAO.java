@@ -204,4 +204,18 @@ public class TransactionDAO {
         transaction.setAccountID(cursor.getInt(6));
         return transaction;
     }
+
+    public void updateData(int id, int type, String desc, Double value, String date, int categoryID, int accountID) {
+        ContentValues con = new ContentValues();
+
+        con.put(DBHelper.KEY_TRANS_ID, id);
+        con.put(DBHelper.KEY_TRANS_TYPE, type);
+        con.put(DBHelper.KEY_TRANS_DESCRIPTION, desc);
+        con.put(DBHelper.KEY_TRANS_VALUE, value);
+        con.put(DBHelper.KEY_TRANS_CREATION_DATE, date);
+        con.put(DBHelper.KEY_CATEGORY_ID, categoryID);
+        con.put(DBHelper.KEY_ACCOUNT_ID,accountID);
+
+        database.update(DBHelper.TABLE_TRANSACTION, con, "transactionID ='" + id + "'",null);
+    }
 }
