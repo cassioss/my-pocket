@@ -100,7 +100,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
                 if (tv != null) {
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
-                    tv.setTag(getIndex);
+                    //tv.setTag(getIndex);
                     return true;
                 } else return false;
             }

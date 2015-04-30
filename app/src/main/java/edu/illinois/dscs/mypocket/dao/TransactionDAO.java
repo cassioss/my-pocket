@@ -79,8 +79,14 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
+    public Cursor completeTransData() {
+        Cursor c = database.rawQuery("select t.transactionID as transactionID, t.transactionValue transactionValue, t.creationDate creationDate, a.accountName accountName, c.categoryName categoryName from Transactions t inner join account a on t.accountID = a.accountID inner join category c on t.categoryID = c.categoryID;", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public Cursor selectTrans(String transName, String accountName) {
-        Cursor c = database.rawQuery("select transactionID, transType, description, transactionValue, creationDate, categoryID, accountID from Transactions where description like '" + transName + "' and description like '"+ accountName +"';", null);
+        Cursor c = database.rawQuery("select transactionID, transType, description, transactionValue, creationDate, categoryID, accountID from Transactions where description like '" + transName + "' and accountID like (select accountID from account where accountName like '"+ accountName +"')", null);
         if (c != null) c.moveToFirst();
         return c;
     }

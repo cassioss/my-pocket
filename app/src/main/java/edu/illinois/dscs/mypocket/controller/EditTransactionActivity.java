@@ -103,7 +103,7 @@ public class EditTransactionActivity extends ActionBarActivity {
             c.moveToNext();
         }
 
-            //loadCategorySpinner(category);
+            loadCategorySpinner(category);
             //loadAccountSpinner(account);
 
     }
