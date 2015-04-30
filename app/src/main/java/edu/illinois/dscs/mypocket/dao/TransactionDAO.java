@@ -79,8 +79,8 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
-    public Cursor selectTrans(int transID) {
-        Cursor c = database.rawQuery("select transactionID, transType, description, transactionValue, creationDate, categoryID, accountID from Transactions where accountID = "+ transID +";", null);
+    public Cursor selectTrans(String transName) {
+        Cursor c = database.rawQuery("select transactionID, transType, description, transactionValue, creationDate, categoryID, accountID from Transactions where description like'" + transName + "');", null);
         if (c != null) c.moveToFirst();
         return c;
     }

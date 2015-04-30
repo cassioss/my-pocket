@@ -145,7 +145,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
         Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
 
         transDB.open();
-        Cursor C = (Cursor) transDB.
+        Cursor C = (Cursor) transDB.selectTrans(transName);
         showTransIntent.putExtra("transName", transName);
         startActivity(showTransIntent);
     }
