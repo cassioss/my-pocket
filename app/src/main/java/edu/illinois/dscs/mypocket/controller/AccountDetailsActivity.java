@@ -72,13 +72,6 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     private void loadCurrentBalance() {
         Cursor c = accountDB.readCurrentBalance(accountName);
-<<<<<<< HEAD
-        //Cursor ci = accountDB.readInitialValue(accountName);
-
-        if (c != null) c.moveToFirst();
-
-=======
->>>>>>> origin/master
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         String totalBalance = currentBalance.toString();
         currentBalanceTextView.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
