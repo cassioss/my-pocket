@@ -98,7 +98,7 @@ public class TransactionDAO {
     }
 
     public Cursor readAccountTrans(String accountName) {
-        Cursor c = database.rawQuery("select transactionID AS _id, description, transactionValue from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
+        Cursor c = database.rawQuery("select transactionID AS _id, transType, description, transactionValue from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
         if (c != null) c.moveToFirst();
         return c;
     }
@@ -110,7 +110,7 @@ public class TransactionDAO {
      * @return a Cursor object containing the data brought from the query.
      */
     public Cursor readDataTransList() {
-        Cursor c = database.rawQuery("select transactionID _id, description, transactionValue from transactions order by _id desc limit 3", null);
+        Cursor c = database.rawQuery("select transactionID _id, transType, description, transactionValue from transactions order by _id desc limit 3", null);
         if (c != null) c.moveToFirst();
         return c;
 

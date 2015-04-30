@@ -9,7 +9,6 @@ import java.util.Locale;
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
-import jxl.format.UnderlineStyle;
 import jxl.write.Formula;
 import jxl.write.Label;
 import jxl.write.Number;
@@ -80,18 +79,21 @@ public class SaveAsExcel {
             createLabel(excelSheet);
             addTransactionLabels(excelSheet);
             createContent(excelSheet);
+            resizeColumns(excelSheet);
         }
 
         private void writeAccountContentOn(WritableSheet excelSheet) throws WriteException {
             createLabel(excelSheet);
             addAccountLabels(excelSheet);
             createContent(excelSheet);
+            resizeColumns(excelSheet);
         }
 
         private void writeCategoryContentOn(WritableSheet excelSheet) throws WriteException {
             createLabel(excelSheet);
             addCategoryLabels(excelSheet);
             createContent(excelSheet);
+            resizeColumns(excelSheet);
         }
 
         private void addTransactionLabels(WritableSheet sheet) throws WriteException {
@@ -122,17 +124,15 @@ public class SaveAsExcel {
             // Lets automatically wrap the cells
             times.setWrap(true);
 
-            // create create a bold font with unterlines
-            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
-                    UnderlineStyle.SINGLE);
+            // Let's create a bold font
+            WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
             timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-            // Lets automatically wrap the cells
+            // Let's automatically wrap the cells
             timesBoldUnderline.setWrap(true);
 
             CellView cv = new CellView();
             cv.setFormat(times);
             cv.setFormat(timesBoldUnderline);
-            cv.setAutosize(true);
         }
 
         private void createContent(WritableSheet sheet) throws WriteException {
@@ -178,6 +178,12 @@ public class SaveAsExcel {
                 throws WriteException {
             Label label = new Label(column, row, s, times);
             sheet.addCell(label);
+        }
+
+        private void resizeColumns(WritableSheet sheet) throws WriteException {
+            for(int column=0; column < sheet.getColumns(); column++){
+
+            }
         }
     }
 }
