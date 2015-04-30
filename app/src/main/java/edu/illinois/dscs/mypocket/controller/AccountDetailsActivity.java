@@ -94,11 +94,13 @@ public class AccountDetailsActivity extends ActionBarActivity {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE);
+                String Name = cursor.getString(cursor.getColumnIndex(DBHelper.KEY_TRANS_DESCRIPTION));
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
+                    tv.setTag(getIndex);
                     return true;
                 } else return false;
             }
@@ -144,6 +146,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
         String transName = textTransName.getText().toString();
         Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
         showTransIntent.putExtra("transName", transName);
+        showTransIntent.putExtra("accountName",accountName);
         startActivity(showTransIntent);
     }
 }
