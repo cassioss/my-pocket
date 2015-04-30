@@ -43,10 +43,12 @@
             android:id="@+id/add_transaction_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             style="?android:buttonBarButtonStyle"
             android:text="@string/add_transaction_button"
-            android:onClick="addTransaction" />
+            android:onClick="addTransaction"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
@@ -62,7 +64,9 @@
             android:layout_marginTop="10dp"
             style="?android:buttonBarButtonStyle"
             android:text="@string/show_accounts_button"
-            android:onClick="showAccounts" />
+            android:onClick="showAccounts"
+            android:background="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 
@@ -74,7 +78,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/last_entries_text_view"
             android:textAppearance="?android:attr/textAppearanceLarge"

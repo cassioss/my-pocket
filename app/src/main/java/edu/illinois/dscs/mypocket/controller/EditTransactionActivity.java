@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import edu.illinois.dscs.mypocket.R;
 
@@ -39,5 +40,11 @@ public class EditTransactionActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void updateTransaction(View view) {
+    }
+
+    public void deleteTransaction(View view) {
     }
 }

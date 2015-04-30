@@ -67,5 +67,7 @@
     <string name="acc_details_current_balance">Current Balance</string>
     <string name="acc_details_initial_value">Initial value</string>
     <string name="acc_details_all_entries">All Entries</string>
+    <string name="edit_transaction_update_button">Update transaction</string>
+    <string name="edit_transaction_delete_button">Delete Transaction</string>
 
 </resources>

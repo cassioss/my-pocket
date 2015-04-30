@@ -155,7 +155,9 @@
             style="?android:buttonBarButtonStyle"
             android:text="@string/save_transaction_button"
             android:onClick="saveTransaction"
-            android:id="@+id/addTrans_id" />
+            android:id="@+id/addTrans_id"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
