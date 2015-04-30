@@ -54,24 +54,24 @@ public class EditTransactionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_transaction);
 
-    expenseButton = (RadioButton) findViewById(R.id.expense_radio);
-    incomeButton = (RadioButton) findViewById(R.id.income_radio);
-    transDescription = (EditText) findViewById(R.id.edit_transaction_description);
-    transValue = (EditText) findViewById(R.id.edit_transaction_value);
-    transDate = (EditText) findViewById(R.id.edit_transaction_date);
-    transCategory = (Spinner) findViewById(R.id.edit_transaction_category);
-    transAccount = (Spinner) findViewById(R.id.edit_transaction_account);
-    accountDB = new AccountDAO(this);
-    categoryDB = new CategoryDAO(this);
-    transDB = new TransactionDAO(this);
-    accountDB.open();
-    categoryDB.open();
+        expenseButton = (RadioButton) findViewById(R.id.expense_radio);
+        incomeButton = (RadioButton) findViewById(R.id.income_radio);
+        transDescription = (EditText) findViewById(R.id.edit_transaction_description);
+        transValue = (EditText) findViewById(R.id.edit_transaction_value);
+        transDate = (EditText) findViewById(R.id.edit_transaction_date);
+        transCategory = (Spinner) findViewById(R.id.edit_transaction_category);
+        transAccount = (Spinner) findViewById(R.id.edit_transaction_account);
+        accountDB = new AccountDAO(this);
+        categoryDB = new CategoryDAO(this);
+        transDB = new TransactionDAO(this);
+        accountDB.open();
+        categoryDB.open();
 
-    Intent calledIntent = getIntent();
-    transName = calledIntent.getStringExtra("transName");
-    accountName = calledIntent.getStringExtra("accountName");
+        Intent calledIntent = getIntent();
+        transName = calledIntent.getStringExtra("transName");
+        accountName = calledIntent.getStringExtra("accountName");
 
-     fillTransactionInfo();
+        fillTransactionInfo();
 
     }
 
@@ -156,7 +156,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         startActivity(goBackToDetailActivity());
     }
 
-    public void fillTransactionInfo(){
+    public void fillTransactionInfo() {
         String category = "";
         String account = "";
         transDB.open();
@@ -173,17 +173,16 @@ public class EditTransactionActivity extends ActionBarActivity {
             c.moveToNext();
         }
 
-        if(transType == 0){
+        if (transType == 0) {
             expenseButton.setChecked(true);
             incomeButton.setChecked(false);
-        }else
-        {
+        } else {
             expenseButton.setChecked(false);
             incomeButton.setChecked(true);
-        } 
+        }
 
-            loadCategorySpinner(category);
-            loadAccountSpinner(account);
+        loadCategorySpinner(category);
+        loadAccountSpinner(account);
 
     }
 
