@@ -120,7 +120,6 @@ public class MainActivity extends ActionBarActivity {
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {
-                    value = CurrencyUtils.setIncome(cursor, value);
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
                     return true;

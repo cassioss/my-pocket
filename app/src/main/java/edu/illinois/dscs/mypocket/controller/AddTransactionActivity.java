@@ -170,6 +170,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         int type = getTransactionChoice();
         String date = getDate();
         Double value = getValue();
+        if (type == 0) value *= -1.00;
         String category = categorySpinner.getSelectedItem().toString();
         String account = accountSpinner.getSelectedItem().toString();
 
