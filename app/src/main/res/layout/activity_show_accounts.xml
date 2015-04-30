@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/add_account_button"
             android:onClick="add_account_button"
+            android:textSize="20sp"
             style="?android:buttonBarButtonStyle"
             android:background="@android:color/holo_green_dark"
             android:textColor="@android:color/white" />

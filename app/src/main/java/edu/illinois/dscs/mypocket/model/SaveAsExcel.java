@@ -1,6 +1,7 @@
 package edu.illinois.dscs.mypocket.model;
 
 import android.database.Cursor;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,20 +30,43 @@ public class SaveAsExcel {
     private File file;
     Cursor transactionCursor, accountCursor, categoryCursor;
 
+    /**
+     * Sets all the required query cursors.
+     *
+     * @param transactionCursor the cursor resulting from querying the Transactions table.
+     * @param accountCursor     the cursor resulting from querying the Account table.
+     * @param categoryCursor    the cursor resulting from querying the Category table.
+     */
     public void setCursors(Cursor transactionCursor, Cursor accountCursor, Cursor categoryCursor) {
         this.transactionCursor = transactionCursor;
         this.accountCursor = accountCursor;
         this.categoryCursor = categoryCursor;
     }
 
-    public void setOutputFile(String inputFile) {
-        this.file = new File(inputFile);
+    /**
+     * Sets an output file on the Download (internal) folder, already set as XLS.
+     *
+     * @param fileName the file name.
+     */
+    public void setOutputFile(String fileName) {
+        this.file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName + ".xls");
     }
 
+    /**
+     * Gets the file that's being accessed to save the data.
+     *
+     * @return a File object that references the XLS files.
+     */
     public File getFile() {
         return this.file;
     }
 
+    /**
+     * Writes all content present on the database.
+     *
+     * @throws IOException    if accessing the XLS file is impossible.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     public void write() throws IOException, WriteException {
 
         // Creates a new workbook (a.k.a. initializes the Excel file)
@@ -77,25 +101,49 @@ public class SaveAsExcel {
         workbook.close();
     }
 
+    /**
+     * Writes the content of the Transactions table in a specific spreadsheet.
+     *
+     * @param excelSheet the specified spreadsheet inside the XLS file.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void writeTransactionContentOn(WritableSheet excelSheet) throws WriteException {
-        addTransactionLabels(excelSheet);
+        addTransactionCaptions(excelSheet);
         createTransactionContent(excelSheet);
         resizeColumns(excelSheet, 6);
     }
 
+    /**
+     * Writes the content of the Account table in a specific spreadsheet.
+     *
+     * @param excelSheet the specified spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void writeAccountContentOn(WritableSheet excelSheet) throws WriteException {
-        addAccountLabels(excelSheet);
+        addAccountCaptions(excelSheet);
         createAccountContent(excelSheet);
         resizeColumns(excelSheet, 4);
     }
 
+    /**
+     * Writes the content of the Category table in a specific spreadsheet.
+     *
+     * @param excelSheet the specified spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void writeCategoryContentOn(WritableSheet excelSheet) throws WriteException {
-        addCategoryLabels(excelSheet);
+        addCategoryCaptions(excelSheet);
         createCategoryContent(excelSheet);
         resizeColumns(excelSheet, 1);
     }
 
-    private void addTransactionLabels(WritableSheet sheet) throws WriteException {
+    /**
+     * Adds the correct captions to the Transactions spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addTransactionCaptions(WritableSheet sheet) throws WriteException {
         addCaption(sheet, 0, 0, "Type");
         addCaption(sheet, 1, 0, "Description");
         addCaption(sheet, 2, 0, "Value");
@@ -104,17 +152,34 @@ public class SaveAsExcel {
         addCaption(sheet, 5, 0, "Category");
     }
 
-    private void addAccountLabels(WritableSheet sheet) throws WriteException {
+    /**
+     * Adds the correct captions to the Account spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addAccountCaptions(WritableSheet sheet) throws WriteException {
         addCaption(sheet, 0, 0, "Name");
         addCaption(sheet, 1, 0, "Initial Value");
         addCaption(sheet, 2, 0, "Current Balance");
         addCaption(sheet, 3, 0, "Active");
     }
 
-    private void addCategoryLabels(WritableSheet sheet) throws WriteException {
+    /**
+     * Adds the correct captions to the Category spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addCategoryCaptions(WritableSheet sheet) throws WriteException {
         addCaption(sheet, 0, 0, "Name");
     }
 
+    /**
+     * Creates the correct format for the labels, in terms of font type, font size, and so on.
+     *
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void formatLabels() throws WriteException {
         // Times font for labels
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
@@ -127,6 +192,12 @@ public class SaveAsExcel {
         timesBoldUnderline.setWrap(true);
     }
 
+    /**
+     * Turns the content inside the Transactions cursor into a complete table inside the Transactions spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void createTransactionContent(WritableSheet sheet) throws WriteException {
         int row = 1;
         while (!transactionCursor.isAfterLast()) {
@@ -135,7 +206,7 @@ public class SaveAsExcel {
 
             addLabel(sheet, 0, row, type);
             addLabel(sheet, 1, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_TRANS_DESCRIPTION)));
-            addNumber(sheet, 2, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE)));
+            addDouble(sheet, 2, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE)));
             addLabel(sheet, 3, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_TRANS_CREATION_DATE)));
             addLabel(sheet, 4, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME)));
             addLabel(sheet, 5, row, transactionCursor.getString(transactionCursor.getColumnIndex(DBHelper.KEY_CATEGORY_NAME)));
@@ -145,6 +216,12 @@ public class SaveAsExcel {
         }
     }
 
+    /**
+     * Turns the content inside the Account cursor into a complete table inside the Account spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void createAccountContent(WritableSheet sheet) throws WriteException {
         int row = 1;
         while (!accountCursor.isAfterLast()) {
@@ -152,8 +229,8 @@ public class SaveAsExcel {
             String yesNo = isActive > 0 ? "Yes" : "No";
 
             addLabel(sheet, 0, row, accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_NAME)));
-            addNumber(sheet, 1, row, accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
-            addNumber(sheet, 2, row, accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE)));
+            addDouble(sheet, 1, row, accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE)));
+            addDouble(sheet, 2, row, accountCursor.getString(accountCursor.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE)));
             addLabel(sheet, 3, row, yesNo);
 
             row++;
@@ -161,6 +238,12 @@ public class SaveAsExcel {
         }
     }
 
+    /**
+     * Turns the content inside the Category cursor into a complete table inside the Category spreadsheet.
+     *
+     * @param sheet a given spreadsheet inside the XLS folder.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
     private void createCategoryContent(WritableSheet sheet) throws WriteException {
         int row = 1;
         while (!categoryCursor.isAfterLast()) {
@@ -170,26 +253,60 @@ public class SaveAsExcel {
         }
     }
 
-    private void addCaption(WritableSheet sheet, int column, int row, String s)
+    /**
+     * Adds a caption to a given cell inside a spreadsheet.
+     *
+     * @param sheet   a given spreadsheet inside the XLS folder.
+     * @param column  a specific column number, starting from 0.
+     * @param row     a specific row number, starting from 0.
+     * @param caption a given string to be set as caption.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addCaption(WritableSheet sheet, int column, int row, String caption)
             throws WriteException {
-        Label label = new Label(column, row, s, timesBoldUnderline);
-        sheet.addCell(label);
+        Label newCaption = new Label(column, row, caption, timesBoldUnderline);
+        sheet.addCell(newCaption);
     }
 
-    private void addNumber(WritableSheet sheet, int column, int row, String s)
+    /**
+     * Adds a double number to a given cell inside a spreadsheet.
+     *
+     * @param sheet        a given spreadsheet inside the XLS folder.
+     * @param column       a specific column number, starting from 0.
+     * @param row          a specific row number, starting from 0.
+     * @param doubleString a given string that can be parsed as a Double number.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addDouble(WritableSheet sheet, int column, int row, String doubleString)
             throws WriteException {
-        Number number = new Number(column, row, Double.valueOf(s), times);
+        Number number = new Number(column, row, Double.valueOf(doubleString), times);
         sheet.addCell(number);
     }
 
-    private void addLabel(WritableSheet sheet, int column, int row, String s)
+    /**
+     * Adds a label to a given cell inside a spreadsheet.
+     *
+     * @param sheet  a given spreadsheet inside the XLS folder.
+     * @param column a specific column number, starting from 0.
+     * @param row    a specific row number, starting from 0.
+     * @param label  a given string to be set as label.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void addLabel(WritableSheet sheet, int column, int row, String label)
             throws WriteException {
-        Label label = new Label(column, row, s, times);
-        sheet.addCell(label);
+        Label newLabel = new Label(column, row, label, times);
+        sheet.addCell(newLabel);
     }
 
-    private void resizeColumns(WritableSheet sheet, int columnNumber) throws WriteException {
-        for (int column = 0; column < columnNumber; column++) {
+    /**
+     * Resizes a given number of columns inside a spreadsheet, starting from the leftmost. Specifying the number of columns controls the amount of resources needed for this operation.
+     *
+     * @param sheet        a given spreadsheet inside the XLS folder.
+     * @param numOfColumns a specific number of columns (starting from 0) that needs to be reformatted.
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void resizeColumns(WritableSheet sheet, int numOfColumns) throws WriteException {
+        for (int column = 0; column < numOfColumns; column++) {
             CellView cell = sheet.getColumnView(column);
             cell.setAutosize(true);
             sheet.setColumnView(column, cell);

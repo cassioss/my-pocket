@@ -117,12 +117,18 @@ public class AccountDAO {
         return c;
     }
 
+    public Cursor getAccountActive(String name) {
+        Cursor c = database.rawQuery("select accountActive from account WHERE accountName like '" + name + "';", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
     public void updateAccountValue(double total, String account) {
-        //select SUM(transactionValue) from Transactions where accountID = (select accountID from Account where accountName like 'MyPocket')
         database.execSQL("Update account set currentBalance = " + total + " where accountName like '" + account + "';");
-        //Cursor c = database.rawQuery("select accountID from account WHERE accountName like '" + name + "';", null);
-        //if (c != null) c.moveToFirst();
-        //return c;
+    }
+
+    public void updateAccountActive(int newActive, String account) {
+        database.execSQL("Update account set accountActive = " + newActive + " where accountName like '" + account + "';");
     }
 
     /**

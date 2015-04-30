@@ -38,11 +38,15 @@
 
         <Button
             android:id="@+id/create_category_button"
-            style="?android:buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="@string/add_category_button"
-            android:onClick="saveCategory"/>
+            android:onClick="saveCategory"
+            android:textSize="20sp"
+            style="?android:buttonBarButtonStyle"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"/>
 
     </LinearLayout>
 

@@ -121,7 +121,6 @@ public class AddAccountActivity extends ActionBarActivity {
      */
     public void saveAccount(View view) {
         if (ValidationUtils.invalidName(getApplicationContext(), getName())) return;
-        if (ValidationUtils.invalidValue(getApplicationContext(), getInitialValue())) return;
         insertAccountData();
         startActivity(goBack());
     }
