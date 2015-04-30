@@ -49,8 +49,11 @@ public class EditTransactionActivity extends ActionBarActivity {
     transDate = (EditText) findViewById(R.id.edit_transaction_date);
     transCategory = (Spinner) findViewById(R.id.edit_transaction_category);
     transAccount = (Spinner) findViewById(R.id.edit_transaction_account);
-
+    accountDB = new AccountDAO(this);
+    categoryDB = new CategoryDAO(this);
     transDB = new TransactionDAO(this);
+    accountDB.open();
+    categoryDB.open();
 
     Intent calledIntent = getIntent();
     transName = calledIntent.getStringExtra("transName");
