@@ -25,22 +25,20 @@ import jxl.write.WriteException;
  */
 public class SaveAsExcel {
 
-    public File abc() throws WriteException, IOException {
-        WriteExcel test = new WriteExcel();
-        test.setOutputFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MyPocket.xls");
-        test.write();
-        return test.getFile();
+    public File saveAsXLS() throws WriteException, IOException {
+        WriteExcel myPocketWriter = new WriteExcel();
+        myPocketWriter.setOutputFile(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/MyPocket.xls");
+        myPocketWriter.write();
+        return myPocketWriter.getFile();
     }
 
     public static class WriteExcel {
 
         private WritableCellFormat timesBoldUnderline;
         private WritableCellFormat times;
-        private String inputFile;
         private File file;
 
         public void setOutputFile(String inputFile) {
-            this.inputFile = inputFile;
             this.file = new File(inputFile);
         }
 
@@ -49,19 +47,70 @@ public class SaveAsExcel {
         }
 
         public void write() throws IOException, WriteException {
-            file = new File(inputFile);
+
+            // Creates a new workbook (a.k.a. initializes the Excel file)
+
             WorkbookSettings wbSettings = new WorkbookSettings();
-
             wbSettings.setLocale(new Locale("en", "EN"));
-
             WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-            workbook.createSheet("Report", 0);
-            WritableSheet excelSheet = workbook.getSheet(0);
-            createLabel(excelSheet);
-            createContent(excelSheet);
+
+            // Creates a spreadsheet for each table
+
+            workbook.createSheet("Transactions", 0);
+            workbook.createSheet("Accounts", 1);
+            workbook.createSheet("Categories", 2);
+
+            // Writes content on each table
+
+            WritableSheet transactionSheet = workbook.getSheet(0);
+            WritableSheet accountSheet = workbook.getSheet(1);
+            WritableSheet categorySheet = workbook.getSheet(2);
+
+            writeTransactionContentOn(transactionSheet);
+            writeAccountContentOn(accountSheet);
+            writeCategoryContentOn(categorySheet);
+
+            // Writes the data on the workbook and closes the file
 
             workbook.write();
             workbook.close();
+        }
+
+        private void writeTransactionContentOn(WritableSheet excelSheet) throws WriteException {
+            createLabel(excelSheet);
+            addTransactionLabels(excelSheet);
+            createContent(excelSheet);
+        }
+
+        private void writeAccountContentOn(WritableSheet excelSheet) throws WriteException {
+            createLabel(excelSheet);
+            addAccountLabels(excelSheet);
+            createContent(excelSheet);
+        }
+
+        private void writeCategoryContentOn(WritableSheet excelSheet) throws WriteException {
+            createLabel(excelSheet);
+            addCategoryLabels(excelSheet);
+            createContent(excelSheet);
+        }
+
+        private void addTransactionLabels(WritableSheet sheet) throws WriteException {
+            addCaption(sheet, 0, 0, "Description");
+            addCaption(sheet, 1, 0, "Value");
+            addCaption(sheet, 2, 0, "Date");
+            addCaption(sheet, 3, 0, "Account Name");
+            addCaption(sheet, 4, 0, "Category");
+        }
+
+        private void addAccountLabels(WritableSheet sheet) throws WriteException {
+            addCaption(sheet, 0, 0, "Name");
+            addCaption(sheet, 1, 0, "Initial Value");
+            addCaption(sheet, 2, 0, "Current Balance");
+            addCaption(sheet, 3, 0, "Active");
+        }
+
+        private void addCategoryLabels(WritableSheet sheet) throws WriteException {
+            addCaption(sheet, 0, 0, "Name");
         }
 
         private void createLabel(WritableSheet sheet)
@@ -84,10 +133,6 @@ public class SaveAsExcel {
             cv.setFormat(times);
             cv.setFormat(timesBoldUnderline);
             cv.setAutosize(true);
-
-            // Write a few headers
-            addCaption(sheet, 0, 0, "Header 1");
-            addCaption(sheet, 1, 0, "This is another header");
         }
 
         private void createContent(WritableSheet sheet) throws WriteException {
@@ -119,22 +164,19 @@ public class SaveAsExcel {
 
         private void addCaption(WritableSheet sheet, int column, int row, String s)
                 throws WriteException {
-            Label label;
-            label = new Label(column, row, s, timesBoldUnderline);
+            Label label = new Label(column, row, s, timesBoldUnderline);
             sheet.addCell(label);
         }
 
         private void addNumber(WritableSheet sheet, int column, int row, Integer integer)
                 throws WriteException {
-            Number number;
-            number = new Number(column, row, integer, times);
+            Number number = new Number(column, row, integer, times);
             sheet.addCell(number);
         }
 
         private void addLabel(WritableSheet sheet, int column, int row, String s)
                 throws WriteException {
-            Label label;
-            label = new Label(column, row, s, times);
+            Label label = new Label(column, row, s, times);
             sheet.addCell(label);
         }
     }

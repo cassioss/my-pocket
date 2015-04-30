@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +22,7 @@ import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.model.SaveAsExcel;
 import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
+import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 import jxl.write.WriteException;
 
 /**
@@ -135,17 +135,21 @@ public class MainActivity extends ActionBarActivity {
      *
      * @param item menu item that called the backup function (not being used here).
      */
-    public void saveAsCSV(MenuItem item) {
-        SaveAsExcel saveAsExcel = new SaveAsExcel();
-        try {
-            File file = saveAsExcel.abc();
-            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            intent.setData(Uri.fromFile(file));
-            sendBroadcast(intent);
-            Toast toast = Toast.makeText(getApplicationContext(), "Saving data to Download/MyPocket.xls ...", Toast.LENGTH_LONG);
-            toast.show();
-        } catch (WriteException | IOException e) {
-            e.printStackTrace();
-        }
+    public void saveAsCSV(MenuItem item) throws WriteException, IOException {
+        SaveAsExcel myPocketExcel = new SaveAsExcel();
+        File myPocketFile = myPocketExcel.saveAsXLS();
+        broadcastSave(myPocketFile, "Saving data to Download/MyPocket.xls ...");
+    }
+
+    /**
+     * Sends a message to inform that a new file has been created.
+     *
+     * @param file the File object being created.
+     */
+    private void broadcastSave(File file, String message) {
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        intent.setData(Uri.fromFile(file));
+        sendBroadcast(intent);
+        ValidationUtils.makeToast(getApplicationContext(), message);
     }
 }
