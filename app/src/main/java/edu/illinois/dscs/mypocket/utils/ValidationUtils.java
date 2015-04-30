@@ -1,10 +1,7 @@
 package edu.illinois.dscs.mypocket.utils;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.widget.Toast;
-
-import edu.illinois.dscs.mypocket.dao.DBHelper;
 
 /**
  * @author Cassio
@@ -43,12 +40,6 @@ public final class ValidationUtils {
             makeToast(context, "Please set a valid date");
             return true;
         } else return false;
-    }
-
-    public static String setIncome(Cursor queryCursor, String absValue) {
-        String transType = queryCursor.getString(queryCursor.getColumnIndex(DBHelper.KEY_TRANS_TYPE));
-        Boolean isIncome = Integer.valueOf(transType) > 0;
-        return !isIncome ? "-" + absValue : absValue;
     }
 
 }

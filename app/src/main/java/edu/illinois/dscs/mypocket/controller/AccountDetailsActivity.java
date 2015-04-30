@@ -17,7 +17,6 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
 import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
-import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 
 /**
  * @author Cassio
@@ -98,7 +97,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
                 String value = cursor.getString(getIndex);
                 TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
                 if (tv != null) {
-                    value = ValidationUtils.setIncome(cursor, value);
+                    value = CurrencyUtils.setIncome(cursor, value);
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
                     //tv.setTag(getIndex);

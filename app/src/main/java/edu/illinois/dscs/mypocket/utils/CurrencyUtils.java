@@ -1,8 +1,11 @@
 package edu.illinois.dscs.mypocket.utils;
 
+import android.database.Cursor;
 import android.graphics.Color;
 
 import java.text.NumberFormat;
+
+import edu.illinois.dscs.mypocket.dao.DBHelper;
 
 /**
  * @author Cassio
@@ -35,5 +38,12 @@ public final class CurrencyUtils {
             return Color.RED;
         else
             return Color.BLACK;
+    }
+
+
+    public static String setIncome(Cursor queryCursor, String absValue) {
+        String transType = queryCursor.getString(queryCursor.getColumnIndex(DBHelper.KEY_TRANS_TYPE));
+        Boolean isIncome = Integer.valueOf(transType) > 0;
+        return !isIncome ? "-" + absValue : absValue;
     }
 }
