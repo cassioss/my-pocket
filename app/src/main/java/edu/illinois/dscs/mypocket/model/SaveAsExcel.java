@@ -159,7 +159,7 @@ public class SaveAsExcel {
      * @throws WriteException if it is not possible to write some content on the XLS file.
      */
     private void addAccountCaptions(WritableSheet sheet) throws WriteException {
-        addCaption(sheet, 0, 0, "Name");
+        addCaption(sheet, 0, 0, "Account Name");
         addCaption(sheet, 1, 0, "Initial Value");
         addCaption(sheet, 2, 0, "Current Balance");
         addCaption(sheet, 3, 0, "Active");
@@ -172,7 +172,7 @@ public class SaveAsExcel {
      * @throws WriteException if it is not possible to write some content on the XLS file.
      */
     private void addCategoryCaptions(WritableSheet sheet) throws WriteException {
-        addCaption(sheet, 0, 0, "Name");
+        addCaption(sheet, 0, 0, "Category");
     }
 
     /**
