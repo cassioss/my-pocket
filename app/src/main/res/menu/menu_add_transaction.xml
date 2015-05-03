@@ -7,7 +7,7 @@
         android:id="@+id/action_category"
         android:title="@string/action_category"
         android:orderInCategory="100"
-        android:onClick="createCategory"
+        android:onClick="addCategory"
         app:showAsAction="ifRoom" />
 
     <item

@@ -108,10 +108,6 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         startActivity(goBackToMainActivity());
     }
 
-    public Intent goBackToMainActivity() {
-        return new Intent(this, MainActivity.class);
-    }
-
     /**
      * Gets the transaction type choice.
      *
@@ -133,10 +129,14 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         return description.getText().toString();
     }
 
+    /**
+     * Trims the current description. If nothing is left, this method returns "No description".
+     *
+     * @return either the original description typed by the user, or "No description" if empty.
+     */
     private String getDescriptionOrNothing() {
         String desc = getDescription();
         return desc.trim().length() > 0 ? desc : "No description";
-
     }
 
     /**
@@ -192,6 +192,11 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         updateAccountValue(account);
     }
 
+    /**
+     * Updates the transaction account's current balance by adding this transaction's value to it.
+     *
+     * @param account the account name associated with the transaction.
+     */
     public void updateAccountValue(String account) {
         Cursor totalTransCursor = dbTransaction.getTransValueData(account);
         double totalBalance = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
@@ -243,18 +248,22 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         dbAccount.close();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-
-    }
-
-    public void createCategory(MenuItem item) {
+    /**
+     * Creates an intent to "Add Category", and starts this activity.
+     *
+     * @param item the menu option responsible for calling AddCategoryActivity.
+     */
+    public void addCategory(MenuItem item) {
         startActivity(new Intent(this, AddCategoryActivity.class));
+    }
+
+    /**
+     * Goes back to the main activity.
+     *
+     * @return an intent to MainActivity.
+     */
+    public Intent goBackToMainActivity() {
+        return new Intent(this, MainActivity.class);
     }
 
     /**
@@ -277,5 +286,14 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+    }
+
 
 }
