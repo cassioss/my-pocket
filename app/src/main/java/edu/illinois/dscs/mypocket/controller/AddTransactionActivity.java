@@ -179,7 +179,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         int categoryID, accountID;
 
         Cursor categoryC = categoryDB.getCategoryId(category);
-        Cursor accountC = accountDB.getAccountId(account);
+        Cursor accountC = accountDB.selectAccountIDFrom(account);
 
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
         accountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
@@ -201,7 +201,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         Cursor totalTransCursor = dbTransaction.getTransValueData(account);
         double totalBalance = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
         dbAccount.open();
-        dbAccount.updateAccountValue(totalBalance, account);
+        dbAccount.updateAccountBalance(totalBalance, account);
     }
 
     /**

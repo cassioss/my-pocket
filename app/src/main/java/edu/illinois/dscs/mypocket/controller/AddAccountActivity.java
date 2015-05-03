@@ -99,7 +99,7 @@ public class AddAccountActivity extends ActionBarActivity {
         double initialValue = getInitialValue();
         int type = getAccountActive();
         dbAccount.open();                                               // Opens database
-        dbAccount.insertData(desc, initialValue, initialValue, type);   // Inserts data into table
+        dbAccount.insertNewAccount(desc, initialValue, initialValue, type);   // Inserts data into table
     }
 
     /**

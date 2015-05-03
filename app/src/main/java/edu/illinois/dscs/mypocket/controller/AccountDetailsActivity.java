@@ -111,7 +111,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     }
 
     private void loadActivateToggle() {
-        Cursor c = accountDB.getAccountActive(accountName);
+        Cursor c = accountDB.selectAccountActiveFrom(accountName);
         String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
         boolean checkActive = Integer.valueOf(isActive) > 0;
         activateAccount.setChecked(checkActive);
@@ -169,7 +169,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     }
 
     private void updateAccountStatus() {
-        Cursor c = accountDB.getAccountActive(accountName);
+        Cursor c = accountDB.selectAccountActiveFrom(accountName);
         String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
         boolean checkActive = Integer.valueOf(isActive) > 0;
         Integer newActive = 0;

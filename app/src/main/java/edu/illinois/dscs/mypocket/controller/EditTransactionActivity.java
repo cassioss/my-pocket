@@ -122,7 +122,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         transDB.open();
 
         Cursor categoryC = categoryDB.getCategoryId(category);
-        Cursor accountC = accountDB.getAccountId(account);
+        Cursor accountC = accountDB.selectAccountIDFrom(account);
 
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
         accountID = accountC.getInt(accountC.getColumnIndex(DBHelper.KEY_ACCOUNT_ID));
@@ -140,7 +140,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         Cursor totalTransCursor = transDB.getTransValueData(account);
         double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
         accountDB.open();
-        accountDB.updateAccountValue(totalAccount, account);
+        accountDB.updateAccountBalance(totalAccount, account);
     }
 
     private Intent goBackToDetailActivity() {
