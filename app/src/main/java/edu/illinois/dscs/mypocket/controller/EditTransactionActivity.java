@@ -139,11 +139,7 @@ public class EditTransactionActivity extends ActionBarActivity {
     public void updateAccountValue(String account) {
         Cursor totalTransCursor = transDB.getTransValueData(account);
         double totalAccount = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
-
         accountDB.open();
-        //Cursor initialValueCursor = accountDB.readInitialValue(accountName);
-        //double initialValue = initialValueCursor.getDouble(totalTransCursor.getColumnIndex("initialValue"));
-        //totalAccount += initialValue;
         accountDB.updateAccountValue(totalAccount, account);
     }
 
@@ -193,7 +189,7 @@ public class EditTransactionActivity extends ActionBarActivity {
 
     private void loadAccountSpinner(String accountName) {
         ArrayList<String> account = new ArrayList<>();
-        accountCursor = accountDB.readData();
+        accountCursor = accountDB.selectAll();
         accountCursor.moveToFirst();
 
         while (!accountCursor.isAfterLast()) {

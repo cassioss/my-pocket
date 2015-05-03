@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void loadTotalBalance() {
-        Cursor c = accountDB.readTotalBalance();
+        Cursor c = accountDB.selectTotalBalance();
         String totalBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         totalBalanceText.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
         totalBalanceText.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
     public void saveExcel(MenuItem item) throws WriteException, IOException {
         SaveAsExcel myPocketExcel = new SaveAsExcel();
         myPocketExcel.setOutputFile("MyPocket");
-        myPocketExcel.setCursors(transDB.completeTransData(), accountDB.readData(), categoryDB.readData());
+        myPocketExcel.setCursors(transDB.completeTransData(), accountDB.selectAll(), categoryDB.readData());
         ValidationUtils.makeToast(getApplicationContext(), "Saving data to Download/MyPocket.xls ...");
         myPocketExcel.write();
         broadcastSave(myPocketExcel.getFile(), "Data saved successfully!");

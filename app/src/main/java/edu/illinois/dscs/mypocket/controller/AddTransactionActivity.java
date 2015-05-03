@@ -231,7 +231,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      */
     private void loadSpinnerDataAccount() {
         ArrayList<String> account = new ArrayList<>();
-        Cursor c = dbAccount.readData();
+        Cursor c = dbAccount.selectAll();
         c.moveToFirst();
 
         while (!c.isAfterLast()) {

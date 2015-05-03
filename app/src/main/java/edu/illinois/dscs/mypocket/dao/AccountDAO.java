@@ -11,8 +11,11 @@ import java.util.List;
 import edu.illinois.dscs.mypocket.model.Account;
 
 /**
- * @author Dennis
- * @version 1.0
+ * Data access object for the Account table.
+ *
+ * @author Cassio, Dennis
+ * @version 1.3
+ * @since 1.2
  */
 public class AccountDAO {
 
@@ -26,11 +29,6 @@ public class AccountDAO {
             DBHelper.KEY_ACCOUNT_CURRENT_BALANCE,
             DBHelper.KEY_ACCOUNT_ACTIVE};
 
-    private String[] listAccounts = {
-            DBHelper.KEY_ACCOUNT_ID,
-            DBHelper.KEY_ACCOUNT_NAME,
-            DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
-
     /**
      * DAO constructor for accounts.
      *
@@ -39,6 +37,8 @@ public class AccountDAO {
     public AccountDAO(Context context) {
         Context = context;
     }
+
+    // Open/close database functions
 
     /**
      * Opens the database.
@@ -58,45 +58,62 @@ public class AccountDAO {
         dbHandler.close();
     }
 
+    // SELECT queries
+
     /**
      * Gets all the rows inside the Account table, equivalent to: SELECT * from Account;
      *
      * @return a Cursor object containing the data brought from the query.
      */
-    public Cursor readData() {
+    public Cursor selectAll() {
         Cursor c = database.query(DBHelper.TABLE_ACCOUNT, allAccounts, null, null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
     /**
-     * Gets all the rows inside the Account table, equivalent to: SELECT * from Account;
+     * Gets the account names and current balances of all the accounts inside the Accounts table. Since the result will be used inside a cursor adapter, the account ID is also necessary.
      *
      * @return a Cursor object containing the data brought from the query.
      */
-    public Cursor readDataList() {
-        Cursor c = database.rawQuery("select accountID _id, accountName, currentBalance from account", null);
+    public Cursor selectNameAndBalance() {
+        Cursor c = database.rawQuery("SELECT accountID AS _id, accountName, currentBalance FROM Account", null);
         //Cursor c = database.query(DBHelper.TABLE_ACCOUNT, listAccounts, null, null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
-    public Cursor readTotalBalance() {
-        Cursor c = database.rawQuery("select sum(currentBalance) as currentBalance from account WHERE" +
-                " accountActive = 1;", null);
+    /**
+     * Gets the total balance as a sum of all account's current balances.
+     *
+     * @return a Cursor object containing the result of this sum.
+     */
+    public Cursor selectTotalBalance() {
+        Cursor c = database.rawQuery("SELECT SUM(currentBalance) AS currentBalance FROM Account WHERE accountActive = 1;", null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
-
-    public Cursor readInitialValue(String accountName) {
-        Cursor c = database.rawQuery("select initialValue from account WHERE accountName like'" + accountName + "';", null);
+    /**
+     * Gets an account's initial value based on its name.
+     *
+     * @param accountName the account name.
+     * @return a Cursor object containing the initial value of this account.
+     */
+    public Cursor selectInitialValueFrom(String accountName) {
+        Cursor c = database.rawQuery("SELECT initialValue FROM Account WHERE accountName LIKE'" + accountName + "';", null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
-    public Cursor readCurrentBalance(String accountName) {
-        Cursor c = database.rawQuery("select currentBalance from account WHERE accountName like'" + accountName + "';", null);
+    /**
+     * Gets an account's current balance based on its name.
+     *
+     * @param accountName the account name.
+     * @return a Cursor object containing the current balance of this account.
+     */
+    public Cursor selectCurrentBalanceFrom(String accountName) {
+        Cursor c = database.rawQuery("SELECT currentBalance FROM Account WHERE accountName LIKE'" + accountName + "';", null);
         if (c != null) c.moveToFirst();
         return c;
     }

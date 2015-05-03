@@ -59,7 +59,7 @@ public class ShowAccountsActivity extends ActionBarActivity {
     }
 
     public void loadAccountList() {
-        Cursor c = db.readDataList();
+        Cursor c = db.selectNameAndBalance();
         String[] fromFieldNames = new String[]{DBHelper.KEY_ACCOUNT_NAME, DBHelper.KEY_ACCOUNT_CURRENT_BALANCE};
         int[] toViewIDs = new int[]{R.id.account_name_account_button, R.id.account_value_text_view};
         SimpleCursorAdapter myCursorAdapter;

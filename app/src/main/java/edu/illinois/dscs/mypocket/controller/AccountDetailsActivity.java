@@ -71,7 +71,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     }
 
     private void loadCurrentBalance() {
-        Cursor c = accountDB.readCurrentBalance(accountName);
+        Cursor c = accountDB.selectCurrentBalanceFrom(accountName);
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         String totalBalance = currentBalance.toString();
         currentBalanceTextView.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
@@ -79,7 +79,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     }
 
     private void loadInitialValue() {
-        Cursor c = accountDB.readInitialValue(accountName);
+        Cursor c = accountDB.selectInitialValueFrom(accountName);
         String initialValue = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
         initialValueTextView.setText(CurrencyUtils.moneyWithTwoDecimals(initialValue));
         initialValueTextView.setTextColor(CurrencyUtils.setMoneyColor(initialValue));
