@@ -228,7 +228,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     /**
      * Loads all accounts inside the Account dropdown for AddTransaction.
-     */
+    */
     private void loadSpinnerDataAccount() {
         ArrayList<String> account = new ArrayList<>();
         Cursor c = dbAccount.selectAll();

@@ -114,8 +114,8 @@ public class EditTransactionActivity extends ActionBarActivity {
         String category = transCategory.getSelectedItem().toString();
         String account = transAccount.getSelectedItem().toString();
 
-        int categoryID = 0;
-        int accountID = 0;
+        int categoryID;
+        int accountID;
 
         categoryDB.open();
         accountDB.open();
@@ -150,6 +150,11 @@ public class EditTransactionActivity extends ActionBarActivity {
         return intent;
     }
 
+    /**
+     * Fill all the information about the Transaction.
+     *
+     * @param view data from delete (BUTTON).
+     */
     public void deleteTransaction(View view) {
         Cursor c = transDB.selectTrans(transName, accountName);
         transID = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_ID));
@@ -157,6 +162,9 @@ public class EditTransactionActivity extends ActionBarActivity {
         startActivity(goBackToDetailActivity());
     }
 
+    /**
+     * Fill all the information about the Transaction.
+     */
     public void fillTransactionInfo() {
         String category = "";
         String account = "";
@@ -187,6 +195,11 @@ public class EditTransactionActivity extends ActionBarActivity {
 
     }
 
+    /**
+     * Loads the Account date on Spinners.
+     *
+     * @param accountName The account Name that will be use as default.
+     */
     private void loadAccountSpinner(String accountName) {
         ArrayList<String> account = new ArrayList<>();
         accountCursor = accountDB.selectAll();
@@ -211,6 +224,11 @@ public class EditTransactionActivity extends ActionBarActivity {
         accountCursor.close();
     }
 
+    /**
+     * Loads the Category date on Spinners.
+     *
+     * @param categoryName The category Name that will be use as default.
+     */
     private void loadCategorySpinner(String categoryName) {
         ArrayList<String> category = new ArrayList<>();
         categoryCursor = categoryDB.selectAll();
@@ -235,10 +253,20 @@ public class EditTransactionActivity extends ActionBarActivity {
         categoryDB.close();
     }
 
+    /**
+     * Gets the Transaction Description from TextView.
+     *
+     * @return the Transaction Description.
+     */
     public String getDescription() {
         return transDescription.getText().toString();
     }
 
+    /**
+     * Gets the transaction choice (expense or income) from RadioButton.
+     *
+     * @return the Transaction Choice (em integer - 0 Expense - 1 Income).
+     */
     public int getTransactionChoice() {
         int thisType = 0;
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
@@ -253,10 +281,20 @@ public class EditTransactionActivity extends ActionBarActivity {
         return thisType;
     }
 
+    /**
+     * Gets the Date from TextView.
+     *
+     * @return Gets the Date Value from TextView.
+     */
     public String getDate() {
         return transDate.getText().toString();
     }
 
+    /**
+     * Gets the Transaction Value from TextView.
+     *
+     * @return Transaction Value.
+     */
     public Double getValue() {
         String cleanValue = transValue.getText().toString().replaceAll("[$,.]", "");
         double doubleValue100Times = Double.parseDouble(cleanValue);
