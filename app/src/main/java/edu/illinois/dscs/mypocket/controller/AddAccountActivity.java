@@ -164,7 +164,6 @@ public class AddAccountActivity extends ActionBarActivity {
             }
         }
 
-
         @Override
         public void afterTextChanged(Editable s) {
 

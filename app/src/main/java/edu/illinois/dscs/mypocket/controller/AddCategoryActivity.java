@@ -52,6 +52,10 @@ public class AddCategoryActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /*
+    * Saves the Category data on Database (SQLite).
+     */
     public void saveCategory(View view) {
         String name = categoryName.getText().toString();
         if (ValidationUtils.invalidName(getApplicationContext(), name)) return;
