@@ -58,25 +58,32 @@ public class AddAccountActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-    public void saveAccount(View view) {
-        Intent goBackToShowAccount = new Intent(this, ShowAccountsActivity.class);
-        //Account newAccount = new Account(getName(), getInitialValue(), true);
-        //ShowAccountsActivity.showAccounts.add(newAccount);
-        startActivity(goBackToShowAccount);
-    }*/
-
+    /**
+     * gets the Account Name from TextView.
+     *
+     * @return Account name.
+     */
     public String getName() {
         EditText accountNameView = (EditText) findViewById(R.id.account_name_edit_view);
         return accountNameView.getText().toString();
     }
 
+    /**
+     * gets the Initial Value from TextView.
+     *
+     * @return initial Value.
+     */
     public double getInitialValue() {
         String cleanValue = value.getText().toString().replaceAll("[$,.]", "");
         double doubleValue100Times = Double.parseDouble(cleanValue);
         return doubleValue100Times / 100.0;
     }
 
+    /**
+     * gets the Account Active value from RadioGroup.
+     *
+     * @return initial Value.
+     */
     public int getAccountActive() {
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.account_choice_radio_group);
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
@@ -109,8 +116,6 @@ public class AddAccountActivity extends ActionBarActivity {
      * @return an intent to the original activity.
      */
     public Intent goBack() {
-        Intent calledIntent = getIntent();
-        //String activityFromIntent = calledIntent.getStringExtra("original");
         return new Intent(this, AddTransactionActivity.class);
     }
 
@@ -128,7 +133,7 @@ public class AddAccountActivity extends ActionBarActivity {
     /**
      * Private class that uses a TextWatcher specifically for currency. Format $#.##
      *
-     * @author Cassio
+     * @author Cassio, Dennis
      * @version 1.0
      */
     private class CurrencyTextWatcher implements TextWatcher {
