@@ -89,6 +89,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/last_entries_list_view" />
+        android:id="@+id/last_entries_list_view"
+        android:onClick="editTransactions"/>
 
 </LinearLayout>

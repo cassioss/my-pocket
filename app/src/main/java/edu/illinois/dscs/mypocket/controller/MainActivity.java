@@ -40,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
     private CategoryDAO categoryDB;
     private ListView lastEntries;
     private TextView totalBalanceText;
+    String accountName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +107,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void loadTotalBalance() {
         Cursor c = accountDB.readTotalBalance();
-        String totalBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
+        String totalBalance = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
         totalBalanceText.setText(CurrencyUtils.moneyWithTwoDecimals(totalBalance));
         totalBalanceText.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
     }
@@ -160,5 +161,14 @@ public class MainActivity extends ActionBarActivity {
         intent.setData(Uri.fromFile(file));
         sendBroadcast(intent);
         ValidationUtils.makeToast(getApplicationContext(), message);
+    }
+
+    public void editTransactions(View view) {
+        TextView textTransName = (TextView) view;
+        String transName = textTransName.getText().toString();
+        Intent showTransIntent = new Intent(this, EditTransactionActivity.class);
+        showTransIntent.putExtra("transName", transName);
+        showTransIntent.putExtra("accountName", accountName);
+        startActivity(showTransIntent);
     }
 }

@@ -82,7 +82,7 @@ public class AccountDAO {
     }
 
     public Cursor readTotalBalance() {
-        Cursor c = database.rawQuery("select sum(initialValue) as initialValue from account WHERE" +
+        Cursor c = database.rawQuery("select sum(currentBalance) as currentBalance from account WHERE" +
                 " accountActive = 1;", null);
         if (c != null) c.moveToFirst();
         return c;
