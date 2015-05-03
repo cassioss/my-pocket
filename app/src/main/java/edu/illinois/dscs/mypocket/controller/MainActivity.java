@@ -163,6 +163,7 @@ public class MainActivity extends ActionBarActivity {
         ValidationUtils.makeToast(getApplicationContext(), message);
     }
 
+
     public void editTransactions(View view) {
         TextView textTransName = (TextView) view;
         String transName = textTransName.getText().toString();

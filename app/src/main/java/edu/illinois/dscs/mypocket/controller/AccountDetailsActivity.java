@@ -61,6 +61,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
         loadAccountTransactions();
         loadActivateToggle();
 
+
         allEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,6 +71,9 @@ public class AccountDetailsActivity extends ActionBarActivity {
 
     }
 
+    /**
+     * Loads the current Balance on the TextView.
+     */
     private void loadCurrentBalance() {
         Cursor c = accountDB.selectCurrentBalanceFrom(accountName);
         Double currentBalance = c.getDouble(c.getColumnIndex(DBHelper.KEY_ACCOUNT_CURRENT_BALANCE));
@@ -78,6 +82,9 @@ public class AccountDetailsActivity extends ActionBarActivity {
         currentBalanceTextView.setTextColor(CurrencyUtils.setMoneyColor(totalBalance));
     }
 
+    /**
+     * Loads the initial Value on the TextView.
+     */
     private void loadInitialValue() {
         Cursor c = accountDB.selectInitialValueFrom(accountName);
         String initialValue = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_INITIAL_VALUE));
@@ -85,6 +92,9 @@ public class AccountDetailsActivity extends ActionBarActivity {
         initialValueTextView.setTextColor(CurrencyUtils.setMoneyColor(initialValue));
     }
 
+    /**
+     * Loads the Account Transactions on the ListView.
+     */
     private void loadAccountTransactions() {
         Cursor c = transDB.readAccountTrans(accountName);
         String[] fromFieldNames = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
@@ -109,6 +119,9 @@ public class AccountDetailsActivity extends ActionBarActivity {
         allEntries.setAdapter(myCursorAdapter);
     }
 
+    /**
+     * Loads the errors Toggles on the activity.
+     */
     private void loadActivateToggle() {
         Cursor c = accountDB.selectAccountActiveFrom(accountName);
         String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
@@ -127,6 +140,12 @@ public class AccountDetailsActivity extends ActionBarActivity {
         return true;
     }
 
+    /**
+     * Default selection for Settings menu.
+     *
+     * @param item an item on the Settings menu (only "Settings" by default).
+     * @return a MenuItem equivalent to the item selected.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -152,6 +171,11 @@ public class AccountDetailsActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    /**
+     * Updates a transactions using the Transaction and Account names.
+     *
+     * @param view the View object (ListView) that calls this method.
+     */
     public void editTransactions(View view) {
         TextView textTransName = (TextView) view;
         String transName = textTransName.getText().toString();
@@ -161,12 +185,20 @@ public class AccountDetailsActivity extends ActionBarActivity {
         startActivity(showTransIntent);
     }
 
+    /**
+     * Changes the activity class.
+     *
+     * @param view the View object (ListView) that calls this method.
+     */
     public void changeActivation(View view) {
         updateAccountStatus();
         Intent showTransIntent = new Intent(this, ShowAccountsActivity.class);
         startActivity(showTransIntent);
     }
 
+    /**
+     * Updated the account Status (Active).
+     */
     private void updateAccountStatus() {
         Cursor c = accountDB.selectAccountActiveFrom(accountName);
         String isActive = c.getString(c.getColumnIndex(DBHelper.KEY_ACCOUNT_ACTIVE));
