@@ -88,7 +88,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     private void loadAccountTransactions() {
         Cursor c = transDB.readAccountTrans(accountName);
         String[] fromFieldNames = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
-        int[] toViewIDs = new int[]{R.id.transaction_name_text_view, R.id.transaction_value_text_view};
+        int[] toViewIDs = new int[]{R.id.transaction_row_layout_description, R.id.transaction_value_text_view};
         SimpleCursorAdapter myCursorAdapter;
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
 

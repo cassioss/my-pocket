@@ -15,7 +15,7 @@
     <string name="activity_main_last_entries">Last Entries</string>
 
     <!-- Transaction row -->
-    <string name="transaction_value">$</string>
+    <string name="transaction_row_layout_value">$</string>
 
     <!-- Add transaction -->
     <string name="add_transaction_label">Add Transaction</string>
