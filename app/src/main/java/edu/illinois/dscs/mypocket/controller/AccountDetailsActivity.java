@@ -97,7 +97,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE);
                 String value = cursor.getString(getIndex);
-                TextView tv = (TextView) view.findViewById(R.id.main_transaction_value);
+                TextView tv = (TextView) view.findViewById(R.id.account_details_transaction_value);
                 if (tv != null) {
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
