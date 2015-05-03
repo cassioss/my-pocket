@@ -5,14 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import edu.illinois.dscs.mypocket.model.Category;
-
 /**
- * @author Dennis
- * @version 1.0
+ * Data access object for the Category table.
+ *
+ * @author Cassio, Dennis
+ * @version 1.2
+ * @since 1.1
  */
 public class CategoryDAO {
 
@@ -32,108 +30,64 @@ public class CategoryDAO {
         Context = context;
     }
 
+    /**
+     * Opens the database.
+     *
+     * @return itself (the object instance of CategoryDAO calling the method).
+     */
     public CategoryDAO open() {
         dbHandler = new DBHelper(Context);
         database = dbHandler.getWritableDatabase();
         return this;
-
     }
 
+    /**
+     * Closes the database.
+     */
     public void close() {
         dbHandler.close();
     }
 
-    public void insertData(String name) {
-        ContentValues cv = new ContentValues();
-        cv.put(DBHelper.KEY_CATEGORY_NAME, name);
-        database.insert(DBHelper.TABLE_CATEGORY, null, cv);
-    }
+    ////////////////////
+    // SELECT queries //
+    ////////////////////
 
     /**
      * Gets all the rows inside the Category table, equivalent to: SELECT * from Category;
      *
      * @return a Cursor object containing the data brought from the query.
      */
-    public Cursor readData() {
+    public Cursor selectAll() {
         Cursor c = database.query(DBHelper.TABLE_CATEGORY, allCategories, null,
                 null, null, null, null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
-    public Cursor getCategoryId(String name){
-        Cursor c = database.rawQuery("select categoryID from category WHERE categoryName like '" + name + "';", null);
+    /**
+     * Gets a category ID based on its name.
+     *
+     * @param categoryName the category name.
+     * @return a Cursor object containing the category ID.
+     */
+    public Cursor selectCategoryIDFrom(String categoryName) {
+        Cursor c = database.rawQuery("SELECT categoryID FROM category WHERE categoryName LIKE '" + categoryName + "';", null);
         if (c != null) c.moveToFirst();
         return c;
     }
 
+    //////////////////
+    // INSERT query //
+    //////////////////
 
     /**
-     * Turns a cursor item into a full category.
+     * Inserts a new category inside the Category table, based on its name.
      *
-     * @param cursor the cursor with a given category in the database.
-     * @return a category equivalent to the one pointed by the cursor.
-     */
-    private Category cursorToCategory(Cursor cursor) {
-        Category category = new Category(0, null);
-        category.setCategoryID(cursor.getInt(0));
-        category.setName(cursor.getString(1));
-        return category;
-    }
-
-    /**
-     * Creates a Category object from all the data obtained from user interactions,
-     * inserting it into the database.
-     *
-     * @param categoryID   the category ID (updated automatically).
      * @param categoryName the category name.
-     * @return a Category object whose information is already inside the database.
      */
-    public Category createCategory(int categoryID, String categoryName) {
-        ContentValues values = new ContentValues();
-        values.put(DBHelper.KEY_CATEGORY_ID, categoryID);
-        values.put(DBHelper.KEY_CATEGORY_NAME, categoryName);
-        long insertId = database.insert(DBHelper.TABLE_CATEGORY, null, values);
-        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY, allCategories,
-                DBHelper.KEY_CATEGORY_ID + " = " + insertId, null, null, null, null);
-
-        cursor.moveToFirst();
-        Category newCategory = cursorToCategory(cursor);
-        cursor.close();
-
-        return newCategory;
-    }
-
-    /**
-     * Deletes a given category from the database.
-     *
-     * @param category the category marked for deletion.
-     */
-    public void deleteCategory(Category category) {
-        long id = category.getCategoryID();
-        System.out.println("Category deleted with id: " + id);
-        database.delete(DBHelper.TABLE_CATEGORY, DBHelper.KEY_CATEGORY_ID + " = " + id, null);
-    }
-
-    /**
-     * Gets all the categories from the database.
-     *
-     * @return a list with all items from the Category table turned into Category objects.
-     */
-    public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<>();
-
-        Cursor cursor = database.query(DBHelper.TABLE_CATEGORY,
-                allCategories, null, null, null, null, null);
-
-        //cursor.moveToFirst();
-        //while (!cursor.isAfterLast()) {
-        //  Category category = cursorToCategory(cursor);
-        //  categories.add(category);
-        //  cursor.moveToNext();
-        //}
-        // make sure to close the cursor
-        //cursor.close();
-        return categories;
+    public void insertNewCategory(String categoryName) {
+        ContentValues cv = new ContentValues();
+        cv.put(DBHelper.KEY_CATEGORY_NAME, categoryName);
+        database.insert(DBHelper.TABLE_CATEGORY, null, cv);
     }
 }

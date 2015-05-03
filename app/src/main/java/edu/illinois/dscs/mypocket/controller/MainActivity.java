@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
     public void saveExcel(MenuItem item) throws WriteException, IOException {
         Excel myPocketExcel = new Excel();
         myPocketExcel.setOutputFile("MyPocket");
-        myPocketExcel.setCursors(transDB.completeTransData(), accountDB.selectAll(), categoryDB.readData());
+        myPocketExcel.setCursors(transDB.completeTransData(), accountDB.selectAll(), categoryDB.selectAll());
         ValidationUtils.makeToast(getApplicationContext(), "Saving data to Download/MyPocket.xls ...");
         myPocketExcel.write();
         broadcastSave(myPocketExcel.getFile(), "Data saved successfully!");

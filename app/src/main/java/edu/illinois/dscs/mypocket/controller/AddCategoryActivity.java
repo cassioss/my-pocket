@@ -56,7 +56,7 @@ public class AddCategoryActivity extends ActionBarActivity {
         String name = categoryName.getText().toString();
         if (ValidationUtils.invalidName(getApplicationContext(), name)) return;
         categoryDB.open();              // Opens the database
-        categoryDB.insertData(name);    // Inserts data into table
+        categoryDB.insertNewCategory(name);    // Inserts data into table
         startActivity(new Intent(this, AddTransactionActivity.class));
     }
 }

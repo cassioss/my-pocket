@@ -178,7 +178,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
         int categoryID, accountID;
 
-        Cursor categoryC = categoryDB.getCategoryId(category);
+        Cursor categoryC = categoryDB.selectCategoryIDFrom(category);
         Cursor accountC = accountDB.selectAccountIDFrom(account);
 
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
@@ -209,7 +209,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      */
     private void loadSpinnerDataCategory() {
         ArrayList<String> category = new ArrayList<>();
-        Cursor c = dbCategory.readData();
+        Cursor c = dbCategory.selectAll();
         c.moveToFirst();
 
         while (!c.isAfterLast()) {

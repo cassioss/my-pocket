@@ -121,7 +121,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         accountDB.open();
         transDB.open();
 
-        Cursor categoryC = categoryDB.getCategoryId(category);
+        Cursor categoryC = categoryDB.selectCategoryIDFrom(category);
         Cursor accountC = accountDB.selectAccountIDFrom(account);
 
         categoryID = categoryC.getInt(categoryC.getColumnIndex(DBHelper.KEY_CATEGORY_ID));
@@ -213,7 +213,7 @@ public class EditTransactionActivity extends ActionBarActivity {
 
     private void loadCategorySpinner(String categoryName) {
         ArrayList<String> category = new ArrayList<>();
-        categoryCursor = categoryDB.readData();
+        categoryCursor = categoryDB.selectAll();
         categoryCursor.moveToFirst();
 
         while (!categoryCursor.isAfterLast()) {
