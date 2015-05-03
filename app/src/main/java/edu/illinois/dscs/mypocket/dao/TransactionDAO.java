@@ -77,7 +77,7 @@ public class TransactionDAO {
                 "t.creationDate AS creationDate, " +
                 "a.accountName AS accountName, " +
                 "c.categoryName AS categoryName " +
-                "FROM Transactions t" +
+                "FROM Transactions t " +
                 "INNER JOIN Account a ON t.accountID = a.accountID " +
                 "INNER JOIN Category c ON t.categoryID = c.categoryID " +
                 "WHERE t.description LIKE '" + transName + "' " +

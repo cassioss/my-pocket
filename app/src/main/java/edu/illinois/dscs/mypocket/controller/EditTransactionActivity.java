@@ -134,6 +134,7 @@ public class EditTransactionActivity extends ActionBarActivity {
 
         startActivity(goBackToDetailActivity());
         updateAccountValue(accountName);
+        updateAccountValue(account);
     }
 
     public void updateAccountValue(String account) {
@@ -160,6 +161,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         transID = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_ID));
         transDB.deleteTransaction(transID);
         startActivity(goBackToDetailActivity());
+        updateAccountValue(accountName);
     }
 
     /**
