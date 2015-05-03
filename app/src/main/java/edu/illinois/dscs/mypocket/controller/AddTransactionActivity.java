@@ -49,16 +49,20 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         accountSpinner = (Spinner) findViewById(R.id.account_spinner);
 
         dbCategory = new CategoryDAO(this);
-        dbAccount = new AccountDAO(this);
-        dbTransaction = new TransactionDAO(this);
         dbCategory.open();
+
+        dbAccount = new AccountDAO(this);
         dbAccount.open();
+
+        dbTransaction = new TransactionDAO(this);
         dbTransaction.open();
 
         loadSpinnerDataCategory();
         loadSpinnerDataAccount();
+
         date = (EditText) findViewById(R.id.date_field);
         date.addTextChangedListener(new DateTextWatcher(date));
+
         value = (EditText) findViewById(R.id.value_entry);
         value.addTextChangedListener(new CurrencyTextWatcher(value));
     }
@@ -97,7 +101,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @param view the View object (button) that calls this method.
      */
     public void saveTransaction(View view) {
-        if (ValidationUtils.invalidDescription(getApplicationContext(), getDate())) return;
+        if (ValidationUtils.invalidDescription(getApplicationContext(), getDescription())) return;
         if (ValidationUtils.invalidValue(getApplicationContext(), getValue())) return;
         if (ValidationUtils.invalidDate(getApplicationContext(), getDate())) return;
         insertTransData();
@@ -114,17 +118,9 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * @return 0 for EXPENSE, 1 for INCOME.
      */
     private int getTransactionChoice() {
-        int thisType = 0;
         RadioGroup choiceGroup = (RadioGroup) findViewById(R.id.transaction_choice_radio_group);
         int radioButtonID = choiceGroup.getCheckedRadioButtonId();
-        switch (radioButtonID) {
-            case R.id.expense_radio:
-                break;
-            case R.id.income_radio:
-                thisType = 1;
-                break;
-        }
-        return thisType;
+        return radioButtonID == R.id.income_radio ? 1 : 0;
     }
 
     /**
@@ -135,6 +131,12 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     private String getDescription() {
         EditText description = (EditText) findViewById(R.id.description_entry);
         return description.getText().toString();
+    }
+
+    private String getDescriptionOrNothing() {
+        String desc = getDescription();
+        return desc.trim().length() > 0 ? desc : "No description";
+
     }
 
     /**
@@ -161,7 +163,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
      * Inserts all user inputs into the Transactions table.
      */
     private void insertTransData() {
-        String desc = getDescription();
+        String desc = getDescriptionOrNothing();
         int type = getTransactionChoice();
         String date = getDate();
         Double value = getValue();
@@ -173,8 +175,8 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         CategoryDAO categoryDB = new CategoryDAO(this);
         accountDB.open();
         categoryDB.open();
-        int categoryID = 0;
-        int accountID = 0;
+
+        int categoryID, accountID;
 
         Cursor categoryC = categoryDB.getCategoryId(category);
         Cursor accountC = accountDB.getAccountId(account);
@@ -192,15 +194,10 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
 
     public void updateAccountValue(String account) {
         Cursor totalTransCursor = dbTransaction.getTransValueData(account);
-
-
-        double transactionValueSum = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
+        double totalBalance = totalTransCursor.getDouble(totalTransCursor.getColumnIndex("totalBalance"));
         dbAccount.open();
-        //Cursor initialValueCursor = dbAccount.readInitialValue(account);
-        //double initialValue = initialValueCursor.getDouble(totalTransCursor.getColumnIndex("initialValue"));
-        dbAccount.updateAccountValue(transactionValueSum, account);
+        dbAccount.updateAccountValue(totalBalance, account);
     }
-
 
     /**
      * Loads all categories inside the Category dropdown for AddTransaction.
