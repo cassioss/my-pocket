@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
         lastEntries.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                editTransactions(view);
             }
         });
 
