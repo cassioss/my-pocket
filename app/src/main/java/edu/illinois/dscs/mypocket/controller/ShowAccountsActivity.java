@@ -88,6 +88,7 @@ public class ShowAccountsActivity extends ActionBarActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
 

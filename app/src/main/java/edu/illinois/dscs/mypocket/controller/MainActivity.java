@@ -172,4 +172,13 @@ public class MainActivity extends ActionBarActivity {
         showTransIntent.putExtra("accountName", accountName);
         startActivity(showTransIntent);
     }
+
+    /**
+     * Finishes the activity.
+     */
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }

@@ -105,6 +105,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
         if (ValidationUtils.invalidValue(getApplicationContext(), getValue())) return;
         if (ValidationUtils.invalidDate(getApplicationContext(), getDate())) return;
         insertTransData();
+        finish();
         startActivity(goBackToMainActivity());
     }
 
@@ -284,6 +285,7 @@ public class AddTransactionActivity extends ActionBarActivity implements OnItemS
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
 

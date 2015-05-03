@@ -168,6 +168,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, ShowAccountsActivity.class);
+        finish();
         startActivity(intent);
     }
 
@@ -193,6 +194,7 @@ public class AccountDetailsActivity extends ActionBarActivity {
     public void changeActivation(View view) {
         updateAccountStatus();
         Intent showTransIntent = new Intent(this, ShowAccountsActivity.class);
+        finish();
         startActivity(showTransIntent);
     }
 

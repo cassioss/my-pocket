@@ -132,6 +132,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         // insert data into table
         transDB.updateData(transID, type, desc, value, date, categoryID, accountID);
 
+        finish();
         startActivity(goBackToDetailActivity());
         updateAccountValue(accountName);
         updateAccountValue(account);
@@ -145,7 +146,6 @@ public class EditTransactionActivity extends ActionBarActivity {
     }
 
     private Intent goBackToDetailActivity() {
-
         Intent intent = new Intent(this, AccountDetailsActivity.class);
         intent.putExtra("accountName", accountName);
         return intent;
@@ -160,6 +160,7 @@ public class EditTransactionActivity extends ActionBarActivity {
         Cursor c = transDB.selectTrans(transName, accountName);
         transID = c.getInt(c.getColumnIndex(DBHelper.KEY_TRANS_ID));
         transDB.deleteTransaction(transID);
+        finish();
         startActivity(goBackToDetailActivity());
         updateAccountValue(accountName);
     }
