@@ -21,7 +21,7 @@ import edu.illinois.dscs.mypocket.dao.AccountDAO;
 import edu.illinois.dscs.mypocket.dao.CategoryDAO;
 import edu.illinois.dscs.mypocket.dao.DBHelper;
 import edu.illinois.dscs.mypocket.dao.TransactionDAO;
-import edu.illinois.dscs.mypocket.model.SaveAsExcel;
+import edu.illinois.dscs.mypocket.model.Excel;
 import edu.illinois.dscs.mypocket.utils.CurrencyUtils;
 import edu.illinois.dscs.mypocket.utils.ValidationUtils;
 import jxl.write.WriteException;
@@ -142,7 +142,7 @@ public class MainActivity extends ActionBarActivity {
      * @param item menu item that called the backup function (not being used here).
      */
     public void saveExcel(MenuItem item) throws WriteException, IOException {
-        SaveAsExcel myPocketExcel = new SaveAsExcel();
+        Excel myPocketExcel = new Excel();
         myPocketExcel.setOutputFile("MyPocket");
         myPocketExcel.setCursors(transDB.completeTransData(), accountDB.selectAll(), categoryDB.readData());
         ValidationUtils.makeToast(getApplicationContext(), "Saving data to Download/MyPocket.xls ...");

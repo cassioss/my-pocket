@@ -23,7 +23,7 @@ import jxl.write.WriteException;
  * @author Cassio
  * @version 1.0
  */
-public class SaveAsExcel {
+public class Excel {
 
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
@@ -101,6 +101,10 @@ public class SaveAsExcel {
         workbook.close();
     }
 
+    ////////////////////////////////
+    // Spreadsheet writer methods //
+    ////////////////////////////////
+
     /**
      * Writes the content of the Transactions table in a specific spreadsheet.
      *
@@ -110,7 +114,7 @@ public class SaveAsExcel {
     private void writeTransactionContentOn(WritableSheet excelSheet) throws WriteException {
         addTransactionCaptions(excelSheet);
         createTransactionContent(excelSheet);
-        resizeColumns(excelSheet, 6);
+        resizeAllColumns(excelSheet, 6);
     }
 
     /**
@@ -122,7 +126,7 @@ public class SaveAsExcel {
     private void writeAccountContentOn(WritableSheet excelSheet) throws WriteException {
         addAccountCaptions(excelSheet);
         createAccountContent(excelSheet);
-        resizeColumns(excelSheet, 4);
+        resizeAllColumns(excelSheet, 4);
     }
 
     /**
@@ -134,8 +138,12 @@ public class SaveAsExcel {
     private void writeCategoryContentOn(WritableSheet excelSheet) throws WriteException {
         addCategoryCaptions(excelSheet);
         createCategoryContent(excelSheet);
-        resizeColumns(excelSheet, 1);
+        resizeAllColumns(excelSheet, 1);
     }
+
+    /////////////////////////////
+    // Captions (column names) //
+    /////////////////////////////
 
     /**
      * Adds the correct captions to the Transactions spreadsheet.
@@ -175,22 +183,9 @@ public class SaveAsExcel {
         addCaption(sheet, 0, 0, "Category");
     }
 
-    /**
-     * Creates the correct format for the labels, in terms of font type, font size, and so on.
-     *
-     * @throws WriteException if it is not possible to write some content on the XLS file.
-     */
-    private void formatLabels() throws WriteException {
-        // Times font for labels
-        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        times = new WritableCellFormat(times10pt);
-        times.setWrap(true);
-
-        // Bold Times font for captions
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
-        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        timesBoldUnderline.setWrap(true);
-    }
+    //////////////////////
+    // Content creation //
+    //////////////////////
 
     /**
      * Turns the content inside the Transactions cursor into a complete table inside the Transactions spreadsheet.
@@ -253,6 +248,10 @@ public class SaveAsExcel {
         }
     }
 
+    ///////////////////////////
+    // Cell addition methods //
+    ///////////////////////////
+
     /**
      * Adds a caption to a given cell inside a spreadsheet.
      *
@@ -298,6 +297,27 @@ public class SaveAsExcel {
         sheet.addCell(newLabel);
     }
 
+    ////////////////
+    // Formatting //
+    ////////////////
+
+    /**
+     * Creates the correct format for the labels, in terms of font type, font size, and so on.
+     *
+     * @throws WriteException if it is not possible to write some content on the XLS file.
+     */
+    private void formatLabels() throws WriteException {
+        // Times font for labels
+        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
+        times = new WritableCellFormat(times10pt);
+        times.setWrap(true);
+
+        // Bold Times font for captions
+        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 14, WritableFont.BOLD);
+        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
+        timesBoldUnderline.setWrap(true);
+    }
+
     /**
      * Resizes a given number of columns inside a spreadsheet, starting from the leftmost. Specifying the number of columns controls the amount of resources needed for this operation.
      *
@@ -305,7 +325,7 @@ public class SaveAsExcel {
      * @param numOfColumns a specific number of columns (starting from 0) that needs to be reformatted.
      * @throws WriteException if it is not possible to write some content on the XLS file.
      */
-    private void resizeColumns(WritableSheet sheet, int numOfColumns) throws WriteException {
+    private void resizeAllColumns(WritableSheet sheet, int numOfColumns) throws WriteException {
         for (int column = 0; column < numOfColumns; column++) {
             CellView cell = sheet.getColumnView(column);
             cell.setAutosize(true);
