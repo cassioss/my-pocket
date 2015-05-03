@@ -18,7 +18,6 @@ public class TransactionDAO {
     protected DBHelper dbHandler;
     protected Context Context;
 
-
     /**
      * DAO constructor for transactions.
      *
@@ -39,12 +38,97 @@ public class TransactionDAO {
         return this;
     }
 
+    ////////////////////
+    // SELECT queries //
+    ////////////////////
+
     /**
-     * Closes the database.
+     * Selects all the rows of the Transaction table, replacing accountID and categoryID with their names.
+     * In order to do that, we need to use INNER JOIN.
      */
-    public void close() {
-        dbHandler.close();
+    public Cursor completeTransData() {
+        Cursor c = database.rawQuery("SELECT " +
+                "t.transactionID AS transactionID, " +
+                "t.transType AS transType, " +
+                "t.description AS description, " +
+                "t.transactionValue AS transactionValue, " +
+                "t.creationDate AS creationDate, " +
+                "a.accountName AS accountName, " +
+                "c.categoryName AS categoryName " +
+                "FROM Transactions t " +
+                "INNER JOIN Account a ON t.accountID = a.accountID " +
+                "INNER JOIN Category c ON t.categoryID = c.categoryID;", null);
+        if (c != null) c.moveToFirst();
+        return c;
     }
+
+    /**
+     * Selects the all the transactions from database.
+     *
+     * @param transName   the Transaction Name.
+     * @param accountName the account name.
+     */
+    public Cursor selectTrans(String transName, String accountName) {
+        Cursor c = database.rawQuery("SELECT " +
+                "t.transactionID AS transactionID, " +
+                "t.transType AS transType, " +
+                "t.description AS description, " +
+                "t.transactionValue AS transactionValue, " +
+                "t.creationDate AS creationDate, " +
+                "a.accountName AS accountName, " +
+                "c.categoryName AS categoryName " +
+                "FROM Transactions t" +
+                "INNER JOIN Account a ON t.accountID = a.accountID " +
+                "INNER JOIN Category c ON t.categoryID = c.categoryID " +
+                "WHERE t.description LIKE '" + transName + "' " +
+                "AND a.accountName LIKE '" + accountName + "';", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    /**
+     * Selects the Sum value of all transactions from one account.
+     *
+     * @param accountName the account name.
+     * @return a Cursor object containing the data brought from the query.
+     */
+    public Cursor getTransValueData(String accountName) {
+        Cursor c = database.rawQuery("SELECT SUM(transactionValue) AS totalBalance FROM Transactions WHERE accountID = " +
+                "(SELECT accountID FROM Account WHERE accountName LIKE '" + accountName + "');", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    /**
+     * Selects the Sum value of all transactions from one account.
+     *
+     * @param accountName the account name.
+     * @return a Cursor object containing the data brought from the query.
+     */
+    public Cursor readAccountTrans(String accountName) {
+        Cursor c = database.rawQuery("SELECT transactionID AS _id, transType, description, transactionValue " +
+                "FROM Transactions WHERE accountID = " +
+                "(SELECT accountID FROM Account WHERE accountName LIKE '" + accountName + "');", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    /**
+     * Reads only the description and the value of all the transactions inside the Transactions table.
+     * Equivalent to: SELECT description, value FROM Transactions;
+     *
+     * @return a Cursor object containing the data brought from the query.
+     */
+    public Cursor readDataTransList() {
+        Cursor c = database.rawQuery("SELECT transactionID AS _id, transType, description, transactionValue " +
+                "FROM transactions ORDER BY _id DESC LIMIT 3", null);
+        if (c != null) c.moveToFirst();
+        return c;
+    }
+
+    //////////////////
+    // INSERT query //
+    //////////////////
 
     /**
      * Inserts all values of a Transaction object into the Transactions table. Equivalent to
@@ -68,61 +152,9 @@ public class TransactionDAO {
         database.insert(DBHelper.TABLE_TRANSACTION, null, cv);
     }
 
-    /**
-     * Selects the all the transactions from database.
-     */
-    public Cursor completeTransData() {
-        Cursor c = database.rawQuery("select t.transactionID as transactionID, t.transType transType, t.description description, t.transactionValue transactionValue, t.creationDate creationDate, a.accountName accountName, c.categoryName categoryName from Transactions t inner join account a on t.accountID = a.accountID inner join category c on t.categoryID = c.categoryID;", null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
-
-    /**
-     * Selects the all the transactions from database.
-     * @param transName   the Transaction Name.
-     * @param accountName the account name.
-     */
-    public Cursor selectTrans(String transName, String accountName) {
-        Cursor c = database.rawQuery("select t.transactionID as transactionID, t.transType transType, t.description description, t.transactionValue transactionValue, t.creationDate creationDate, a.accountName accountName, c.categoryName categoryName from Transactions t inner join account a on t.accountID = a.accountID inner join category c on t.categoryID = c.categoryID where t.description like '" + transName + "' and a.accountName like '" + accountName + "';", null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
-
-    /**
-     * Selects the Sum value of all transactions from one account.
-     * @param accountName the account name.
-     *
-     * @return a Cursor object containing the data brought from the query.
-     */
-    public Cursor getTransValueData(String accountName) {
-        Cursor c = database.rawQuery("select SUM(transactionValue) AS totalBalance from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
-
-    /**
-     * Selects the Sum value of all transactions from one account.
-     * @param accountName the account name.
-     *
-     * @return a Cursor object containing the data brought from the query.
-     */
-    public Cursor readAccountTrans(String accountName) {
-        Cursor c = database.rawQuery("select transactionID AS _id, transType, description, transactionValue from Transactions where accountID = (select accountID from Account where accountName like'" + accountName + "');", null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
-
-    /**
-     * Reads only the description and the value of all the transactions inside the Transactions table.
-     * Equivalent to: SELECT description, value FROM Transactions;
-     *
-     * @return a Cursor object containing the data brought from the query.
-     */
-    public Cursor readDataTransList() {
-        Cursor c = database.rawQuery("select transactionID _id, transType, description, transactionValue from transactions order by _id desc limit 3", null);
-        if (c != null) c.moveToFirst();
-        return c;
-    }
+    //////////////////
+    // DELETE query //
+    //////////////////
 
     /**
      * Deletes a given transaction from the database.
@@ -130,14 +162,27 @@ public class TransactionDAO {
      * @param transaction the transaction marked for deletion.
      */
     public void deleteTransaction(int transaction) {
-        //System.out.println("Transaction deleted with id: " + id);
         database.delete(DatabaseHandler.TABLE_TRANSACTION, DBHelper.KEY_TRANS_ID
                 + " = " + transaction, null);
     }
 
+    //////////////////
+    // UPDATE query //
+    //////////////////
+
+    /**
+     * Updates a transaction based on the new information set to it.
+     *
+     * @param id         the transaction ID.
+     * @param type       the new transaction type.
+     * @param desc       the new transaction description.
+     * @param value      the new transaction value.
+     * @param date       the new transaction creation date.
+     * @param categoryID the transaction's new category ID.
+     * @param accountID  the transaction's new account ID.
+     */
     public void updateData(int id, int type, String desc, Double value, String date, int categoryID, int accountID) {
         ContentValues con = new ContentValues();
-
         con.put(DBHelper.KEY_TRANS_ID, id);
         con.put(DBHelper.KEY_TRANS_TYPE, type);
         con.put(DBHelper.KEY_TRANS_DESCRIPTION, desc);
@@ -145,7 +190,6 @@ public class TransactionDAO {
         con.put(DBHelper.KEY_TRANS_CREATION_DATE, date);
         con.put(DBHelper.KEY_CATEGORY_ID, categoryID);
         con.put(DBHelper.KEY_ACCOUNT_ID, accountID);
-
         database.update(DBHelper.TABLE_TRANSACTION, con, "transactionID ='" + id + "'", null);
     }
 }
