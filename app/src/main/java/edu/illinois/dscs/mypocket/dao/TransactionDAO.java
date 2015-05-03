@@ -69,7 +69,7 @@ public class TransactionDAO {
     }
 
     /**
-     * select the all the transactions from database.
+     * Selects the all the transactions from database.
      */
     public Cursor completeTransData() {
         Cursor c = database.rawQuery("select t.transactionID as transactionID, t.transType transType, t.description description, t.transactionValue transactionValue, t.creationDate creationDate, a.accountName accountName, c.categoryName categoryName from Transactions t inner join account a on t.accountID = a.accountID inner join category c on t.categoryID = c.categoryID;", null);
@@ -78,7 +78,7 @@ public class TransactionDAO {
     }
 
     /**
-     * select the all the transactions from database.
+     * Selects the all the transactions from database.
      * @param transName   the Transaction Name.
      * @param accountName the account name.
      */
@@ -89,7 +89,7 @@ public class TransactionDAO {
     }
 
     /**
-     * select the Sum value of all transactions from one account.
+     * Selects the Sum value of all transactions from one account.
      * @param accountName the account name.
      *
      * @return a Cursor object containing the data brought from the query.
@@ -101,7 +101,7 @@ public class TransactionDAO {
     }
 
     /**
-     * select the Sum value of all transactions from one account.
+     * Selects the Sum value of all transactions from one account.
      * @param accountName the account name.
      *
      * @return a Cursor object containing the data brought from the query.
