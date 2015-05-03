@@ -88,20 +88,19 @@ public class AccountDetailsActivity extends ActionBarActivity {
     private void loadAccountTransactions() {
         Cursor c = transDB.readAccountTrans(accountName);
         String[] fromFieldNames = new String[]{DBHelper.KEY_TRANS_DESCRIPTION, DBHelper.KEY_TRANS_VALUE};
-        int[] toViewIDs = new int[]{R.id.transaction_row_layout_description, R.id.transaction_value_text_view};
+        int[] toViewIDs = new int[]{R.id.account_details_transaction_description, R.id.account_details_transaction_value};
         SimpleCursorAdapter myCursorAdapter;
-        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.account_details_transaction_row_layout, c, fromFieldNames, toViewIDs, 0);
 
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
                 int getIndex = cursor.getColumnIndex(DBHelper.KEY_TRANS_VALUE);
                 String value = cursor.getString(getIndex);
-                TextView tv = (TextView) view.findViewById(R.id.transaction_value_text_view);
+                TextView tv = (TextView) view.findViewById(R.id.main_transaction_value);
                 if (tv != null) {
                     tv.setText(CurrencyUtils.moneyWithTwoDecimals(value));
                     tv.setTextColor(CurrencyUtils.setMoneyColor(value));
-                    //tv.setTag(getIndex);
                     return true;
                 } else return false;
             }

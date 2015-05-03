@@ -4,25 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".MainActivity"
-    android:id="@+id/transaction_row_layout"
+    android:id="@+id/account_details_transaction_row_layout"
     android:padding="15dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/main_transaction_description"
+        android:id="@+id/account_details_transaction_description"
         android:text="@string/hello_world"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:clickable="false" />
+        android:onClick="editTransactions" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/main_transaction_value"
+        android:id="@+id/account_details_transaction_value"
         android:text="@string/transaction_row_layout_value"
         android:textSize="24sp"
         android:gravity="end"
-        android:clickable="false"/>
+        android:clickable="false" />
 
 </LinearLayout>
