@@ -17,6 +17,10 @@
     <!-- Transaction row -->
     <string name="transaction_row_layout_value">$</string>
 
+    <!-- Add transaction menu -->
+    <string name="menu_add_transaction_add_category">+ Category</string>
+    <string name="menu_add_transaction_add_account">+ Account</string>
+
     <!-- Add transaction -->
     <string name="add_transaction_label">Add Transaction</string>
     <string name="add_transaction_expense_radio">Expense</string>
@@ -29,10 +33,6 @@
     <string name="category_text_view">Category</string>
     <string name="account_text_view">Account</string>
     <string name="save_transaction_button">Save transaction</string>
-
-    <!-- Add transaction menu -->
-    <string name="action_category">+ Category</string>
-    <string name="action_account">+ Account</string>
 
     <!-- Show accounts -->
     <string name="label_show_accounts">Show Accounts</string>

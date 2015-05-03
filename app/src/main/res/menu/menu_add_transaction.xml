@@ -4,15 +4,13 @@
     tools:context="edu.illinois.dscs.mypocket.controller.AddTransactionActivity">
 
     <item
-        android:id="@+id/action_category"
-        android:title="@string/action_category"
+        android:title="@string/menu_add_transaction_add_category"
         android:orderInCategory="100"
         android:onClick="addCategory"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_account"
+        android:title="@string/menu_add_transaction_add_account"
         android:orderInCategory="100"
         android:onClick="createAccount"
         app:showAsAction="ifRoom|withText" />
