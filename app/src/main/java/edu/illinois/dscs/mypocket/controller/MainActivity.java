@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         categoryDB = new CategoryDAO(this);
         categoryDB.open();
 
-        lastEntries = (ListView) findViewById(R.id.last_entries_list_view);
+        lastEntries = (ListView) findViewById(R.id.activity_main_last_entries);
         totalBalanceText = (TextView) findViewById(R.id.total_balance_value_text_view);
 
         loadTotalBalance();
@@ -137,11 +137,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     /**
-     * Creates a CSV file that contains all user inputs so far.
+     * Creates an Excel file inside the Download folder that contains all user inputs so far.
      *
      * @param item menu item that called the backup function (not being used here).
      */
-    public void saveAsCSV(MenuItem item) throws WriteException, IOException {
+    public void saveExcel(MenuItem item) throws WriteException, IOException {
         SaveAsExcel myPocketExcel = new SaveAsExcel();
         myPocketExcel.setOutputFile("MyPocket");
         myPocketExcel.setCursors(transDB.completeTransData(), accountDB.readData(), categoryDB.readData());
